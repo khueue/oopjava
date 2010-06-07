@@ -1,0 +1,43 @@
+OOPJAVA - Uppgift 1
+Sebastian Lundström (selu7901)
+2010-06-07
+
+Deluppgift 1
+============
+
+Ett fönster visas. Inuti fönstret åker en gul boll runt. När den slår i någon
+kant så byter den riktning, så att den verkar studsa.
+
+Deluppgift 2
+============
+
+I konstruktorn för BallPanel lade jag till ett anrop till ball.setColor().
+
+Deluppgift 3
+============
+
+I wasResized() lade jag till ett anrop till ball.setBoundingBox() som ställer
+in den nya rektangelstorleken.
+
+Deluppgift 4
+============
+
+Jag lade till en metod setDiameter(int diameter) i Ball-klassen, samt anropade
+den i BallPanel().
+
+Deluppgift 5
+============
+
+BallPanel fick en ytterligare instansvariabel ball2. Två instanser av Ball
+skapas och initialiseras nu i BallPanel(). paintComponent() ritar om båda
+bollarna. actionPerformed() anropar båda bollarns action(). wasResized()
+justerar båda bollarnas bounding box.
+
+Deluppgift 6
+============
+
+Lade till en instansvaribel i Ball, nämligen private boolean isGrowing. Sätter
+den till true i konstruktorn. Skapde en privat metod pulsate() som delegerar
+vidare till någon av (också nya) metoderna grow() eller shrink(), beroende på
+om bollen just nu växer eller krymper. grow() och shrink() använder sig av
+statiska attribut för min- och maxdiameter samt pulseringsstorlek.
