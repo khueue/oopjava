@@ -37,7 +37,8 @@ Deluppgift 6
 ============
 
 Lade till en instansvaribel i Ball, nämligen private boolean isGrowing. Sätter
-den till true i konstruktorn. Skapde en privat metod pulsate() som delegerar
-vidare till någon av (också nya) metoderna grow() eller shrink(), beroende på
-om bollen just nu växer eller krymper. grow() och shrink() använder sig av
-statiska attribut för min- och maxdiameter samt pulseringsstorlek.
+den till true i konstruktorn. Skapade en privat metod pulsate() som delegerar
+vidare till någon av (de också nya) metoderna grow() eller shrink(), beroende
+på om bollen just nu växer eller krymper. grow() och shrink() använder sig av
+statiska attribut för min- och maxdiameter samt pulseringsstorlek. action()
+anropar pulsate().
