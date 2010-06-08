@@ -1,0 +1,6 @@
+/**
+ *
+ */
+class PlayerHuman extends Player
+{
+}

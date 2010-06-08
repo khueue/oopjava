@@ -1,0 +1,6 @@
+/**
+ *
+ */
+class PlayerComputer extends Player
+{
+}

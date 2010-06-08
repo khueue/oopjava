@@ -1,0 +1,6 @@
+/**
+ *
+ */
+class AiStrategyIdiot implements IAiStrategy
+{
+}

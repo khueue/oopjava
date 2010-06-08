@@ -1,0 +1,6 @@
+/**
+ *
+ */
+class UserInterfaceCommandLine implements IUserInterface
+{
+}
