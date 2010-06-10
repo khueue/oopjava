@@ -1,6 +1,3 @@
-/**
- *
- */
 class AiStrategyIdiot implements IAiStrategy
 {
 }

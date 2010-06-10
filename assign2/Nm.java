@@ -1,6 +1,3 @@
-/**
- *
- */
 class Nm
 {
     public static void
@@ -12,9 +9,6 @@ class Nm
         }
 
         GameOfNm game = new GameOfNm();
-        game.setUserInterface(new UserInterfaceCommandLine());
-        game.setNumberOfSticks(Integer.parseInt(args[0]));
-        game.setRules(new Rules());
         game.play();
     }
 

@@ -1,6 +1,3 @@
-/**
- * 
- */
 class NmException extends Exception
 {
     public

@@ -1,17 +1,17 @@
-/**
- *
- */
 class Move
 {
-    Integer numberOfSticks = null;
+    Integer numberOfSticks;
 
     public
     Move(Integer numberOfSticks)
     {
-        if (numberOfSticks == null)
-        {
-            throw new IllegalArgumentException("Must not be null!");
-        }
+        Utils.throwIfNull(numberOfSticks);
         this.numberOfSticks = numberOfSticks;
+    }
+    
+    public Integer
+    sticks()
+    {
+        return this.numberOfSticks;
     }
 }
