@@ -3,18 +3,24 @@ class UserInterfaceCommandLine implements IUserInterface
     public void
     onStart()
     {
-        System.out.println("Welcome to a game of Nm!");
+        puts("Welcome to a game of Nm!");
     }
 
     public void
     onClose()
     {
-        System.out.println("The game is over!");
+        puts("The game is over!");
     }
 
     public void
     display(String msg)
     {
-        System.out.println(msg);
+        puts(msg);
+    }
+    
+    protected void
+    puts(String str)
+    {
+        System.out.println(str);
     }
 }
