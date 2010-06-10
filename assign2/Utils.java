@@ -1,6 +1,6 @@
 import java.util.Random;
 
-class Utils
+abstract class Utils
 {
     public static void
     throwIfNull(Object obj)
@@ -10,7 +10,7 @@ class Utils
             throw new IllegalArgumentException("Must not be null!");
         }
     }
-    
+
     public static Integer
     randomIntegerBetween(Integer min, Integer max)
     {

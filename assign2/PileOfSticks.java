@@ -39,7 +39,7 @@ class PileOfSticks
     {
         return this.numberOfSticks / 2;
     }
-    
+
     public Integer
     sticksLeft()
     {

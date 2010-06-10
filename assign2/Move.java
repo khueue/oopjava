@@ -8,7 +8,7 @@ class Move
         Utils.throwIfNull(numberOfSticks);
         this.numberOfSticks = numberOfSticks;
     }
-    
+
     public Integer
     sticks()
     {
