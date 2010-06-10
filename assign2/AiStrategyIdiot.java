@@ -1,3 +1,0 @@
-class AiStrategyIdiot implements IAiStrategy
-{
-}
