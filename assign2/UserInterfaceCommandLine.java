@@ -17,7 +17,7 @@ class UserInterfaceCommandLine implements IUserInterface
     {
         puts(msg);
     }
-    
+
     protected void
     puts(String str)
     {
