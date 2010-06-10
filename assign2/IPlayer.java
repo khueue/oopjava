@@ -1,14 +1,14 @@
 interface IPlayer
 {
     public Move
-    selectMove(PileOfSticks pile, Rules rules);
+    chooseMove(PileOfSticks pile, Rules rules);
 
     public void
     notifyIllegalMove(Move move);
 
     public void
-    youWon();
+    won();
 
     public void
-    youLost();
+    lost();
 }

@@ -13,7 +13,7 @@ class UserInterfaceCommandLine implements IUserInterface
     }
 
     public void
-    announce(String msg)
+    display(String msg)
     {
         System.out.println(msg);
     }

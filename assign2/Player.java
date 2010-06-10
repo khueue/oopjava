@@ -12,26 +12,18 @@ abstract class Player implements IPlayer
     public void
     notifyIllegalMove(Move move)
     {
-        this.ui.announce("OMG!");
-    }
-
-    /* ccccccxxxxxxxx remove */
-    public Move
-    selectMove(PileOfSticks pile, Rules rules)
-    {
-        Integer rand = Utils.randomIntegerBetween(1, 5);
-        return new Move(rand);
+        this.ui.display("OMG!");
     }
 
     public void
-    youWon()
+    won()
     {
-        ui.announce("Weee, I won!");
+        ui.display("Weee, I won!");
     }
 
     public void
-    youLost()
+    lost()
     {
-        ui.announce("Dang, I lost!");
+        ui.display("Dang, I lost!");
     }
 }

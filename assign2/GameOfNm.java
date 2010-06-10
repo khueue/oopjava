@@ -13,8 +13,8 @@ class GameOfNm
         this.setUserInterface(new UserInterfaceCommandLine());
         this.setNumberOfSticks(20);
         this.setRules(new Rules(this.pile));
-        this.setPlayerOne(new PlayerComputer(this.ui));
-        this.setPlayerTwo(new PlayerComputer(this.ui));
+        this.setPlayerOne(new PlayerComputer(this.ui, new AiStrategyRandom()));
+        this.setPlayerTwo(new PlayerComputer(this.ui, new AiStrategyRandom()));
     }
 
     public void
@@ -65,8 +65,8 @@ class GameOfNm
             this.makeMove(this.getPlayersMove(player));
         }
 
-        player.youWon();
-        this.getOtherPlayer(player).youLost();
+        player.won();
+        this.getOtherPlayer(player).lost();
 
         this.ui.sayGoodbye();
     }
@@ -103,11 +103,11 @@ class GameOfNm
     protected Move
     getPlayersMove(IPlayer player)
     {
-        Move move = player.selectMove(this.pile, this.rules);
+        Move move = player.chooseMove(this.pile, this.rules);
         while (!this.rules.isAllowedMove(move))
         {
             player.notifyIllegalMove(move);
-            move = player.selectMove(this.pile, this.rules);
+            move = player.chooseMove(this.pile, this.rules);
         }
         return move;
     }

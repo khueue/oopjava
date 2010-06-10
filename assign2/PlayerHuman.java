@@ -5,4 +5,11 @@ class PlayerHuman extends Player
     {
         super(ui);
     }
+    
+    // xxxxxxxxxxxxx
+    public Move
+    chooseMove(PileOfSticks pile, Rules rules)
+    {
+        return new Move(1);
+    }
 }

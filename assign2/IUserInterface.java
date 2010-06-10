@@ -7,5 +7,5 @@ interface IUserInterface
     sayGoodbye();
 
     public void
-    announce(String msg);
+    display(String msg);
 }
