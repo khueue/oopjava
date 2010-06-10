@@ -55,7 +55,7 @@ class GameOfNm
     public void
     play()
     {
-        this.ui.sayWelcome();
+        this.ui.onStart();
 
         IPlayer player = null;
 
@@ -68,7 +68,7 @@ class GameOfNm
         player.won();
         this.getOtherPlayer(player).lost();
 
-        this.ui.sayGoodbye();
+        this.ui.onClose();
     }
 
     protected Boolean

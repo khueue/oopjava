@@ -1,10 +1,10 @@
 interface IUserInterface
 {
     public void
-    sayWelcome();
+    onStart();
 
     public void
-    sayGoodbye();
+    onClose();
 
     public void
     display(String msg);

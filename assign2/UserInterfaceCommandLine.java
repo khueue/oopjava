@@ -1,15 +1,15 @@
 class UserInterfaceCommandLine implements IUserInterface
 {
     public void
-    sayWelcome()
+    onStart()
     {
-        System.out.println("Game of Nm!");
+        System.out.println("Welcome to a game of Nm!");
     }
 
     public void
-    sayGoodbye()
+    onClose()
     {
-        System.out.println("Come again!");
+        System.out.println("The game is over!");
     }
 
     public void
