@@ -62,11 +62,11 @@ class GameOfNm
         while (noWinner())
         {
             player = getNextPlayer();
-            makeMove(getPlayersMove(player));
+            applyMove(getPlayersMove(player));
         }
 
         player.won();
-        getOtherPlayer(player).lost();
+        getOpponentTo(player).lost();
 
         ui.onClose();
     }
@@ -78,7 +78,7 @@ class GameOfNm
     }
 
     protected void
-    makeMove(Move move)
+    applyMove(Move move)
     {
         pile.removeSticks(move.sticks());
     }
@@ -88,14 +88,23 @@ class GameOfNm
     {
         if (currentPlayer == null)
         {
-            currentPlayer = playerTwo;
+            currentPlayer = selectStartingPlayer();
         }
-        currentPlayer = getOtherPlayer(currentPlayer);
+        else
+        {
+            currentPlayer = getOpponentTo(currentPlayer);
+        }
         return currentPlayer;
     }
 
     protected IPlayer
-    getOtherPlayer(IPlayer player)
+    selectStartingPlayer()
+    {
+        return playerOne;
+    }
+
+    protected IPlayer
+    getOpponentTo(IPlayer player)
     {
         return (player == playerOne) ? playerTwo : playerOne;
     }
