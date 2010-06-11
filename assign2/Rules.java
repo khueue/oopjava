@@ -13,6 +13,6 @@ class Rules
     isAllowedMove(Move move)
     {
         Utils.throwIfNull(move);
-        return 1 <= move.sticks() && move.sticks() <= this.pile.half();
+        return 1 <= move.sticks() && move.sticks() <= pile.half();
     }
 }

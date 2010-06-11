@@ -10,7 +10,7 @@ class PileOfSticks
     public
     PileOfSticks(Integer numberOfSticks)
     {
-        this.setNumberOfSticks(numberOfSticks);
+        setNumberOfSticks(numberOfSticks);
     }
 
     protected void
@@ -31,18 +31,18 @@ class PileOfSticks
     removeSticks(Integer sticks)
     {
         Utils.throwIfNull(sticks);
-        this.numberOfSticks -= sticks;
+        numberOfSticks -= sticks;
     }
 
     public Integer
     half()
     {
-        return this.numberOfSticks / 2;
+        return numberOfSticks / 2;
     }
 
     public Integer
     sticksLeft()
     {
-        return this.numberOfSticks;
+        return numberOfSticks;
     }
 }

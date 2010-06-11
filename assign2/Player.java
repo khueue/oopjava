@@ -12,7 +12,7 @@ abstract class Player implements IPlayer
     public void
     notifyIllegalMove(Move move)
     {
-        this.ui.display("OMG!");
+        ui.display("OMG!");
     }
 
     public void

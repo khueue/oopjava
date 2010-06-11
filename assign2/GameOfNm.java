@@ -10,11 +10,11 @@ class GameOfNm
     public
     GameOfNm()
     {
-        this.setUserInterface(new UserInterfaceCommandLine());
-        this.setNumberOfSticks(20);
-        this.setRules(new Rules(this.pile));
-        this.setPlayerOne(new PlayerComputer(this.ui, new AiStrategyRandom()));
-        this.setPlayerTwo(new PlayerComputer(this.ui, new AiStrategyRandom()));
+        setUserInterface(new UserInterfaceCommandLine());
+        setNumberOfSticks(20);
+        setRules(new Rules(pile));
+        setPlayerOne(new PlayerComputer(ui, new AiStrategyRandom()));
+        setPlayerTwo(new PlayerComputer(ui, new AiStrategyRandom()));
     }
 
     public void
@@ -55,59 +55,59 @@ class GameOfNm
     public void
     play()
     {
-        this.ui.onStart();
+        ui.onStart();
 
         IPlayer player = null;
 
-        while (this.noWinner())
+        while (noWinner())
         {
-            player = this.getNextPlayer();
-            this.makeMove(this.getPlayersMove(player));
+            player = getNextPlayer();
+            makeMove(getPlayersMove(player));
         }
 
         player.won();
-        this.getOtherPlayer(player).lost();
+        getOtherPlayer(player).lost();
 
-        this.ui.onClose();
+        ui.onClose();
     }
 
     protected Boolean
     noWinner()
     {
-        return this.pile.sticksLeft() > 1;
+        return pile.sticksLeft() > 1;
     }
 
     protected void
     makeMove(Move move)
     {
-        this.pile.removeSticks(move.sticks());
+        pile.removeSticks(move.sticks());
     }
 
     protected IPlayer
     getNextPlayer()
     {
-        if (this.currentPlayer == null)
+        if (currentPlayer == null)
         {
-            this.currentPlayer = this.playerTwo;
+            currentPlayer = playerTwo;
         }
-        this.currentPlayer = this.getOtherPlayer(this.currentPlayer);
-        return this.currentPlayer;
+        currentPlayer = getOtherPlayer(currentPlayer);
+        return currentPlayer;
     }
 
     protected IPlayer
     getOtherPlayer(IPlayer player)
     {
-        return (player == this.playerOne) ? this.playerTwo : this.playerOne;
+        return (player == playerOne) ? playerTwo : playerOne;
     }
 
     protected Move
     getPlayersMove(IPlayer player)
     {
-        Move move = player.chooseMove(this.pile, this.rules);
-        while (!this.rules.isAllowedMove(move))
+        Move move = player.chooseMove(pile, rules);
+        while (!rules.isAllowedMove(move))
         {
             player.notifyIllegalMove(move);
-            move = player.chooseMove(this.pile, this.rules);
+            move = player.chooseMove(pile, rules);
         }
         return move;
     }

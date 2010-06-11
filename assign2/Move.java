@@ -12,6 +12,6 @@ class Move
     public Integer
     sticks()
     {
-        return this.numberOfSticks;
+        return numberOfSticks;
     }
 }
