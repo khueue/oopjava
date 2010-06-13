@@ -55,7 +55,7 @@ class GameOfNm
     public void
     play()
     {
-        ui.onStart();
+        ui.display("Welcome to a game of Nm!");
 
         playerOne.introduce();
         playerTwo.introduce();
@@ -64,21 +64,34 @@ class GameOfNm
 
         while (noWinner())
         {
+            announceState();
             player = getNextPlayer();
-            ui.announceState(pile);
             applyMove(getPlayersMove(player));
         }
 
         player.won();
         getOpponentTo(player).lost();
 
-        ui.onClose();
+        ui.display("The game is over!");
     }
 
     protected Boolean
     noWinner()
     {
         return pile.sticksLeft() > 1;
+    }
+
+    protected void
+    announceState()
+    {
+        if (pile.sticksLeft() == 1)
+        {
+            ui.display("There is only one stick left!");
+        }
+        else
+        {
+            ui.display("There are " + pile.sticksLeft() + " sticks left.");
+        }
     }
 
     protected void

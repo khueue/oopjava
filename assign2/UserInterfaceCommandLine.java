@@ -15,7 +15,7 @@ class UserInterfaceCommandLine implements IUserInterface
     }
 
     public Integer
-    promptForInt(String prompt)
+    promptForInteger(String prompt)
     {
         for (;;)
         {
@@ -56,31 +56,6 @@ class UserInterfaceCommandLine implements IUserInterface
         Reader r = new InputStreamReader(in);
         BufferedReader br = new BufferedReader(r);
         return br.readLine();
-    }
-
-    public void
-    onStart()
-    {
-        display("Welcome to a game of Nm!");
-    }
-
-    public void
-    onClose()
-    {
-        display("The game is over!");
-    }
-
-    public void
-    announceState(PileOfSticks pile)
-    {
-        if (pile.sticksLeft() == 1)
-        {
-            display("There is only one stick left!");
-        }
-        else
-        {
-            display("There are " + pile.sticksLeft() + " sticks left.");
-        }
     }
 
     public void

@@ -35,7 +35,7 @@ class PlayerHuman extends Player
     readMove()
     {
         String prompt = name + ", choose number of sticks: ";
-        Integer sticks = ui.promptForInt(prompt);
+        Integer sticks = ui.promptForInteger(prompt);
         return new Move(sticks);
     }
 }
