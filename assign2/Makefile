@@ -1,4 +1,5 @@
 all:
+	@- rm -f *.class
 	@- clear
 	@- javac *.java
 	@- java Nm 10

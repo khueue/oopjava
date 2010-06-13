@@ -76,8 +76,32 @@ class GameOfNm
     protected void
     doTurn()
     {
+        announceGameState();
+
+        IPlayer player = getNextPlayer();
+        Move move = getPlayersMove(player);
+        applyMove(move);
+
+        announceMoveMade(player, move);
+    }
+
+    protected void
+    announceGameState()
+    {
         ui.display("There are " + pile.sticksLeft() + " sticks left.");
-        applyMove(getPlayersMove(getNextPlayer()));
+    }
+
+    protected void
+    announceMoveMade(IPlayer player, Move move)
+    {
+        if (move.sticks() == 1)
+        {
+            ui.display(player.getName() + " removed 1 stick.");
+        }
+        else
+        {
+            ui.display(player.getName() + " removed " + move.sticks() + " sticks.");
+        }
     }
 
     protected void
@@ -130,6 +154,7 @@ class GameOfNm
         while (!rules.isAllowedMove(move))
         {
             player.notifyIllegalMove(move);
+            announceGameState();
             move = player.chooseMove(rules);
         }
         return move;
