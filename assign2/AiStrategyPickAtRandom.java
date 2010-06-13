@@ -1,4 +1,4 @@
-class AiStrategyRandom implements IAiStrategy
+class AiStrategyPickAtRandom implements IAiStrategy
 {
     public Move
     chooseMove(PileOfSticks pile, Rules rules)
@@ -7,10 +7,10 @@ class AiStrategyRandom implements IAiStrategy
         while (!rules.isAllowedMove(move));
         {
             move = createRandomMove(pile);
-        } 
+        }
         return move;
     }
-    
+
     protected Move
     createRandomMove(PileOfSticks pile)
     {

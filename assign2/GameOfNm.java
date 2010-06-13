@@ -14,8 +14,8 @@ class GameOfNm
         setNumberOfSticks(20);
         setRules(new Rules(pile));
         setPlayerOne(new PlayerHuman(ui));
-        //setPlayerOne(new PlayerComputer(ui, new AiStrategyRandom()));
-        setPlayerTwo(new PlayerComputer(ui, new AiStrategyRandom()));
+        //setPlayerOne(new PlayerComputer(ui, new AiStrategyPickAtRandom()));
+        setPlayerTwo(new PlayerComputer(ui, new AiStrategyPickAtRandom()));
     }
 
     public void
@@ -84,7 +84,7 @@ class GameOfNm
     endGame()
     {
         ui.display("The winner is " + currentPlayer.getName() + "!");
-        
+
         currentPlayer.won();
         opponentTo(currentPlayer).lost();
 
