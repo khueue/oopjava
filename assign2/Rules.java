@@ -17,13 +17,13 @@ class Rules
         Boolean atMost  = move.sticks() <= maxAllowedSticks();
         return atLeast && atMost;
     }
-    
+
     public Integer
     minAllowedSticks()
     {
         return 1;
     }
-    
+
     public Integer
     maxAllowedSticks()
     {
