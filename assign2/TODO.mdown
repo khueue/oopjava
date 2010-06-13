@@ -3,3 +3,4 @@
 * Think about object boundaries some more.
 * Decide about all the constructor/setter issues.
 * Handle command line arguments.
+* Print how many sticks are allowed to pick up.
