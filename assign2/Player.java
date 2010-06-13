@@ -8,13 +8,19 @@ abstract class Player implements IPlayer
     {
         Utils.throwIfNull(ui);
         this.ui = ui;
-        this.name = getDefaultName();
+        this.name = defaultName();
     }
 
     protected String
-    getDefaultName()
+    defaultName()
     {
         return "[anonymous]";
+    }
+
+    public String
+    getName()
+    {
+        return name;
     }
 
     public void
@@ -22,30 +28,5 @@ abstract class Player implements IPlayer
     {
         Utils.throwIfNull(name);
         this.name = name;
-    }
-
-    public void
-    notifyIllegalMove(Move move)
-    {
-        if (move.sticks() == 1)
-        {
-            ui.display("You may not remove 1 stick!");
-        }
-        else
-        {
-            ui.display("You may not remove " + move.sticks() + " sticks!");
-        }
-    }
-
-    public void
-    won()
-    {
-        ui.display(name + ": Weee, I won!");
-    }
-
-    public void
-    lost()
-    {
-        ui.display(name + ": Dang, I lost!");
     }
 }

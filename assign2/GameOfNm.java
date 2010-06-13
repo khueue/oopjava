@@ -14,6 +14,7 @@ class GameOfNm
         setNumberOfSticks(20);
         setRules(new Rules(pile));
         setPlayerOne(new PlayerHuman(ui));
+        //setPlayerOne(new PlayerComputer(ui, new AiStrategyRandom()));
         setPlayerTwo(new PlayerComputer(ui, new AiStrategyRandom()));
     }
 
@@ -55,49 +56,45 @@ class GameOfNm
     public void
     play()
     {
-        ui.display("Welcome to a game of Nm!");
-
-        playerOne.introduce();
-        playerTwo.introduce();
-
-        IPlayer player = null;
-
+        startGame();
         while (noWinner())
         {
-            announceState();
-            player = getNextPlayer();
-            applyMove(getPlayersMove(player));
+            doTurn();
         }
+        endGame();
+    }
 
-        player.won();
-        getOpponentTo(player).lost();
+    protected void
+    startGame()
+    {
+        ui.display("Welcome to a game of Nm!");
 
-        ui.display("The game is over!");
+        playerOne.askForName("Player one");
+        playerTwo.askForName("Player two");
+    }
+
+    protected void
+    doTurn()
+    {
+        ui.display("There are " + pile.sticksLeft() + " sticks left.");
+        applyMove(getPlayersMove(getNextPlayer()));
+    }
+
+    protected void
+    endGame()
+    {
+        ui.display("The winner is " + currentPlayer.getName() + "!");
+        
+        currentPlayer.won();
+        opponentTo(currentPlayer).lost();
+
+        ui.display("The game is over.");
     }
 
     protected Boolean
     noWinner()
     {
         return pile.sticksLeft() > 1;
-    }
-
-    protected void
-    announceState()
-    {
-        if (pile.sticksLeft() == 1)
-        {
-            ui.display("There is only one stick left!");
-        }
-        else
-        {
-            ui.display("There are " + pile.sticksLeft() + " sticks left.");
-        }
-    }
-
-    protected void
-    applyMove(Move move)
-    {
-        pile.removeSticks(move.sticks());
     }
 
     protected IPlayer
@@ -109,7 +106,7 @@ class GameOfNm
         }
         else
         {
-            currentPlayer = getOpponentTo(currentPlayer);
+            currentPlayer = opponentTo(currentPlayer);
         }
         return currentPlayer;
     }
@@ -121,7 +118,7 @@ class GameOfNm
     }
 
     protected IPlayer
-    getOpponentTo(IPlayer player)
+    opponentTo(IPlayer player)
     {
         return (player == playerOne) ? playerTwo : playerOne;
     }
@@ -136,5 +133,11 @@ class GameOfNm
             move = player.chooseMove(pile, rules);
         }
         return move;
+    }
+
+    protected void
+    applyMove(Move move)
+    {
+        pile.removeSticks(move.sticks());
     }
 }

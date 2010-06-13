@@ -1,5 +1,7 @@
 class PlayerHuman extends Player
 {
+    protected static Integer id = 0; // To separate human players.
+
     public
     PlayerHuman(IUserInterface ui)
     {
@@ -7,15 +9,16 @@ class PlayerHuman extends Player
     }
 
     protected String
-    getDefaultName()
+    defaultName()
     {
-        return "Human";
+        Integer nextId = ++PlayerHuman.id;
+        return "Human " + nextId;
     }
 
     public void
-    introduce()
+    askForName(String oldName)
     {
-        String name = ui.promptForString("Your name, please: ");
+        String name = ui.promptForString(oldName + ", enter your name: ");
         setName(name);
     }
 
@@ -37,5 +40,30 @@ class PlayerHuman extends Player
         String prompt = name + ", choose number of sticks: ";
         Integer sticks = ui.promptForInteger(prompt);
         return new Move(sticks);
+    }
+
+    public void
+    notifyIllegalMove(Move move)
+    {
+        if (move.sticks() == 1)
+        {
+            ui.display("You may not remove 1 stick!");
+        }
+        else
+        {
+            ui.display("You may not remove " + move.sticks() + " sticks!");
+        }
+    }
+
+    public void
+    won()
+    {
+        // Leave the reaction up to the actual player.
+    }
+
+    public void
+    lost()
+    {
+        // Leave the reaction up to the actual player.
     }
 }

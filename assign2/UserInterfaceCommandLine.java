@@ -6,6 +6,12 @@ class UserInterfaceCommandLine implements IUserInterface
     protected PrintStream err;
     protected InputStream in;
 
+    public void
+    display(String msg)
+    {
+        out.println(msg);
+    }
+
     public
     UserInterfaceCommandLine()
     {
@@ -39,7 +45,7 @@ class UserInterfaceCommandLine implements IUserInterface
             try
             {
                 out.print(prompt);
-                return readStringFromInput();
+                return readStringFromConsole();
             }
             catch (IOException e)
             {
@@ -50,17 +56,11 @@ class UserInterfaceCommandLine implements IUserInterface
     }
 
     protected String
-    readStringFromInput()
+    readStringFromConsole()
     throws IOException
     {
         Reader r = new InputStreamReader(in);
         BufferedReader br = new BufferedReader(r);
         return br.readLine();
-    }
-
-    public void
-    display(String msg)
-    {
-        out.println(msg);
     }
 }
