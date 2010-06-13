@@ -15,7 +15,7 @@ class GameOfNm
         setRules(new Rules(pile));
         setPlayerOne(new PlayerHuman(ui));
         //setPlayerOne(new PlayerComputer(ui, new AiStrategyPickAtRandom()));
-        setPlayerTwo(new PlayerComputer(ui, new AiStrategyPickAtRandom()));
+        setPlayerTwo(new PlayerComputer(ui, new AiStrategyPickMax()));
     }
 
     public void
@@ -71,6 +71,8 @@ class GameOfNm
 
         playerOne.askForName("Player one");
         playerTwo.askForName("Player two");
+
+        pickStartingPlayer();
     }
 
     protected void
@@ -121,24 +123,20 @@ class GameOfNm
         return pile.sticksLeft() > 1;
     }
 
-    protected IPlayer
-    getNextPlayer()
+    protected void
+    pickStartingPlayer()
     {
-        if (currentPlayer == null)
+        int rand = Utils.randomIntegerBetween(1, 2);
+        for (int i = 0; i < rand; ++i)
         {
-            currentPlayer = selectStartingPlayer();
+            getNextPlayer();
         }
-        else
-        {
-            currentPlayer = opponentTo(currentPlayer);
-        }
-        return currentPlayer;
     }
 
     protected IPlayer
-    selectStartingPlayer()
+    getNextPlayer()
     {
-        return playerOne;
+        return currentPlayer = opponentTo(currentPlayer);
     }
 
     protected IPlayer
