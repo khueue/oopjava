@@ -27,6 +27,6 @@ class Rules
     public Integer
     maxAllowedSticks()
     {
-        return pile.half();
+        return pile.sticksLeft() / 2;
     }
 }

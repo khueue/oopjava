@@ -23,17 +23,20 @@ class PlayerComputer extends Player
     public void
     askForName(String oldName)
     {
+        Utils.throwIfNull(oldName);
     }
 
     public Move
     chooseMove(Rules rules)
     {
+        Utils.throwIfNull(rules);
         return strategy.chooseMove(rules);
     }
 
     public void
     notifyIllegalMove(Move move)
     {
+        Utils.throwIfNull(move);
     }
 
     public void

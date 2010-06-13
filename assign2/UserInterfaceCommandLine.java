@@ -15,12 +15,14 @@ class UserInterfaceCommandLine implements IUserInterface
     public void
     display(String msg)
     {
+        Utils.throwIfNull(msg);
         out.println(msg);
     }
 
     public Integer
     promptForInteger(String prompt)
     {
+        Utils.throwIfNull(prompt);
         for (;;)
         {
             try
@@ -38,6 +40,7 @@ class UserInterfaceCommandLine implements IUserInterface
     public String
     promptForString(String prompt)
     {
+        Utils.throwIfNull(prompt);
         for (;;)
         {
             try

@@ -18,6 +18,7 @@ class PlayerHuman extends Player
     public void
     askForName(String oldName)
     {
+        Utils.throwIfNull(oldName);
         String name = ui.promptForString(oldName + ", enter your name: ");
         setName(name);
     }
@@ -25,6 +26,7 @@ class PlayerHuman extends Player
     public Move
     chooseMove(Rules rules)
     {
+        Utils.throwIfNull(rules);
         Move move = readMove();
         while (!rules.isAllowedMove(move))
         {
@@ -45,6 +47,7 @@ class PlayerHuman extends Player
     public void
     notifyIllegalMove(Move move)
     {
+        Utils.throwIfNull(move);
         if (move.sticks() == 1)
         {
             ui.display("You may not remove 1 stick!");

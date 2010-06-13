@@ -5,12 +5,6 @@ class PileOfSticks
     public
     PileOfSticks(Integer numberOfSticks)
     {
-        setNumberOfSticks(numberOfSticks);
-    }
-
-    protected void
-    setNumberOfSticks(Integer numberOfSticks)
-    {
         Utils.throwIfNull(numberOfSticks);
         this.numberOfSticks = numberOfSticks;
     }
@@ -20,12 +14,6 @@ class PileOfSticks
     {
         Utils.throwIfNull(sticks);
         numberOfSticks -= sticks;
-    }
-
-    public Integer
-    half()
-    {
-        return numberOfSticks / 2;
     }
 
     public Integer
