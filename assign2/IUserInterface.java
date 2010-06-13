@@ -6,6 +6,12 @@ interface IUserInterface
     public void
     onClose();
 
+    public String
+    promptForString(String prompt);
+
+    public Integer
+    promptForInt(String prompt);
+
     public void
     announceState(PileOfSticks pile);
 

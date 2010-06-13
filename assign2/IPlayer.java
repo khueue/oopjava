@@ -7,6 +7,9 @@ interface IPlayer
     notifyIllegalMove(Move move);
 
     public void
+    introduce();
+
+    public void
     setName(String name);
 
     public void

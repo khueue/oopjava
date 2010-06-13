@@ -40,12 +40,12 @@ abstract class Player implements IPlayer
     public void
     won()
     {
-        ui.display("Weee, I won!");
+        ui.display(name + ": Weee, I won!");
     }
 
     public void
     lost()
     {
-        ui.display("Dang, I lost!");
+        ui.display(name + ": Dang, I lost!");
     }
 }

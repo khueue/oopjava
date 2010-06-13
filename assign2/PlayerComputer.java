@@ -17,6 +17,11 @@ class PlayerComputer extends Player
         return "Computer";
     }
 
+    public void
+    introduce()
+    {
+    }
+
     public Move
     chooseMove(PileOfSticks pile, Rules rules)
     {

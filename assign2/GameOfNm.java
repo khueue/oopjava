@@ -57,6 +57,9 @@ class GameOfNm
     {
         ui.onStart();
 
+        playerOne.introduce();
+        playerTwo.introduce();
+
         IPlayer player = null;
 
         while (noWinner())

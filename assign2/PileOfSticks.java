@@ -1,10 +1,5 @@
 class PileOfSticks
 {
-    /*
-    public static final Integer MAX_STICKS = 50;
-    public static final Integer MIN_STICKS =  5;
-    */
-
     protected Integer numberOfSticks;
 
     public
@@ -17,13 +12,6 @@ class PileOfSticks
     setNumberOfSticks(Integer numberOfSticks)
     {
         Utils.throwIfNull(numberOfSticks);
-        /*
-        if (numberOfSticks < PileOfSticks.MIN_STICKS ||
-            numberOfSticks > PileOfSticks.MAX_STICKS)
-        {
-            throw new IllegalArgumentException("Outside range!");
-        }
-        */
         this.numberOfSticks = numberOfSticks;
     }
 

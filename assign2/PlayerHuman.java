@@ -1,5 +1,3 @@
-import java.io.*;
-
 class PlayerHuman extends Player
 {
     public
@@ -14,30 +12,30 @@ class PlayerHuman extends Player
         return "Human";
     }
 
+    public void
+    introduce()
+    {
+        String name = ui.promptForString("Your name, please: ");
+        setName(name);
+    }
+
     public Move
     chooseMove(PileOfSticks pile, Rules rules)
     {
-        Reader r = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(r);
-
-        ui.display("Human, choose number of sticks: ");
-        for (;;)
+        Move move = readMove();
+        while (!rules.isAllowedMove(move))
         {
-            try
-            {
-                String line = br.readLine();
-                Integer sticks = Integer.parseInt(line);
-                return new Move(sticks);
-            }
-            catch (IOException e)
-            {
-                ui.display("Something went wrong with the input, exiting...");
-                System.exit(0);
-            }
-            catch (NumberFormatException e)
-            {
-                ui.display("Must be an integer! Try again.");
-            }
+            notifyIllegalMove(move);
+            move = readMove();
         }
+        return move;
+    }
+
+    protected Move
+    readMove()
+    {
+        String prompt = name + ", choose number of sticks: ";
+        Integer sticks = ui.promptForInt(prompt);
+        return new Move(sticks);
     }
 }
