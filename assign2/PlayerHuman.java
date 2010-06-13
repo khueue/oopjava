@@ -23,7 +23,7 @@ class PlayerHuman extends Player
     }
 
     public Move
-    chooseMove(PileOfSticks pile, Rules rules)
+    chooseMove(Rules rules)
     {
         Move move = readMove();
         while (!rules.isAllowedMove(move))

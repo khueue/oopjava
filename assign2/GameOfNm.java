@@ -126,11 +126,11 @@ class GameOfNm
     protected Move
     getPlayersMove(IPlayer player)
     {
-        Move move = player.chooseMove(pile, rules);
+        Move move = player.chooseMove(rules);
         while (!rules.isAllowedMove(move))
         {
             player.notifyIllegalMove(move);
-            move = player.chooseMove(pile, rules);
+            move = player.chooseMove(rules);
         }
         return move;
     }

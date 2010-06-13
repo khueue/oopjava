@@ -1,7 +1,7 @@
 interface IPlayer
 {
     public Move
-    chooseMove(PileOfSticks pile, Rules rules);
+    chooseMove(Rules rules);
 
     public void
     notifyIllegalMove(Move move);

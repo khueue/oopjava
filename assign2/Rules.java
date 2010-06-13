@@ -13,6 +13,20 @@ class Rules
     isAllowedMove(Move move)
     {
         Utils.throwIfNull(move);
-        return 1 <= move.sticks() && move.sticks() <= pile.half();
+        Boolean atLeast = move.sticks() >= minAllowedSticks();
+        Boolean atMost  = move.sticks() <= maxAllowedSticks();
+        return atLeast && atMost;
+    }
+    
+    public Integer
+    minAllowedSticks()
+    {
+        return 1;
+    }
+    
+    public Integer
+    maxAllowedSticks()
+    {
+        return pile.half();
     }
 }

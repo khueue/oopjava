@@ -26,9 +26,9 @@ class PlayerComputer extends Player
     }
 
     public Move
-    chooseMove(PileOfSticks pile, Rules rules)
+    chooseMove(Rules rules)
     {
-        return strategy.chooseMove(pile, rules);
+        return strategy.chooseMove(rules);
     }
 
     public void
