@@ -13,7 +13,7 @@ class GameOfNm
         setUserInterface(new UserInterfaceCommandLine());
         setNumberOfSticks(20);
         setRules(new Rules(pile));
-        setPlayerOne(new PlayerComputer(ui, new AiStrategyRandom()));
+        setPlayerOne(new PlayerHuman(ui));
         setPlayerTwo(new PlayerComputer(ui, new AiStrategyRandom()));
     }
 
@@ -62,6 +62,7 @@ class GameOfNm
         while (noWinner())
         {
             player = getNextPlayer();
+            ui.announceState(pile);
             applyMove(getPlayersMove(player));
         }
 

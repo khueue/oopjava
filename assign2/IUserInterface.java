@@ -7,5 +7,8 @@ interface IUserInterface
     onClose();
 
     public void
+    announceState(PileOfSticks pile);
+
+    public void
     display(String msg);
 }

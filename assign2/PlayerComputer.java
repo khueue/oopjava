@@ -11,6 +11,12 @@ class PlayerComputer extends Player
         this.strategy = strategy;
     }
 
+    protected String
+    getDefaultName()
+    {
+        return "Computer";
+    }
+
     public Move
     chooseMove(PileOfSticks pile, Rules rules)
     {
