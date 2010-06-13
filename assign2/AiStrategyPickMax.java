@@ -1,4 +1,4 @@
-class AiStrategyAlwaysPickMax implements IAiStrategy
+class AiStrategyPickMax implements IAiStrategy
 {
     public Move
     chooseMove(Rules rules)
