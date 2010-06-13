@@ -1,0 +1,5 @@
+# Todo
+
+* Think about object boundaries some more.
+* Decide about all the constructor/setter issues.
+* Handle command line arguments.

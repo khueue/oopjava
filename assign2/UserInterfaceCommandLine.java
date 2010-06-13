@@ -3,21 +3,19 @@ import java.io.*;
 class UserInterfaceCommandLine implements IUserInterface
 {
     protected PrintStream out;
-    protected PrintStream err;
     protected InputStream in;
-
-    public void
-    display(String msg)
-    {
-        out.println(msg);
-    }
 
     public
     UserInterfaceCommandLine()
     {
         out = System.out;
-        err = System.err;
         in  = System.in;
+    }
+
+    public void
+    display(String msg)
+    {
+        out.println(msg);
     }
 
     public Integer
