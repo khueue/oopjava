@@ -68,7 +68,7 @@ class GameOfNm
     protected Boolean
     noWinner()
     {
-        return pile.sticksLeft() > 1;
+        return !rules.isGameOver();
     }
 
     protected void

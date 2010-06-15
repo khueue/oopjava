@@ -28,4 +28,10 @@ class Rules
     {
         return pile.sticksLeft() / 2;
     }
+
+    public Boolean
+    isGameOver()
+    {
+        return pile.sticksLeft() > 1;
+    }
 }
