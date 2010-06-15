@@ -2,20 +2,10 @@ import java.io.*;
 
 class UserInterfaceCommandLine implements IUserInterface
 {
-    protected PrintStream out;
-    protected InputStream in;
-
-    public
-    UserInterfaceCommandLine()
-    {
-        out = System.out;
-        in  = System.in;
-    }
-
     public void
     display(String msg)
     {
-        out.println(msg);
+        System.out.println(msg);
     }
 
     public Integer
@@ -42,7 +32,7 @@ class UserInterfaceCommandLine implements IUserInterface
         {
             try
             {
-                out.print(prompt);
+                System.out.print(prompt);
                 return readStringFromConsole();
             }
             catch (IOException e)
@@ -57,7 +47,7 @@ class UserInterfaceCommandLine implements IUserInterface
     readStringFromConsole()
     throws IOException
     {
-        Reader r = new InputStreamReader(in);
+        Reader r = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(r);
         return br.readLine();
     }
