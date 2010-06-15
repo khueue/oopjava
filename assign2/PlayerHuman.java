@@ -40,8 +40,7 @@ class PlayerHuman extends Player
     {
         Integer min = rules.minAllowedSticks();
         Integer max = rules.maxAllowedSticks();
-        ui.display(
-            "You must remove " + min + " to " + max + " sticks. Try again.");
+        ui.display("You must remove " + min + " to " + max + " sticks.");
     }
 
     public void

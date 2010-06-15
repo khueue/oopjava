@@ -30,7 +30,7 @@ class UserInterfaceCommandLine implements IUserInterface
             }
             catch (NumberFormatException e)
             {
-                display("You must choose an integer! Try again.");
+                display("You must choose an integer!");
             }
         }
     }
