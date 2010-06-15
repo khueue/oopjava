@@ -1,6 +1,6 @@
 class PlayerHuman extends Player
 {
-    protected static Integer id = 0; // To separate human players.
+    protected static Integer id = 0; // To differentiate human players.
 
     public
     PlayerHuman(IUserInterface ui, Rules rules)
@@ -11,14 +11,13 @@ class PlayerHuman extends Player
     protected String
     defaultName()
     {
-        Integer nextId = ++PlayerHuman.id;
-        return "Human " + nextId;
+        ++id;
+        return "Human " + id;
     }
 
     public Move
-    chooseMove(Rules rules)
+    chooseMove()
     {
-        Utils.throwIfNull(rules);
         Move move = readMove();
         while (!rules.isAllowedMove(move))
         {
@@ -31,7 +30,7 @@ class PlayerHuman extends Player
     protected Move
     readMove()
     {
-        String prompt = name + ", your move: ";
+        String prompt = name+", your move: ";
         Integer sticks = ui.promptForInteger(prompt);
         return new Move(sticks);
     }
@@ -42,7 +41,7 @@ class PlayerHuman extends Player
         Utils.throwIfNull(move);
         Integer min = rules.minAllowedSticks();
         Integer max = rules.maxAllowedSticks();
-        ui.display("You must remove " + min + " to " + max + " sticks.");
+        ui.display("You must remove "+min+" to "+max+" sticks. Try again.");
     }
 
     public void

@@ -27,11 +27,4 @@ abstract class Player implements IPlayer
     {
         return name;
     }
-
-    public void
-    setName(String name)
-    {
-        Utils.throwIfNull(name);
-        this.name = name;
-    }
 }

@@ -1,6 +1,6 @@
 class PlayerComputer extends Player
 {
-    protected static Integer id = 0; // To separate computer players.
+    protected static Integer id = 0; // To differentiate computer players.
 
     protected IAiStrategy strategy;
 
@@ -16,15 +16,14 @@ class PlayerComputer extends Player
     protected String
     defaultName()
     {
-        Integer nextId = ++PlayerComputer.id;
-        return "Computer " + nextId;
+        ++id;
+        return "Computer " + id;
     }
 
     public Move
-    chooseMove(Rules rules)
+    chooseMove()
     {
-        Utils.throwIfNull(rules);
-        ui.display(name + ", your move. ");
+        ui.display(name+", your move. ");
         return strategy.chooseMove(rules);
     }
 
@@ -37,12 +36,12 @@ class PlayerComputer extends Player
     public void
     won()
     {
-        ui.display(name + ": Yes, I won!");
+        ui.display(name+": Yes, I won!");
     }
 
     public void
     lost()
     {
-        ui.display(name + ": Nooo, I lost!");
+        ui.display(name+": Nooo, I lost!");
     }
 }

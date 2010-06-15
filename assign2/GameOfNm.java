@@ -87,7 +87,7 @@ class GameOfNm
     protected void
     announceGameState()
     {
-        ui.display("--- Remaining sticks: " + pile.sticksLeft());
+        ui.display("--- Remaining sticks: "+pile.sticksLeft()+" ---");
     }
 
     protected void
@@ -96,11 +96,11 @@ class GameOfNm
         String str = null;
         if (move.sticks() == 1)
         {
-            str = player.getName() + " removes 1 stick.";
+            str = player.getName()+" removes 1 stick.";
         }
         else
         {
-            str = player.getName() + " removes " + move.sticks() + " sticks.";
+            str = player.getName()+" removes "+move.sticks()+" sticks.";
         }
         ui.display(str);
     }
@@ -108,7 +108,7 @@ class GameOfNm
     protected void
     endGame()
     {
-        ui.display("The winner is ... " + currentPlayer.getName() + "!");
+        ui.display("The winner is ... "+currentPlayer.getName()+"!");
 
         currentPlayer.won();
         opponentTo(currentPlayer).lost();
@@ -146,12 +146,12 @@ class GameOfNm
     protected Move
     getPlayersMove(IPlayer player)
     {
-        Move move = player.chooseMove(rules);
+        Move move = player.chooseMove();
         while (!rules.isAllowedMove(move))
         {
             player.notifyIllegalMove(move);
             announceGameState();
-            move = player.chooseMove(rules);
+            move = player.chooseMove();
         }
         return move;
     }

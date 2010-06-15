@@ -1,13 +1,10 @@
 interface IPlayer
 {
     public Move
-    chooseMove(Rules rules);
+    chooseMove();
 
     public void
     notifyIllegalMove(Move move);
-
-    public void
-    setName(String name);
 
     public String
     getName();
