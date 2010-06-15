@@ -25,7 +25,6 @@ class PlayerHuman extends Player
             move = readMove();
         }
         applyMove(move);
-        announceMove(move);
     }
 
     protected Move

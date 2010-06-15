@@ -31,7 +31,6 @@ class PlayerComputer extends Player
 
         Move move = strategy.chooseMove(rules);
         applyMove(move);
-        announceMove(move);
     }
 
     public void
