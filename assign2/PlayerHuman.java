@@ -3,9 +3,9 @@ class PlayerHuman extends Player
     protected static Integer id = 0; // To differentiate human players.
 
     public
-    PlayerHuman(IUserInterface ui, Rules rules)
+    PlayerHuman(IUserInterface ui, Rules rules, PileOfSticks pile)
     {
-        super(ui, rules);
+        super(ui, rules, pile);
     }
 
     protected String
@@ -15,43 +15,44 @@ class PlayerHuman extends Player
         return "Human " + id;
     }
 
-    public Move
-    chooseMove()
+    public void
+    takeTurn()
     {
         Move move = readMove();
         while (!rules.isAllowedMove(move))
         {
-            notifyIllegalMove(move);
+            moveIsIllegal(move);
             move = readMove();
         }
-        return move;
+        applyMove(move);
     }
 
     protected Move
     readMove()
     {
-        String prompt = name+", your move: ";
+        String prompt = name + ", your move: ";
         Integer sticks = ui.promptForInteger(prompt);
         return new Move(sticks);
     }
 
-    public void
-    notifyIllegalMove(Move move)
+    protected void
+    moveIsIllegal(Move move)
     {
         Integer min = rules.minAllowedSticks();
         Integer max = rules.maxAllowedSticks();
-        ui.display("You must remove "+min+" to "+max+" sticks. Try again.");
+        ui.display(
+            "You must remove " + min + " to " + max + " sticks. Try again.");
     }
 
     public void
     won()
     {
-        // Leave the reaction to the human being.
+        // Leave the reaction to the actual human being.
     }
 
     public void
     lost()
     {
-        // Leave the reaction to the human being.
+        // Leave the reaction to the actual human being.
     }
 }

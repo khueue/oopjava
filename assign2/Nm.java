@@ -13,9 +13,9 @@ class Nm
         IUserInterface ui = new UserInterfaceCommandLine();
         PileOfSticks pile = new PileOfSticks(numSticks);
         Rules rules       = new Rules(pile);
-        IPlayer playerOne = new PlayerHuman(ui, rules);
+        IPlayer playerOne = new PlayerHuman(ui, rules, pile);
         IPlayer playerTwo =
-            new PlayerComputer(ui, rules, new AiStrategyPickAtRandom());
+            new PlayerComputer(ui, rules, pile, new AiStrategyPickAtRandom());
 
         GameOfNm game = new GameOfNm(ui, pile, rules, playerOne, playerTwo);
         game.play();

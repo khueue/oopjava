@@ -56,37 +56,19 @@ class GameOfNm
         announceGameState();
 
         IPlayer player = getNextPlayer();
-        Move move = getPlayersMove(player);
-        applyMove(move);
-
-        announceMoveMade(player, move);
+        player.takeTurn();
     }
 
     protected void
     announceGameState()
     {
-        ui.display("--- Remaining sticks: "+pile.sticksLeft()+" ---");
-    }
-
-    protected void
-    announceMoveMade(IPlayer player, Move move)
-    {
-        String str = null;
-        if (move.sticks() == 1)
-        {
-            str = player.getName()+" removes 1 stick.";
-        }
-        else
-        {
-            str = player.getName()+" removes "+move.sticks()+" sticks.";
-        }
-        ui.display(str);
+        ui.display("--- Remaining sticks: " + pile.sticksLeft() + " ---");
     }
 
     protected void
     endGame()
     {
-        ui.display("The winner is ... "+currentPlayer.getName()+"!");
+        ui.display("The winner is ... " + currentPlayer.getName() + "!");
 
         currentPlayer.won();
         opponentTo(currentPlayer).lost();
@@ -102,6 +84,7 @@ class GameOfNm
     pickStartingPlayer()
     {
         ui.display("Picking starting player at random ...");
+
         int rand = Utils.randomIntegerBetween(1, 2);
         for (int i = 0; i < rand; ++i)
         {
@@ -119,24 +102,5 @@ class GameOfNm
     opponentTo(IPlayer player)
     {
         return (player == playerOne) ? playerTwo : playerOne;
-    }
-
-    protected Move
-    getPlayersMove(IPlayer player)
-    {
-        Move move = player.chooseMove();
-        while (!rules.isAllowedMove(move))
-        {
-            player.notifyIllegalMove(move);
-            announceGameState();
-            move = player.chooseMove();
-        }
-        return move;
-    }
-
-    protected void
-    applyMove(Move move)
-    {
-        pile.removeSticks(move.sticks());
     }
 }
