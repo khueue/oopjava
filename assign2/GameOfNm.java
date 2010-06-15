@@ -52,8 +52,7 @@ class GameOfNm
     protected void
     doTurn()
     {
-        announceGameState();
-
+        announceCurrentGameState();
         IPlayer player = getNextPlayer();
         player.takeTurn();
     }
@@ -95,7 +94,7 @@ class GameOfNm
     }
 
     protected void
-    announceStartOfGame()
+    announceCurrentGameState()
     {
         ui.display("Welcome to a game of Nm!");
     }
