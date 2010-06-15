@@ -7,11 +7,8 @@ interface IPlayer
     notifyIllegalMove(Move move);
 
     public void
-    askForName(String oldName);
-
-    public void
     setName(String name);
-    
+
     public String
     getName();
 

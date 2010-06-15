@@ -3,9 +3,9 @@ class PlayerHuman extends Player
     protected static Integer id = 0; // To separate human players.
 
     public
-    PlayerHuman(IUserInterface ui)
+    PlayerHuman(IUserInterface ui, Rules rules)
     {
-        super(ui);
+        super(ui, rules);
     }
 
     protected String
@@ -13,14 +13,6 @@ class PlayerHuman extends Player
     {
         Integer nextId = ++PlayerHuman.id;
         return "Human " + nextId;
-    }
-
-    public void
-    askForName(String oldName)
-    {
-        Utils.throwIfNull(oldName);
-        String name = ui.promptForString(oldName + ", enter your name: ");
-        setName(name);
     }
 
     public Move
@@ -39,7 +31,7 @@ class PlayerHuman extends Player
     protected Move
     readMove()
     {
-        String prompt = name + ", choose number of sticks: ";
+        String prompt = name + ", your move: ";
         Integer sticks = ui.promptForInteger(prompt);
         return new Move(sticks);
     }
@@ -48,25 +40,20 @@ class PlayerHuman extends Player
     notifyIllegalMove(Move move)
     {
         Utils.throwIfNull(move);
-        if (move.sticks() == 1)
-        {
-            ui.display("You may not remove 1 stick!");
-        }
-        else
-        {
-            ui.display("You may not remove " + move.sticks() + " sticks!");
-        }
+        Integer min = rules.minAllowedSticks();
+        Integer max = rules.maxAllowedSticks();
+        ui.display("You must remove " + min + " to " + max + " sticks.");
     }
 
     public void
     won()
     {
-        // Leave the reaction up to the actual player.
+        // Leave the reaction to the human being.
     }
 
     public void
     lost()
     {
-        // Leave the reaction up to the actual player.
+        // Leave the reaction to the human being.
     }
 }

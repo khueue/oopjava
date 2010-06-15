@@ -13,9 +13,9 @@ class GameOfNm
         setUserInterface(new UserInterfaceCommandLine());
         setNumberOfSticks(20);
         setRules(new Rules(pile));
-        setPlayerOne(new PlayerHuman(ui));
-        //setPlayerOne(new PlayerComputer(ui, new AiStrategyPickAtRandom()));
-        setPlayerTwo(new PlayerComputer(ui, new AiStrategyPickMax()));
+        setPlayerOne(new PlayerHuman(ui, rules));
+        //setPlayerOne(new PlayerComputer(ui, rules, new AiStrategyPickAtRandom()));
+        setPlayerTwo(new PlayerComputer(ui, rules, new AiStrategyPickAtRandom()));
     }
 
     public void
@@ -69,9 +69,6 @@ class GameOfNm
     {
         ui.display("Welcome to a game of Nm!");
 
-        playerOne.askForName("Player one");
-        playerTwo.askForName("Player two");
-
         pickStartingPlayer();
     }
 
@@ -90,31 +87,31 @@ class GameOfNm
     protected void
     announceGameState()
     {
-        ui.display("There are " + pile.sticksLeft() + " sticks left.");
+        ui.display("--- Remaining sticks: " + pile.sticksLeft());
     }
 
     protected void
     announceMoveMade(IPlayer player, Move move)
     {
+        String str = null;
         if (move.sticks() == 1)
         {
-            ui.display(player.getName() + " removed 1 stick.");
+            str = player.getName() + " removes 1 stick.";
         }
         else
         {
-            ui.display(player.getName() + " removed " + move.sticks() + " sticks.");
+            str = player.getName() + " removes " + move.sticks() + " sticks.";
         }
+        ui.display(str);
     }
 
     protected void
     endGame()
     {
-        ui.display("The winner is " + currentPlayer.getName() + "!");
+        ui.display("The winner is ... " + currentPlayer.getName() + "!");
 
         currentPlayer.won();
         opponentTo(currentPlayer).lost();
-
-        ui.display("The game is over.");
     }
 
     protected Boolean
@@ -126,6 +123,7 @@ class GameOfNm
     protected void
     pickStartingPlayer()
     {
+        ui.display("Picking starting player at random ...");
         int rand = Utils.randomIntegerBetween(1, 2);
         for (int i = 0; i < rand; ++i)
         {

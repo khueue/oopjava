@@ -5,9 +5,9 @@ class PlayerComputer extends Player
     protected IAiStrategy strategy;
 
     public
-    PlayerComputer(IUserInterface ui, IAiStrategy strategy)
+    PlayerComputer(IUserInterface ui, Rules rules, IAiStrategy strategy)
     {
-        super(ui);
+        super(ui, rules);
 
         Utils.throwIfNull(strategy);
         this.strategy = strategy;
@@ -20,16 +20,11 @@ class PlayerComputer extends Player
         return "Computer " + nextId;
     }
 
-    public void
-    askForName(String oldName)
-    {
-        Utils.throwIfNull(oldName);
-    }
-
     public Move
     chooseMove(Rules rules)
     {
         Utils.throwIfNull(rules);
+        ui.display(name + ", your move. ");
         return strategy.chooseMove(rules);
     }
 
