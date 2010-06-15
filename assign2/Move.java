@@ -1,17 +1,17 @@
 class Move
 {
-    Integer numberOfSticks;
+    Integer numSticks;
 
     public
-    Move(Integer numberOfSticks)
+    Move(Integer numSticks)
     {
-        Utils.throwIfNull(numberOfSticks);
-        this.numberOfSticks = numberOfSticks;
+        Utils.throwIfNull(numSticks);
+        this.numSticks = numSticks;
     }
 
     public Integer
     sticks()
     {
-        return numberOfSticks;
+        return numSticks;
     }
 }

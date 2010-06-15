@@ -16,11 +16,8 @@ abstract class Player implements IPlayer
         this.name = defaultName();
     }
 
-    protected String
-    defaultName()
-    {
-        return "[anonymous]";
-    }
+    abstract protected String
+    defaultName();
 
     public String
     getName()

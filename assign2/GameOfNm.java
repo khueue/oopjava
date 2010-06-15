@@ -8,49 +8,27 @@ class GameOfNm
     protected IPlayer currentPlayer;
 
     public
-    GameOfNm()
-    {
-        setUserInterface(new UserInterfaceCommandLine());
-        setNumberOfSticks(20);
-        setRules(new Rules(pile));
-        setPlayerOne(new PlayerHuman(ui, rules));
-        //setPlayerOne(new PlayerComputer(ui, rules, new AiStrategyPickAtRandom()));
-        setPlayerTwo(new PlayerComputer(ui, rules, new AiStrategyPickAtRandom()));
-    }
-
-    public void
-    setUserInterface(IUserInterface ui)
+    GameOfNm(
+        IUserInterface ui,
+        PileOfSticks pile,
+        Rules rules,
+        IPlayer playerOne,
+        IPlayer playerTwo)
     {
         Utils.throwIfNull(ui);
         this.ui = ui;
-    }
 
-    public void
-    setNumberOfSticks(Integer numberOfSticks)
-    {
-        Utils.throwIfNull(numberOfSticks);
-        this.pile = new PileOfSticks(numberOfSticks);
-    }
+        Utils.throwIfNull(pile);
+        this.pile = pile;
 
-    public void
-    setRules(Rules rules)
-    {
         Utils.throwIfNull(rules);
         this.rules = rules;
-    }
 
-    public void
-    setPlayerOne(IPlayer player)
-    {
-        Utils.throwIfNull(player);
-        this.playerOne = player;
-    }
+        Utils.throwIfNull(playerOne);
+        this.playerOne = playerOne;
 
-    public void
-    setPlayerTwo(IPlayer player)
-    {
-        Utils.throwIfNull(player);
-        this.playerTwo = player;
+        Utils.throwIfNull(playerTwo);
+        this.playerTwo = playerTwo;
     }
 
     public void

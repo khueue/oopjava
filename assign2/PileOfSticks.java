@@ -1,23 +1,23 @@
 class PileOfSticks
 {
-    protected Integer numberOfSticks;
+    protected Integer numSticks;
 
     public
-    PileOfSticks(Integer numberOfSticks)
+    PileOfSticks(Integer numSticks)
     {
-        Utils.throwIfNull(numberOfSticks);
-        this.numberOfSticks = numberOfSticks;
+        Utils.throwIfNull(numSticks);
+        this.numSticks = numSticks;
     }
 
     public void
     removeSticks(Integer sticks)
     {
-        numberOfSticks -= sticks;
+        numSticks -= sticks;
     }
 
     public Integer
     sticksLeft()
     {
-        return numberOfSticks;
+        return numSticks;
     }
 }
