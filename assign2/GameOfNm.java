@@ -94,20 +94,20 @@ class GameOfNm
     }
 
     protected void
-    announceCurrentGameState()
+    announceStartOfGame()
     {
         ui.display("Welcome to a game of Nm!");
+    }
+
+    protected void
+    announceCurrentGameState()
+    {
+        ui.display("--- Remaining sticks: " + pile.sticksLeft() + " ---");
     }
 
     protected void
     announceEndOfGame()
     {
         ui.display("The winner is ... " + currentPlayer.getName() + "!");
-    }
-
-    protected void
-    announceGameState()
-    {
-        ui.display("--- Remaining sticks: " + pile.sticksLeft() + " ---");
     }
 }
