@@ -102,7 +102,7 @@ class GameOfNm
     protected void
     announceCurrentGameState()
     {
-        ui.display("--- Remaining sticks: " + pile.sticksLeft() + " ---");
+        ui.display(">>> Remaining sticks: " + pile.sticksLeft() + " <<<");
     }
 
     protected void
