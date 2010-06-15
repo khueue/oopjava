@@ -5,11 +5,13 @@ class Nm
     {
         if (args.length != 1)
         {
-            Nm.printUsageAndExit();
+            printUsageAndExit();
         }
 
+        Integer numSticks = convertToInt(args[0]);
+
         IUserInterface ui = new UserInterfaceCommandLine();
-        PileOfSticks pile = new PileOfSticks(Integer.parseInt(args[0]));
+        PileOfSticks pile = new PileOfSticks(numSticks);
         Rules rules       = new Rules(pile);
         IPlayer playerOne = new PlayerHuman(ui, rules);
         IPlayer playerTwo = new PlayerComputer(
@@ -19,7 +21,22 @@ class Nm
         game.play();
     }
 
-    public static void
+    protected static Integer
+    convertToInt(String str)
+    {
+        Integer num = null;
+        try
+        {
+            num = Integer.parseInt(str);
+        }
+        catch (NumberFormatException e)
+        {
+            printUsageAndExit();
+        }
+        return num;
+    }
+
+    protected static void
     printUsageAndExit()
     {
         System.err.println("Usage: java Nm <numSticks>");
