@@ -45,9 +45,8 @@ class GameOfNm
     protected void
     startGame()
     {
-        ui.display("Welcome to a game of Nm!");
-
-        pickStartingPlayer();
+        announceStartOfGame();
+        pickStartingPlayerRandomly();
     }
 
     protected void
@@ -60,16 +59,9 @@ class GameOfNm
     }
 
     protected void
-    announceGameState()
-    {
-        ui.display("--- Remaining sticks: " + pile.sticksLeft() + " ---");
-    }
-
-    protected void
     endGame()
     {
-        ui.display("The winner is ... " + currentPlayer.getName() + "!");
-
+        announceEndOfGame();
         currentPlayer.won();
         opponentTo(currentPlayer).lost();
     }
@@ -81,10 +73,8 @@ class GameOfNm
     }
 
     protected void
-    pickStartingPlayer()
+    pickStartingPlayerRandomly()
     {
-        ui.display("Picking starting player at random ...");
-
         int rand = Utils.randomIntegerBetween(1, 2);
         for (int i = 0; i < rand; ++i)
         {
@@ -102,5 +92,23 @@ class GameOfNm
     opponentTo(IPlayer player)
     {
         return (player == playerOne) ? playerTwo : playerOne;
+    }
+
+    protected void
+    announceStartOfGame()
+    {
+        ui.display("Welcome to a game of Nm!");
+    }
+
+    protected void
+    announceEndOfGame()
+    {
+        ui.display("The winner is ... " + currentPlayer.getName() + "!");
+    }
+
+    protected void
+    announceGameState()
+    {
+        ui.display("--- Remaining sticks: " + pile.sticksLeft() + " ---");
     }
 }
