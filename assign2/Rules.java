@@ -32,6 +32,6 @@ class Rules
     public Boolean
     isGameOver()
     {
-        return pile.sticksLeft() > 1;
+        return pile.sticksLeft() <= 1;
     }
 }
