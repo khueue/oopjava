@@ -19,12 +19,13 @@ class PlayerHuman extends Player
     takeTurn()
     {
         Move move = readMove();
-        while (!rules.isAllowedMove(move))
+        while (rules.isIllegalMove(move))
         {
             moveIsIllegal(move);
             move = readMove();
         }
         applyMove(move);
+        announceMove(move);
     }
 
     protected Move

@@ -40,7 +40,6 @@ abstract class Player implements IPlayer
     applyMove(Move move)
     {
         pile.removeSticks(move.sticks());
-        announceMove(move);
     }
 
     protected void

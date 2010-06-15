@@ -10,11 +10,11 @@ class Rules
     }
 
     public Boolean
-    isAllowedMove(Move move)
+    isIllegalMove(Move move)
     {
-        Boolean atLeast = move.sticks() >= minAllowedSticks();
-        Boolean atMost  = move.sticks() <= maxAllowedSticks();
-        return atLeast && atMost;
+        Boolean tooFew  = move.sticks() < minAllowedSticks();
+        Boolean tooMany = move.sticks() > maxAllowedSticks();
+        return tooFew || tooMany;
     }
 
     public Integer
