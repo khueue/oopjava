@@ -12,7 +12,6 @@ class Rules
     public Boolean
     isAllowedMove(Move move)
     {
-        Utils.throwIfNull(move);
         Boolean atLeast = move.sticks() >= minAllowedSticks();
         Boolean atMost  = move.sticks() <= maxAllowedSticks();
         return atLeast && atMost;

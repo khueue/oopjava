@@ -38,7 +38,6 @@ class PlayerHuman extends Player
     public void
     notifyIllegalMove(Move move)
     {
-        Utils.throwIfNull(move);
         Integer min = rules.minAllowedSticks();
         Integer max = rules.maxAllowedSticks();
         ui.display("You must remove "+min+" to "+max+" sticks. Try again.");

@@ -12,7 +12,6 @@ class PileOfSticks
     public void
     removeSticks(Integer sticks)
     {
-        Utils.throwIfNull(sticks);
         numberOfSticks -= sticks;
     }
 

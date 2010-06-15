@@ -30,7 +30,6 @@ class PlayerComputer extends Player
     public void
     notifyIllegalMove(Move move)
     {
-        Utils.throwIfNull(move);
     }
 
     public void
