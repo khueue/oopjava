@@ -1,7 +1,7 @@
 all:
 	clear
 	rm -f *.class
-	../trim_and_clean.rb *.java Makefile
+	- ../trim_and_clean.rb *.java *.txt Makefile
 	javac *.java
 	clear
 	java Nm 20

@@ -15,9 +15,7 @@ files.each do |file|
   old_data = File.read(file)
   new_data = trim_and_clean(old_data)
   if new_data != old_data
-    File.open(file, 'w') do |f|
-      puts "Cleaning file #{file} ..."
-      f.write(new_data)
-    end
+    puts "Cleaning file #{file} ..."
+    File.open(file, 'w') {|f| f.write(new_data) }
   end
 end
