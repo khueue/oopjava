@@ -1,8 +1,10 @@
 #! /usr/bin/env ruby -w
 
 def trim_and_clean(str)
-  str = str.gsub(/[\t ]+$/, '').strip
-  str.gsub(/\n{3,}/, "\n\n") + "\n"
+  str = str.strip                    # Leading and trailing whitespace.
+  str = str.gsub(/[\t ]+$/, '')      # Whitespace at end of lines.
+  str = str.gsub(/\n{3,}/, "\n\n")   # Limit newline sequences.
+  str + "\n"                         # Append single newline.
 end
 
 files = []
