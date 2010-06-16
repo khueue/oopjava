@@ -1,5 +1,10 @@
 #! /usr/bin/env ruby -w
 
+if ARGV.empty?
+  puts "Usage: ruby #{__FILE__} glob_pattern [glob_pattern ...]"
+  exit
+end
+
 def trim_and_clean(str)
   str = str.strip                    # Leading and trailing whitespace.
   str = str.gsub(/[\t ]+$/, '')      # Whitespace at end of lines.
@@ -9,8 +14,8 @@ end
 
 files = []
 
-ARGV.each do |arg|
-  files += Dir.glob(arg)
+ARGV.each do |pattern|
+  files += Dir.glob(pattern)
 end
 
 files.each do |file|
