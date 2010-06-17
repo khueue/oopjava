@@ -15,7 +15,7 @@ abstract class Utils
     randomIntegerBetween(Integer min, Integer max)
     {
         Random generator = new Random();
-        Double zeroToOne = generator.nextDouble();
-        return (int)(zeroToOne * (max-min+1)) + min;
+        Double zeroToAlmostOne = generator.nextDouble();
+        return (int)(zeroToAlmostOne * (max-min+1)) + min;
     }
 }
