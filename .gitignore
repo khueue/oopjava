@@ -1,4 +1,6 @@
 *~
+*#
+doc
 **/*.class
 **/*.tar.gz
 **/*.tmproj
