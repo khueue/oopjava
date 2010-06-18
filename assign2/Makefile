@@ -1,5 +1,9 @@
-all: clean
+all: clean compile run
+
+compile:
 	javac *.java
+
+run:
 	clear
 	java Nm 20
 
