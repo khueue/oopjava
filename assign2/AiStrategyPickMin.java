@@ -1,4 +1,4 @@
-class AiStrategyPickMin implements IAiStrategy
+public class AiStrategyPickMin implements IAiStrategy
 {
     public Move
     chooseMove(Rules rules)

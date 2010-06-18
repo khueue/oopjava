@@ -1,4 +1,4 @@
-interface IPlayer
+public interface IPlayer
 {
     public void
     takeTurn();

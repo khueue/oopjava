@@ -1,4 +1,4 @@
-class AiStrategyPickAtRandom implements IAiStrategy
+public class AiStrategyPickAtRandom implements IAiStrategy
 {
     public Move
     chooseMove(Rules rules)

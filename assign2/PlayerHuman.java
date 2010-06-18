@@ -1,4 +1,4 @@
-class PlayerHuman extends Player
+public class PlayerHuman extends Player
 {
     protected static Integer id = 0; // To differentiate human players.
 
@@ -21,7 +21,7 @@ class PlayerHuman extends Player
         Move move = readMove();
         while (rules.isIllegalMove(move))
         {
-            moveIsIllegal(move);
+            notifyIllegalMove(move);
             move = readMove();
         }
         applyMove(move);
@@ -36,7 +36,7 @@ class PlayerHuman extends Player
     }
 
     protected void
-    moveIsIllegal(Move move)
+    notifyIllegalMove(Move move)
     {
         Integer min = rules.minAllowedSticks();
         Integer max = rules.maxAllowedSticks();

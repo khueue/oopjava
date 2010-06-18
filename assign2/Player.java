@@ -1,4 +1,4 @@
-abstract class Player implements IPlayer
+public abstract class Player implements IPlayer
 {
     protected IUserInterface ui;
     protected Rules rules;

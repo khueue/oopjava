@@ -1,4 +1,4 @@
-class Rules
+public class Rules
 {
     protected PileOfSticks pile;
 

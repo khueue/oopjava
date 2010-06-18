@@ -1,4 +1,4 @@
-class GameOfNm
+public class GameOfNm
 {
     protected IUserInterface ui;
     protected PileOfSticks pile;

@@ -1,4 +1,4 @@
-class PlayerComputer extends Player
+public class PlayerComputer extends Player
 {
     protected static Integer id = 0; // To differentiate computer players.
 

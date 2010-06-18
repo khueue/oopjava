@@ -1,4 +1,4 @@
-class PileOfSticks
+public class PileOfSticks
 {
     protected Integer numSticks;
 

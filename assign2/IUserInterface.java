@@ -1,4 +1,4 @@
-interface IUserInterface
+public interface IUserInterface
 {
     public String
     promptForString(String prompt);

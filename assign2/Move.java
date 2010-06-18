@@ -1,4 +1,4 @@
-class Move
+public class Move
 {
     Integer numSticks;
 

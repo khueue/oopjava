@@ -1,6 +1,6 @@
 import java.io.*;
 
-class UserInterfaceCommandLine implements IUserInterface
+public class UserInterfaceCommandLine implements IUserInterface
 {
     public void
     display(String msg)
