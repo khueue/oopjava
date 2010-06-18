@@ -15,7 +15,7 @@ end
 files = []
 
 ARGV.each do |pattern|
-  files |= Dir.glob(pattern)
+  files |= Dir[pattern]
 end
 
 files.each do |file|
