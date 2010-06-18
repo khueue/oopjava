@@ -1,4 +1,4 @@
-public class Nm
+public abstract class Nm
 {
     public static void
     main(String[] args)
