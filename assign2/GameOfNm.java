@@ -74,7 +74,7 @@ class GameOfNm
     protected void
     pickStartingPlayerRandomly()
     {
-        int rand = Utils.randomIntegerBetween(1, 2);
+        Integer rand = Utils.randomIntegerBetween(1, 2);
         for (int i = 0; i < rand; ++i)
         {
             getNextPlayer();
