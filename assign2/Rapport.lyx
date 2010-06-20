@@ -58,8 +58,72 @@ Inlämningsuppgift 2
 Spelet Nm
 \end_layout
 
+\begin_layout Author
+Sebastian Lundström (selu7901)
+\end_layout
+
+\begin_layout Section
+Inledning
+\end_layout
+
+\begin_layout Standard
+Denna rapport behandlar design och implementation av spelet Nm.
+ Programmet skall implementeras i programmeringsspråket Java.
+\end_layout
+
+\begin_layout Section
+Installation
+\end_layout
+
+\begin_layout Standard
+Dessa instruktioner förutsätter att du befinner dig i en terminal i samma
+ mapp som programmets Java-filer och Makefile.
+ Du förutsätts även ha tillgång till Java och programmet make.
+ Allt som beskrivs i denna sektion beskrivs i mer detalj i programmets Makefile.
+\end_layout
+
+\begin_layout Standard
+För att både kompilera och köra programmet skrivs enklast:
+\end_layout
+
+\begin_layout LyX-Code
+$ make
+\end_layout
+
+\begin_layout Standard
+Detta kommando kompilerar alla .java-filer och kör sedan det resulterande
+ programmet med 20 stickor.
+ Vill du endast kompilera programmet skriver du:
+\end_layout
+
+\begin_layout LyX-Code
+$ make compile
+\end_layout
+
+\begin_layout Standard
+Vill du endast köra programmet och kunna välja antalet stickor skriver du
+ följande, där 20 förstås kan ändras efter behov:
+\end_layout
+
+\begin_layout LyX-Code
+$ java Nm 20
+\end_layout
+
+\begin_layout Section
+Körexempel
+\end_layout
+
+\begin_layout Standard
+XXX
+\end_layout
+
 \begin_layout Section
 Systemdesign
+\end_layout
+
+\begin_layout Standard
+Här diskuterar jag hur jag valde att utforma klasserna i systemet, och kortfatta
+t om hur de interagerar med varandra.
 \end_layout
 
 \begin_layout Subsection
@@ -79,10 +143,10 @@ Enligt specifikationen behövs en abstrakt basklass för spelare, samt två
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -153,10 +217,10 @@ Gränssnitt är något som kan tänkas förändras i framtiden, så jag upprätt
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -224,7 +288,10 @@ En av de mer intressanta aspekterna i spelet är hur datorspelare väljer
  interface.
  Tanken är att en datorspelare inte vet något mer om sin strategi än vad
  interfacet (vilket är minimalt) avslöjar.
- När en datorspelare skapas skickas en instans av någon strategi in i dess
+\end_layout
+
+\begin_layout Standard
+När en datorspelare skapas skickas en instans av någon strategi in i dess
  konstruktor.
  När datorspelaren sedan skall utföra sitt drag överlåts det till strategin.
  Detta är en implementation av designmönstret 
@@ -241,10 +308,10 @@ strategy
 
 \begin_layout Standard
 \begin_inset Float figure
-placement h
+placement H
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset ERT
@@ -338,14 +405,6 @@ Rules Spelets regler.
 \begin_layout Description
 Utils En abstrakt klass som innehåller ett fåtal statiska metoder för t.ex.
  slumptalsgenerering.
-\end_layout
-
-\begin_layout Section
-Installation
-\end_layout
-
-\begin_layout Section
-Körexempel
 \end_layout
 
 \end_body
