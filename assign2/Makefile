@@ -7,7 +7,7 @@ run:
 	clear
 	java Nm 20
 
-pack: clean
+pack: javadoc
 	tar -czvf oopjava-assign2-selu7901.tar.gz *.java *.pdf javadoc Makefile
 
 javadoc: clean
