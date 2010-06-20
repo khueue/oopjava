@@ -510,7 +510,37 @@ Programflöde
 \end_layout
 
 \begin_layout Standard
-XXX
+Programmet börjar i main-metoden som återfinns i klassen Nm.
+ Den skapar de objekt som själva spelklassen, GameOfNm, behöver.
+ Sedan startas spelet och GameOfNm-instansen tar över.
+\end_layout
+
+\begin_layout Standard
+GameOfNm består i princip av en enkel spelloop.
+ Först slumpas vem av spelarna som skall börja, och gränssnittet ombeds
+ skriva ut något välkomnande till spelarna.
+ Sedan går programmet in i en loop där nästa spelare ombeds utföra sitt
+ drag.
+ När det bara finns en sticka kvar i högen avslutas loopen och vinnaren
+ annonseras.
+ Spelet avslutas.
+\end_layout
+
+\begin_layout Standard
+När en människospelare skall utföra sitt drag läses ett heltal från gränssnittet.
+ Med detta tal skapas ett drag som direkt undersöks genom att rådfråga reglerna.
+ Är draget ogiltigt efterfrågas ett nytt heltal.
+ Till slut utför spelaren draget (som då är giltigt) och turen går vidare.
+\end_layout
+
+\begin_layout Standard
+När en datorspelare skall utföra sitt drag frågar den sin strategiinstans.
+ Strategin förutsätts returnera ett giltigt drag som utförs direkt.
+\end_layout
+
+\begin_layout Standard
+När en spelare har utfört sitt drag frågar spelloopen reglerna om spelet
+ är slut, annars går turen vidare till nästa spelare.
 \end_layout
 
 \end_body
