@@ -6,9 +6,9 @@
 \use_default_options true
 \language swedish
 \inputencoding auto
-\font_roman default
-\font_sans default
-\font_typewriter default
+\font_roman cmr
+\font_sans cmss
+\font_typewriter cmtt
 \font_default_family default
 \font_sc false
 \font_osf false
@@ -114,7 +114,105 @@ Körexempel
 \end_layout
 
 \begin_layout Standard
-XXX
+Följande är ett körexempel på en spelomgång mellan en människa och datorn,
+ med 20 stickor:
+\end_layout
+
+\begin_layout LyX-Code
+$ java Nm 20
+\end_layout
+
+\begin_layout LyX-Code
+Welcome to a game of Nm!
+\end_layout
+
+\begin_layout LyX-Code
+>>> Remaining sticks: 20 <<<
+\end_layout
+
+\begin_layout LyX-Code
+Human 1, your move: 10
+\end_layout
+
+\begin_layout LyX-Code
+Human 1 removes 10 sticks.
+\end_layout
+
+\begin_layout LyX-Code
+>>> Remaining sticks: 10 <<<
+\end_layout
+
+\begin_layout LyX-Code
+Computer 1, your move.
+\end_layout
+
+\begin_layout LyX-Code
+Computer 1 removes 5 sticks.
+\end_layout
+
+\begin_layout LyX-Code
+>>> Remaining sticks: 5 <<<
+\end_layout
+
+\begin_layout LyX-Code
+Human 1, your move: 4
+\end_layout
+
+\begin_layout LyX-Code
+You must remove 1 to 2 sticks.
+\end_layout
+
+\begin_layout LyX-Code
+Human 1, your move: 1
+\end_layout
+
+\begin_layout LyX-Code
+Human 1 removes 1 stick.
+\end_layout
+
+\begin_layout LyX-Code
+>>> Remaining sticks: 4 <<<
+\end_layout
+
+\begin_layout LyX-Code
+Computer 1, your move.
+\end_layout
+
+\begin_layout LyX-Code
+Computer 1 removes 2 sticks.
+\end_layout
+
+\begin_layout LyX-Code
+>>> Remaining sticks: 2 <<<
+\end_layout
+
+\begin_layout LyX-Code
+Human 1, your move: asdf
+\end_layout
+
+\begin_layout LyX-Code
+You must choose an integer!
+\end_layout
+
+\begin_layout LyX-Code
+Human 1, your move: 1
+\end_layout
+
+\begin_layout LyX-Code
+Human 1 removes 1 stick.
+\end_layout
+
+\begin_layout LyX-Code
+The winner is ...
+ Human 1!
+\end_layout
+
+\begin_layout LyX-Code
+Computer 1: Nooo, I lost!
+\end_layout
+
+\begin_layout LyX-Code
+$
 \end_layout
 
 \begin_layout Section
@@ -405,6 +503,14 @@ Rules Spelets regler.
 \begin_layout Description
 Utils En abstrakt klass som innehåller ett fåtal statiska metoder för t.ex.
  slumptalsgenerering.
+\end_layout
+
+\begin_layout Section
+Programflöde
+\end_layout
+
+\begin_layout Standard
+XXX
 \end_layout
 
 \end_body
