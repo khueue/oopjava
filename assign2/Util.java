@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public abstract class Utils
+public abstract class Util
 {
     public static void
     throwIfNull(Object obj)

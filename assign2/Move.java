@@ -5,7 +5,7 @@ public class Move
     public
     Move(Integer numSticks)
     {
-        Utils.throwIfNull(numSticks);
+        Util.throwIfNull(numSticks);
         this.numSticks = numSticks;
     }
 

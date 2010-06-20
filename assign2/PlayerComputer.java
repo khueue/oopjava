@@ -13,7 +13,7 @@ public class PlayerComputer extends Player
     {
         super(ui, rules, pile);
 
-        Utils.throwIfNull(strategy);
+        Util.throwIfNull(strategy);
         this.strategy = strategy;
     }
 

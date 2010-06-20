@@ -3,4 +3,4 @@ class GameOfNm {}
 class Move {}
 class Nm {}
 class PileOfSticks {}
-abstract class Utils {}
+abstract class Util {}

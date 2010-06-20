@@ -5,7 +5,7 @@ public class PileOfSticks
     public
     PileOfSticks(Integer numSticks)
     {
-        Utils.throwIfNull(numSticks);
+        Util.throwIfNull(numSticks);
         this.numSticks = numSticks;
     }
 

@@ -8,13 +8,13 @@ public abstract class Player implements IPlayer
     public
     Player(IUserInterface ui, Rules rules, PileOfSticks pile)
     {
-        Utils.throwIfNull(ui);
+        Util.throwIfNull(ui);
         this.ui = ui;
 
-        Utils.throwIfNull(rules);
+        Util.throwIfNull(rules);
         this.rules = rules;
 
-        Utils.throwIfNull(pile);
+        Util.throwIfNull(pile);
         this.pile = pile;
 
         this.name = defaultName();
@@ -32,7 +32,7 @@ public abstract class Player implements IPlayer
     public void
     setName(String name)
     {
-        Utils.throwIfNull(name);
+        Util.throwIfNull(name);
         this.name = name;
     }
 

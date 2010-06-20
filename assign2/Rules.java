@@ -5,7 +5,7 @@ public class Rules
     public
     Rules(PileOfSticks pile)
     {
-        Utils.throwIfNull(pile);
+        Util.throwIfNull(pile);
         this.pile = pile;
     }
 

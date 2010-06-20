@@ -15,19 +15,19 @@ public class GameOfNm
         IPlayer playerOne,
         IPlayer playerTwo)
     {
-        Utils.throwIfNull(ui);
+        Util.throwIfNull(ui);
         this.ui = ui;
 
-        Utils.throwIfNull(pile);
+        Util.throwIfNull(pile);
         this.pile = pile;
 
-        Utils.throwIfNull(rules);
+        Util.throwIfNull(rules);
         this.rules = rules;
 
-        Utils.throwIfNull(playerOne);
+        Util.throwIfNull(playerOne);
         this.playerOne = playerOne;
 
-        Utils.throwIfNull(playerTwo);
+        Util.throwIfNull(playerTwo);
         this.playerTwo = playerTwo;
     }
 
@@ -74,7 +74,7 @@ public class GameOfNm
     protected void
     pickStartingPlayerRandomly()
     {
-        Integer rand = Utils.randomIntegerBetween(1, 2);
+        Integer rand = Util.randomIntegerBetween(1, 2);
         for (int i = 0; i < rand; ++i)
         {
             getNextPlayer();
