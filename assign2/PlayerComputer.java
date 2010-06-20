@@ -1,3 +1,8 @@
+/**
+ * OOPJAVA - Assignment 2
+ * Sebastian Lundström (selu7901)
+ */
+
 public class PlayerComputer extends Player
 {
     protected static Integer id = 0; // To differentiate computer players.

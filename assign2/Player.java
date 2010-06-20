@@ -1,3 +1,8 @@
+/**
+ * OOPJAVA - Assignment 2
+ * Sebastian Lundström (selu7901)
+ */
+
 public abstract class Player implements IPlayer
 {
     protected IUserInterface ui;
