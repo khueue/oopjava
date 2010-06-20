@@ -17,7 +17,7 @@
 
 \graphics default
 \paperfontsize default
-\spacing single
+\spacing onehalf
 \use_hyperref false
 \papersize default
 \use_geometry false
@@ -749,6 +749,7 @@ isGameOver() Returnerar sant om spelet är slut, annars falskt.
 \begin_layout Description
 Util En abstrakt klass som innehåller ett fåtal statiska metoder för t.ex.
  slumptalsgenerering.
+ Publika metoder:
 \end_layout
 
 \begin_deeper
