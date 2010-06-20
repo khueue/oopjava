@@ -839,13 +839,5 @@ När en spelare har utfört sitt drag frågar spelloopen reglerna om spelet
  är slut, annars går turen vidare till nästa spelare.
 \end_layout
 
-\begin_layout Section
-Kommentarer
-\end_layout
-
-\begin_layout Standard
-XXX
-\end_layout
-
 \end_body
 \end_document
