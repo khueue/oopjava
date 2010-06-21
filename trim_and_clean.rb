@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby -wKU
+# encoding: UTF-8
 
 if ARGV.empty?
   puts "Usage: ruby #{__FILE__} glob_pattern [glob_pattern ...]"
