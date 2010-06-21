@@ -1,4 +1,4 @@
-#! /usr/bin/env ruby -w
+#!/usr/bin/env ruby -wKU
 
 if ARGV.empty?
   puts "Usage: ruby #{__FILE__} glob_pattern [glob_pattern ...]"
