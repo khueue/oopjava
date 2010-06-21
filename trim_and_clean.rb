@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -wKU
+#!/usr/bin/env ruby -w
 # encoding: UTF-8
 
 if ARGV.empty?
