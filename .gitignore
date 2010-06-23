@@ -1,6 +1,6 @@
 *~
 *#
 javadoc
-**/*.class
-**/*.tar.gz
-**/*.tmproj
+*.class
+*.tar.gz
+*.tmproj
