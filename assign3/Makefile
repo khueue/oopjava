@@ -1,19 +1,20 @@
 all: clean compile run
 
 compile:
-	javac *.java
+	javac cards/*.java
 
 run:
 	clear
+	java cards.Cards
 
-pack: javadoc
-	tar -czvf oopjava-assign3-selu7901.tar.gz *.java *.pdf javadoc Makefile
+pack: clean javadoc
+	tar -czvf oopjava-assign3-selu7901.tar.gz cards/*.java *.pdf javadoc Makefile
 
 javadoc: clean
-	javadoc *.java -d javadoc
+	javadoc cards/*.java -d javadoc
 
 clean:
-	rm -f *.class
+	rm -f cards/*.class
 	rm -f *.tar.gz
 	rm -rf javadoc
-	- ../trim_and_clean.rb **/*.java Makefile
+	- ../trim_and_clean.rb cards/**/*.java Makefile

@@ -1,0 +1,845 @@
+#LyX 1.6.6.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass scrartcl
+\use_default_options true
+\language swedish
+\inputencoding auto
+\font_roman cmr
+\font_sans cmss
+\font_typewriter cmtt
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing onehalf
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language swedish
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Titlehead
+Objektorienterad programmering med Java, 10 hp
+\begin_inset Newline newline
+\end_inset
+
+ST 2010
+\end_layout
+
+\begin_layout Title
+Inlämningsuppgift 3
+\begin_inset Newline newline
+\end_inset
+
+Plocka med kort
+\end_layout
+
+\begin_layout Author
+Sebastian Lundström (selu7901)
+\end_layout
+
+\begin_layout Section
+Inledning
+\end_layout
+
+\begin_layout Standard
+Denna rapport behandlar design och implementation av spelet Nm.
+ Programmet skall implementeras i programmeringsspråket Java.
+ XXX
+\end_layout
+
+\begin_layout Section
+Installation
+\end_layout
+
+\begin_layout Standard
+Dessa instruktioner förutsätter att du befinner dig i en terminal i samma
+ mapp som programmets Java-filer och Makefile.
+ Du förutsätts även ha tillgång till (minst) Java 5 och programmet make.
+ Allt som beskrivs i denna sektion beskrivs i mer detalj i programmets Makefile.
+\end_layout
+
+\begin_layout Standard
+För att både kompilera och köra programmet skrivs enklast:
+\end_layout
+
+\begin_layout LyX-Code
+$ make
+\end_layout
+
+\begin_layout Standard
+Detta kommando kompilerar alla .java-filer och kör sedan det resulterande
+ programmet med 20 stickor.
+ Vill du endast kompilera programmet skriver du:
+\end_layout
+
+\begin_layout LyX-Code
+$ make compile
+\end_layout
+
+\begin_layout Standard
+Vill du endast köra programmet och kunna välja antalet stickor skriver du
+ följande, där 20 förstås kan ändras efter behov:
+\end_layout
+
+\begin_layout LyX-Code
+$ java Nm 20
+\end_layout
+
+\begin_layout Section
+Körexempel
+\end_layout
+
+\begin_layout Standard
+Följande är ett körexempel på en spelomgång mellan en människa och datorn,
+ med 20 stickor:
+\end_layout
+
+\begin_layout LyX-Code
+$ java Nm 20
+\end_layout
+
+\begin_layout LyX-Code
+Welcome to a game of Nm!
+\end_layout
+
+\begin_layout LyX-Code
+>>> Remaining sticks: 20 <<<
+\end_layout
+
+\begin_layout LyX-Code
+Human 1, your move: 10
+\end_layout
+
+\begin_layout LyX-Code
+Human 1 removes 10 sticks.
+\end_layout
+
+\begin_layout LyX-Code
+>>> Remaining sticks: 10 <<<
+\end_layout
+
+\begin_layout LyX-Code
+Computer 1, your move.
+\end_layout
+
+\begin_layout LyX-Code
+Computer 1 removes 5 sticks.
+\end_layout
+
+\begin_layout LyX-Code
+>>> Remaining sticks: 5 <<<
+\end_layout
+
+\begin_layout LyX-Code
+Human 1, your move: 4
+\end_layout
+
+\begin_layout LyX-Code
+You must remove 1 to 2 sticks.
+\end_layout
+
+\begin_layout LyX-Code
+Human 1, your move: 1
+\end_layout
+
+\begin_layout LyX-Code
+Human 1 removes 1 stick.
+\end_layout
+
+\begin_layout LyX-Code
+>>> Remaining sticks: 4 <<<
+\end_layout
+
+\begin_layout LyX-Code
+Computer 1, your move.
+\end_layout
+
+\begin_layout LyX-Code
+Computer 1 removes 2 sticks.
+\end_layout
+
+\begin_layout LyX-Code
+>>> Remaining sticks: 2 <<<
+\end_layout
+
+\begin_layout LyX-Code
+Human 1, your move: asdf
+\end_layout
+
+\begin_layout LyX-Code
+You must choose an integer!
+\end_layout
+
+\begin_layout LyX-Code
+Human 1, your move: 1
+\end_layout
+
+\begin_layout LyX-Code
+Human 1 removes 1 stick.
+\end_layout
+
+\begin_layout LyX-Code
+The winner is ...
+ Human 1!
+\end_layout
+
+\begin_layout LyX-Code
+Computer 1: Nooo, I lost!
+\end_layout
+
+\begin_layout LyX-Code
+$
+\end_layout
+
+\begin_layout Section
+Systemdesign
+\end_layout
+
+\begin_layout Standard
+Här diskuterar jag hur jag valde att utforma klasserna i systemet, och kortfatta
+t om hur de interagerar med varandra.
+\end_layout
+
+\begin_layout Subsection
+Spelare
+\end_layout
+
+\begin_layout Standard
+Enligt specifikationen behövs en abstrakt basklass för spelare, samt två
+ subklasser för människa och dator.
+ Eftersom alla spelare måste bete sig gentemot omvärlden på likartade sätt
+ valde jag att skapa ett spelargränssnitt som basklassen (åtminstone delvis)
+ implementerar.
+ Överallt där någon sorts spelare krävs förväntas alltså ett gränssnitt
+ i stället för någon specifik klass.
+ Se figur:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/khu/School/Desktop/oopjava/assign2/misc/Player.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Klassdiagram över spelare.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+IPlayer
+\emph default
+ definieras enligt följande:
+\end_layout
+
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+takeTurn() Utför ett drag.
+\end_layout
+
+\begin_layout Description
+String
+\begin_inset space ~
+\end_inset
+
+getName() Returnera spelarens namn.
+\end_layout
+
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+setName(String
+\begin_inset space ~
+\end_inset
+
+name) Sätt spelarens namn.
+ Argumentet 
+\emph on
+name
+\emph default
+ måste vara icke-null.
+\end_layout
+
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+won() Notifiera spelaren om att den har vunnit.
+\end_layout
+
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+lost() Notifiera spelaren om att den har förlorat.
+\end_layout
+
+\begin_layout Subsection
+Användargränssnitt
+\end_layout
+
+\begin_layout Standard
+Användargränssnitt är något som kan tänkas ändras i framtiden (med t.ex.
+ grafiska eller nätverksbaserade sådana), så jag upprättade ett gränssnitt
+ även för detta.
+ Det enda som har implementerats är ett gränssnitt för kommandoraden.
+ Se figur:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /Users/khu/School/Desktop/oopjava/assign2/misc/UserInterface.svg
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Klassdiagram över användargränssnitt.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\emph on
+IUserInterface
+\emph default
+ definieras enligt följande:
+\end_layout
+
+\begin_layout Description
+String
+\begin_inset space ~
+\end_inset
+
+promptForString(String
+\begin_inset space ~
+\end_inset
+
+prompt) Visar meddelandet 
+\emph on
+prompt
+\emph default
+ och ber användaren mata in en sträng.
+\end_layout
+
+\begin_layout Description
+Integer
+\begin_inset space ~
+\end_inset
+
+promptForInteger(String
+\begin_inset space ~
+\end_inset
+
+prompt) Visar meddelandet 
+\emph on
+prompt
+\emph default
+ och ber användaren mata in ett heltal.
+\end_layout
+
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+display(String
+\begin_inset space ~
+\end_inset
+
+msg) Visar meddelandet 
+\emph on
+msg
+\emph default
+.
+\end_layout
+
+\begin_layout Subsection
+Spelstrategier
+\end_layout
+
+\begin_layout Standard
+En av de mer intressanta aspekterna i spelet är hur datorspelare väljer
+ sina drag.
+ För att hålla nere onödig koppling mellan klasser valde jag även här ett
+ interface.
+ Tanken är att en datorspelare inte vet något mer om sin strategi än vad
+ interfacet (vilket är minimalt) avslöjar.
+\end_layout
+
+\begin_layout Standard
+När en datorspelare skapas skickas en instans av någon strategi in i dess
+ konstruktor.
+ När datorspelaren sedan skall utföra sitt drag överlåts det till strategin.
+ Detta är en implementation av designmönstret 
+\begin_inset Quotes sld
+\end_inset
+
+strategy
+\begin_inset Quotes srd
+\end_inset
+
+, där tanken är att kapsla in olika algoritmer bakom ett interface.
+ Se figur:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename misc/AiStrategy.svg
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Klassdiagram över datorns spelstrategier.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+IAiStrategy
+\emph default
+ definieras enligt följande:
+\end_layout
+
+\begin_layout Description
+Move
+\begin_inset space ~
+\end_inset
+
+chooseMove(Rules
+\begin_inset space ~
+\end_inset
+
+rules) Väljer ett drag i enlighet med reglerna i 
+\emph on
+rules
+\emph default
+.
+\end_layout
+
+\begin_layout Subsection
+Övrigt
+\end_layout
+
+\begin_layout Standard
+Återstoden av systemet är enstaka klasser:
+\end_layout
+
+\begin_layout Description
+Nm Spelets startklass, vilken innehåller main-metoden.
+ Skapar instanser av relevanta klasser och låter en instans av GameOfNm
+ ta över kontrollen.
+ Publika metoder:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+static
+\begin_inset space ~
+\end_inset
+
+void
+\begin_inset space ~
+\end_inset
+
+main(String[]
+\begin_inset space ~
+\end_inset
+
+args) Anropas när programmet startas.
+\end_layout
+
+\end_deeper
+\begin_layout Description
+GameOfNm Sköter själva spelet.
+ Publika metoder:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+play() Genomför en omgång av spelet.
+\end_layout
+
+\end_deeper
+\begin_layout Description
+PileOfSticks Högen med stickor som spelarna arbetar med.
+ Publika metoder:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+removeSticks(Integer
+\begin_inset space ~
+\end_inset
+
+sticks) Tar bort 
+\emph on
+sticks
+\emph default
+ antal stickor från högen.
+\end_layout
+
+\begin_layout Description
+Integer
+\begin_inset space ~
+\end_inset
+
+sticksLeft() Returnerar antalet stickor kvar i högen.
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Move Ett drag som består av ett antal stickor som en spelare vill plocka
+ från högen.
+ Publika metoder:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+Integer
+\begin_inset space ~
+\end_inset
+
+sticks() Returnerar antalet stickor som draget avser.
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Rules Spelets regler.
+ Bestämmer om ett drag är giltigt, om spelet är slut och kan svara på hur
+ många stickor som får plockas för tillfället.
+ Publika metoder:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+Boolean
+\begin_inset space ~
+\end_inset
+
+isIllegalMove(Move
+\begin_inset space ~
+\end_inset
+
+move) Returnerar sant om draget 
+\emph on
+move
+\emph default
+ är ogiltigt, annars falskt.
+\end_layout
+
+\begin_layout Description
+Integer
+\begin_inset space ~
+\end_inset
+
+minAllowedSticks() Returnerar det minsta antalet stickor som får plockas
+ just nu.
+\end_layout
+
+\begin_layout Description
+Integer
+\begin_inset space ~
+\end_inset
+
+maxAllowedSticks() Returnerar det högsta antalet stickor som får plockas
+ just nu.
+\end_layout
+
+\begin_layout Description
+Boolean
+\begin_inset space ~
+\end_inset
+
+isGameOver() Returnerar sant om spelet är slut, annars falskt.
+\end_layout
+
+\end_deeper
+\begin_layout Description
+Util En abstrakt klass som innehåller ett fåtal statiska metoder för t.ex.
+ slumptalsgenerering.
+ Publika metoder:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+static
+\begin_inset space ~
+\end_inset
+
+void
+\begin_inset space ~
+\end_inset
+
+throwIfNull(Object
+\begin_inset space ~
+\end_inset
+
+obj) Kastar ett IllegalArgumentException om 
+\emph on
+obj
+\emph default
+ är null.
+\end_layout
+
+\begin_layout Description
+static
+\begin_inset space ~
+\end_inset
+
+Integer
+\begin_inset space ~
+\end_inset
+
+randomIntegerBetween(Integer
+\begin_inset space ~
+\end_inset
+
+min,
+\begin_inset space ~
+\end_inset
+
+Integer
+\begin_inset space ~
+\end_inset
+
+max) Returnerar ett slumpmässigt heltal i intervallet 
+\begin_inset Formula $[min,max]$
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Programflöde
+\end_layout
+
+\begin_layout Standard
+Programmet börjar i main-metoden som återfinns i klassen Nm.
+ Den skapar de objekt som själva spelklassen, GameOfNm, behöver.
+ Sedan startas spelet och GameOfNm-instansen tar över.
+\end_layout
+
+\begin_layout Standard
+GameOfNm består i princip av en enkel spelloop.
+ Först slumpas vem av spelarna som skall börja, och gränssnittet ombeds
+ skriva ut något välkomnande till spelarna.
+ Sedan går programmet in i en loop där nästa spelare ombeds utföra sitt
+ drag.
+ När det bara finns en sticka kvar i högen avslutas loopen och vinnaren
+ annonseras.
+ Spelet avslutas.
+\end_layout
+
+\begin_layout Standard
+När en människospelare skall utföra sitt drag läses ett heltal från gränssnittet.
+ Med detta tal skapas ett drag som direkt undersöks genom att rådfråga reglerna.
+ Är draget ogiltigt efterfrågas ett nytt heltal.
+ Till slut utför spelaren draget (som då är giltigt) och turen går vidare.
+\end_layout
+
+\begin_layout Standard
+När en datorspelare skall utföra sitt drag frågar den sin strategiinstans.
+ Strategin förutsätts returnera ett giltigt drag som utförs direkt.
+\end_layout
+
+\begin_layout Standard
+När en spelare har utfört sitt drag frågar spelloopen reglerna om spelet
+ är slut, annars går turen vidare till nästa spelare.
+\end_layout
+
+\end_body
+\end_document
