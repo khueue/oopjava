@@ -9,7 +9,7 @@ import java.util.Random;
 
 public abstract class Util
 {
-    public static void
+    static public void
     throwIfNull(Object obj)
     {
         if (obj == null)
@@ -18,7 +18,7 @@ public abstract class Util
         }
     }
 
-    public static Integer
+    static public Integer
     randomIntegerBetween(Integer min, Integer max)
     {
         Random generator = new Random();

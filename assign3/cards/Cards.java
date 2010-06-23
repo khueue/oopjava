@@ -8,9 +8,9 @@ package cards;
 import java.awt.*;
 import javax.swing.*;
 
-public class Cards
+abstract public class Cards
 {
-    public static void
+    static public void
     main(String[] args)
     {
         Util.throwIfNull(new JFrame("asf"));
