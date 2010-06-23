@@ -1,6 +1,7 @@
 *~
 *#
 javadoc
+img
 *.class
 *.tar.gz
 *.tmproj
