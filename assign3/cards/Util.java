@@ -7,7 +7,7 @@ package cards;
 
 import java.util.Random;
 
-public abstract class Util
+abstract public class Util
 {
     static public void
     throwIfNull(Object obj)
