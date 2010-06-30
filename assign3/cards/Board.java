@@ -5,29 +5,32 @@
 
 package cards;
 
-import java.awt.Graphics;
 import javax.swing.JLayeredPane;
 
 public class Board extends JLayeredPane
 {
+    static protected final String[] RANKS =
+        { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k" };
+
     public
     Board()
     {
-        String[] faces = { "s1",   "d2",   "h3",   "c4",   "jr"   };
-        String[] backs = { "b1fv", "b2fv", "b2fv", "b1fv", "b2fv" };
+        createDeck("d", "b2fv");
+        createDeck("h", "b2fv");
+        createDeck("c", "b1fv");
+        createDeck("s", "b1fv");
+    }
 
-        for (int i = 0; i < faces.length; ++i)
+    protected void
+    createDeck(String prefix, String back)
+    {
+        for (String rank : RANKS)
         {
-            Card c = new Card(this, path(faces[i]), path(backs[i]));
+            String face = prefix + rank;
+            Card c = new Card(this, path(face), path(back));
             c.setLocation(rand(), rand());
             add(c);
         }
-    }
-
-    public void
-    notifyChange(Card card)
-    {
-        moveToFront(card);
     }
 
     protected Integer
@@ -40,5 +43,11 @@ public class Board extends JLayeredPane
     path(String name)
     {
         return "./cards/img/" + name + ".gif";
+    }
+
+    public void
+    notifyChange(Card card)
+    {
+        moveToFront(card);
     }
 }

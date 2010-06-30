@@ -18,6 +18,8 @@ abstract public class Main
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Board board = new Board();
+        board.setSize(500, 500);
+        board.setLayout(null);
         frame.setContentPane(board);
 
         frame.setVisible(true);
