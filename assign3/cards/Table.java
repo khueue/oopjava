@@ -40,18 +40,13 @@ public class Table
     protected void
     setupCards()
     {
-        Card c;
+        String[] faces = { "s1", "s2", "s3", "s4", "s5" };
+        String back = "b1fv";
 
-        c = new Card(path("s1"), path("b1fv"));
-        c.setLocation(rand(), rand());
-        cards.add(c);
-
-        c = new Card(path("s2"), path("b1fv"));
-        c.setLocation(rand(), rand());
-        content.add(c);
-
-        for (Card card : cards)
+        for (String face : faces)
         {
+            Card card = new Card(path(face), path(back));
+            card.setLocation(rand(), rand());
             content.add(card);
         }
     }
