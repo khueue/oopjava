@@ -10,22 +10,36 @@ import javax.swing.*;
 
 public class Table
 {
-    protected JFrame frame;
-    protected JPanel content;
+    protected JFrame frame = new JFrame();
+    protected JPanel content = new JPanel();
     protected Collection<Card> cards = new ArrayList<Card>();
 
     public
     Table()
     {
-        frame = new JFrame();
+        setupFrame();
+        setupContent();
+        setupCards();
+    }
+
+    protected void
+    setupFrame()
+    {
         frame.setLocation(50, 50);
         frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 
-        content = new JPanel();
-        content.setLayout(null);
+    protected void
+    setupContent()
+    {
+        content.setLayout(null); // No weird default layout!
         frame.add(content);
+    }
 
+    protected void
+    setupCards()
+    {
         Card c;
 
         c = new Card(path("s1"), path("b1fv"));
