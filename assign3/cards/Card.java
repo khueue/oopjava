@@ -24,7 +24,7 @@ class Card extends JPanel
         back = new ImageIcon(pathBack);
         setVisibleSide(face);
 
-        MouseListenerCard listener = new MouseListenerCard(this);
+        CardMouseListener listener = new CardMouseListener(this);
         addMouseListener(listener);
         addMouseMotionListener(listener);
     }
