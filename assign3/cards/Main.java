@@ -13,8 +13,8 @@ abstract public class Main
     main(String[] args)
     {
         JFrame frame = new JFrame("Plocka med kort");
-        frame.setLocation(50, 50);
-        frame.setSize(400, 400);
+        frame.setLocation(25, 25);
+        frame.setSize(500, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Board board = new Board();

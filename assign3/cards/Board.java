@@ -34,7 +34,7 @@ public class Board extends JLayeredPane
     protected Integer
     rand()
     {
-        return Util.randomIntegerBetween(0, 300);
+        return Util.randomIntegerBetween(10, 400);
     }
 
     protected String
