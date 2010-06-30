@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseEvent;
 
-class CardMouseListener implements MouseListener, MouseMotionListener
+public class CardMouseListener implements MouseListener, MouseMotionListener
 {
     protected Card card;
     protected Point current;

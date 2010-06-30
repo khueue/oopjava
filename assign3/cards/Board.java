@@ -29,7 +29,7 @@ public class Board extends JLayeredPane
             String face = prefix + rank;
             Card c = new Card(this, path(face), path(back));
             c.setLocation(rand(), rand());
-            add(c);
+            super.add(c);
         }
     }
 
@@ -48,6 +48,6 @@ public class Board extends JLayeredPane
     public void
     notifyChangedCard(Card card)
     {
-        moveToFront(card);
+        super.moveToFront(card);
     }
 }

@@ -9,7 +9,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 
-class Card extends JPanel
+public class Card extends JPanel
 {
     protected Board board;
     protected ImageIcon face;
@@ -25,8 +25,8 @@ class Card extends JPanel
         setVisibleSide(face);
 
         CardMouseListener listener = new CardMouseListener(this);
-        addMouseListener(listener);
-        addMouseMotionListener(listener);
+        super.addMouseListener(listener);
+        super.addMouseMotionListener(listener);
     }
 
     public void
@@ -41,7 +41,7 @@ class Card extends JPanel
     {
         Integer newX = getX() + deltaX;
         Integer newY = getY() + deltaY;
-        setLocation(newX, newY);
+        super.setLocation(newX, newY);
         board.notifyChangedCard(this);
     }
 
@@ -56,7 +56,7 @@ class Card extends JPanel
     setVisibleSide(ImageIcon icon)
     {
         visibleSide = icon;
-        setSize(icon.getIconWidth(), icon.getIconHeight());
+        super.setSize(icon.getIconWidth(), icon.getIconHeight());
     }
 
     protected ImageIcon
