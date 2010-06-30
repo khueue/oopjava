@@ -17,8 +17,8 @@ abstract public class Main
         frame.setSize(400, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Table table = new Table();
-        frame.setContentPane(table);
+        Board board = new Board();
+        frame.setContentPane(board);
 
         frame.setVisible(true);
     }

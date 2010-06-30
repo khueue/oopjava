@@ -11,15 +11,15 @@ import javax.swing.ImageIcon;
 
 class Card extends JPanel
 {
-    protected Table table;
+    protected Board board;
     protected ImageIcon face;
     protected ImageIcon back;
     protected ImageIcon visibleSide;
 
     public
-    Card(Table table, String pathFace, String pathBack)
+    Card(Board board, String pathFace, String pathBack)
     {
-        this.table = table;
+        this.board = board;
         face = new ImageIcon(pathFace);
         back = new ImageIcon(pathBack);
         setVisibleSide(face);
@@ -42,14 +42,14 @@ class Card extends JPanel
         Integer newX = getX() + deltaX;
         Integer newY = getY() + deltaY;
         setLocation(newX, newY);
-        table.notifyChange(this);
+        board.notifyChange(this);
     }
 
     public void
     flip()
     {
         setVisibleSide(otherSide());
-        table.notifyChange(this);
+        board.notifyChange(this);
     }
 
     protected void

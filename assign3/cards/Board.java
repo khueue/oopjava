@@ -9,10 +9,10 @@ import java.util.LinkedList;
 import java.awt.Graphics;
 import javax.swing.JLayeredPane;
 
-public class Table extends JLayeredPane
+public class Board extends JLayeredPane
 {
     public
-    Table()
+    Board()
     {
         String[] faces = { "s1",   "d2",   "h3",   "c4",   "jr"   };
         String[] backs = { "b1fv", "b2fv", "b2fv", "b1fv", "b2fv" };
