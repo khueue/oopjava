@@ -46,7 +46,7 @@ public class Board extends JLayeredPane
     }
 
     public void
-    notifyChange(Card card)
+    notifyChangedCard(Card card)
     {
         moveToFront(card);
     }

@@ -42,14 +42,14 @@ class Card extends JPanel
         Integer newX = getX() + deltaX;
         Integer newY = getY() + deltaY;
         setLocation(newX, newY);
-        board.notifyChange(this);
+        board.notifyChangedCard(this);
     }
 
     public void
     flip()
     {
         setVisibleSide(otherSide());
-        board.notifyChange(this);
+        board.notifyChangedCard(this);
     }
 
     protected void
