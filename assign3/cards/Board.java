@@ -5,7 +5,6 @@
 
 package cards;
 
-import java.util.LinkedList;
 import java.awt.Graphics;
 import javax.swing.JLayeredPane;
 
