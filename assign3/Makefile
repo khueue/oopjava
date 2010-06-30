@@ -5,7 +5,7 @@ compile:
 
 run:
 	clear
-	java cards.Cards
+	java cards.Main
 
 pack: clean javadoc
 	tar -czvf oopjava-assign3-selu7901.tar.gz cards/*.java *.pdf javadoc Makefile
