@@ -9,22 +9,22 @@ import javax.swing.JLayeredPane;
 
 public class Board extends JLayeredPane
 {
-    static protected final String[] RANKS =
+    static protected final String[] CARD_RANKS =
         { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k" };
 
     public
     Board()
     {
-        createDeck("d", "b2fv");
-        createDeck("h", "b2fv");
-        createDeck("c", "b1fv");
-        createDeck("s", "b1fv");
+        createDeck("c", "b1fv"); // Clubs.
+        createDeck("s", "b1fv"); // Spades.
+        createDeck("d", "b2fv"); // Diamonds.
+        createDeck("h", "b2fv"); // Hearts.
     }
 
     protected void
     createDeck(String prefix, String back)
     {
-        for (String rank : RANKS)
+        for (String rank : CARD_RANKS)
         {
             String face = prefix + rank;
             Card c = new Card(this, path(face), path(back));
