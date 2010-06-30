@@ -40,7 +40,11 @@ public class Table
         {
             content.add(card);
         }
+    }
 
+    public void
+    show()
+    {
         frame.setVisible(true);
     }
 
