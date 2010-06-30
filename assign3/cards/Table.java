@@ -40,7 +40,7 @@ public class Table
     protected void
     setupCards()
     {
-        String[] faces = { "s1", "s2", "s3", "s4", "s5" };
+        String[] faces = { "s1", "d2", "h3", "c4", "jb" };
         String back = "b1fv";
 
         for (String face : faces)
