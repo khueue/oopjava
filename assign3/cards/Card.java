@@ -34,6 +34,20 @@ class Card extends JPanel
         setLocation(newX, newY);
     }
 
+    public void
+    paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+        g.drawImage(visibleSide.getImage(), 0, 0, this);
+    }
+
+    public void
+    flip()
+    {
+        setVisibleSide(otherSide());
+        paintComponent(getGraphics());
+    }
+
     protected void
     setVisibleSide(ImageIcon icon)
     {
@@ -41,18 +55,9 @@ class Card extends JPanel
         setSize(icon.getIconWidth(), icon.getIconHeight());
     }
 
-    public void
-    flip()
+    protected ImageIcon
+    otherSide()
     {
-        ImageIcon other = (visibleSide == face) ? back : face;
-        setVisibleSide(other);
-        paintComponent(getGraphics());
-    }
-
-    public void
-    paintComponent(Graphics g)
-    {
-        super.paintComponent(g);
-        g.drawImage(visibleSide.getImage(), 0, 0, this);
+        return (visibleSide == face) ? back : face;
     }
 }
