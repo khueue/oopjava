@@ -5,8 +5,10 @@
 
 package cards;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Point;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseEvent;
 
 class MouseListenerCard implements MouseListener, MouseMotionListener
 {
@@ -17,7 +19,6 @@ class MouseListenerCard implements MouseListener, MouseMotionListener
     public
     MouseListenerCard(Card card)
     {
-        Util.throwIfNull(card);
         this.card = card;
     }
 

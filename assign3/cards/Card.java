@@ -5,18 +5,21 @@
 
 package cards;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Graphics;
+import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 
 class Card extends JPanel
 {
+    protected Table table;
     protected ImageIcon face;
     protected ImageIcon back;
     protected ImageIcon visibleSide;
 
     public
-    Card(String pathFace, String pathBack)
+    Card(Table table, String pathFace, String pathBack)
     {
+        this.table = table;
         face = new ImageIcon(pathFace);
         back = new ImageIcon(pathBack);
         setVisibleSide(face);
@@ -27,14 +30,6 @@ class Card extends JPanel
     }
 
     public void
-    moveByDelta(Integer deltaX, Integer deltaY)
-    {
-        Integer newX = getX() + deltaX;
-        Integer newY = getY() + deltaY;
-        setLocation(newX, newY);
-    }
-
-    public void
     paintComponent(Graphics g)
     {
         super.paintComponent(g);
@@ -42,10 +37,19 @@ class Card extends JPanel
     }
 
     public void
+    moveByDelta(Integer deltaX, Integer deltaY)
+    {
+        Integer newX = getX() + deltaX;
+        Integer newY = getY() + deltaY;
+        setLocation(newX, newY);
+        table.notifyChange(this);
+    }
+
+    public void
     flip()
     {
         setVisibleSide(otherSide());
-        paintComponent(getGraphics());
+        table.notifyChange(this);
     }
 
     protected void

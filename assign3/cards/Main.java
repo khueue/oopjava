@@ -5,15 +5,21 @@
 
 package cards;
 
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.JFrame;
 
 abstract public class Main
 {
     static public void
     main(String[] args)
     {
+        JFrame frame = new JFrame("Plocka med kort");
+        frame.setLocation(50, 50);
+        frame.setSize(400, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         Table table = new Table();
-        table.show();
+        frame.setContentPane(table);
+
+        frame.setVisible(true);
     }
 }

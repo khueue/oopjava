@@ -5,56 +5,30 @@
 
 package cards;
 
-import java.util.*;
-import javax.swing.*;
+import java.util.LinkedList;
+import java.awt.Graphics;
+import javax.swing.JLayeredPane;
 
-public class Table
+public class Table extends JLayeredPane
 {
-    protected JFrame frame = new JFrame();
-    protected JPanel content = new JPanel();
-    protected Collection<Card> cards = new ArrayList<Card>();
-
     public
     Table()
     {
-        setupFrame();
-        setupContent();
-        setupCards();
-    }
+        String[] faces = { "s1",   "d2",   "h3",   "c4",   "jr"   };
+        String[] backs = { "b1fv", "b2fv", "b2fv", "b1fv", "b2fv" };
 
-    protected void
-    setupFrame()
-    {
-        frame.setLocation(50, 50);
-        frame.setSize(400, 400);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    protected void
-    setupContent()
-    {
-        content.setLayout(null); // No weird default layout!
-        frame.add(content);
-    }
-
-    protected void
-    setupCards()
-    {
-        String[] faces = { "s1", "d2", "h3", "c4", "jb" };
-        String back = "b1fv";
-
-        for (String face : faces)
+        for (int i = 0; i < faces.length; ++i)
         {
-            Card card = new Card(path(face), path(back));
-            card.setLocation(rand(), rand());
-            content.add(card);
+            Card c = new Card(this, path(faces[i]), path(backs[i]));
+            c.setLocation(rand(), rand());
+            add(c);
         }
     }
 
     public void
-    show()
+    notifyChange(Card card)
     {
-        frame.setVisible(true);
+        moveToFront(card);
     }
 
     protected Integer
