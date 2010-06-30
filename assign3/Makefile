@@ -17,4 +17,4 @@ clean:
 	rm -f cards/*.class
 	rm -f *.tar.gz
 	rm -rf javadoc
-	- ../trim_and_clean.rb cards/**/*.java Makefile
+	- ../trim_and_clean.rb cards/**/*.java
