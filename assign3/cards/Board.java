@@ -15,14 +15,14 @@ public class Board extends JLayeredPane
     public
     Board()
     {
-        createDeck("c", "b1fv"); // Clubs.
-        createDeck("s", "b1fv"); // Spades.
-        createDeck("d", "b2fv"); // Diamonds.
-        createDeck("h", "b2fv"); // Hearts.
+        createSuit("c", "b1fv"); // Clubs.
+        createSuit("s", "b1fv"); // Spades.
+        createSuit("d", "b2fv"); // Diamonds.
+        createSuit("h", "b2fv"); // Hearts.
     }
 
     protected void
-    createDeck(String prefix, String back)
+    createSuit(String prefix, String back)
     {
         for (String rank : CARD_RANKS)
         {
