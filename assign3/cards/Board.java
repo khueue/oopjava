@@ -5,15 +5,28 @@
 
 package cards;
 
+import java.awt.Color;
 import javax.swing.JLayeredPane;
 
 public class Board extends JLayeredPane
 {
-    static protected final String[] CARD_RANKS =
-        { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "j", "q", "k" };
-
     public
     Board()
+    {
+        configurePanel();
+        createDeck();
+    }
+
+    protected void
+    configurePanel()
+    {
+        setLayout(null); // So we can decide exact positions.
+        setOpaque(true); // Must be opaque for background color.
+        setBackground(Color.green);
+    }
+
+    protected void
+    createDeck()
     {
         createSuit("c", "b1fv"); // Clubs.
         createSuit("s", "b1fv"); // Spades.
@@ -24,6 +37,12 @@ public class Board extends JLayeredPane
     protected void
     createSuit(String prefix, String back)
     {
+        final String[] CARD_RANKS =
+        {
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "j", "q", "k",
+        };
+
         for (String rank : CARD_RANKS)
         {
             String face = prefix + rank;
@@ -42,13 +61,13 @@ public class Board extends JLayeredPane
     protected Integer
     rand()
     {
-        return Util.randomIntegerBetween(10, 400);
+        return Util.randomIntegerBetween(10, 375);
     }
 
     protected String
     path(String name)
     {
-        return "./cards/img/" + name + ".gif";
+        return "./img/" + name + ".gif";
     }
 
     public void

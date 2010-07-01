@@ -34,7 +34,7 @@ public class Card extends JPanel
         super.addMouseMotionListener(listener);
     }
 
-    public void
+    protected void
     paintComponent(Graphics g)
     {
         super.paintComponent(g);
