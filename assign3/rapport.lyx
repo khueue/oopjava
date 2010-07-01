@@ -6,9 +6,9 @@
 \use_default_options true
 \language swedish
 \inputencoding auto
-\font_roman cmr
-\font_sans cmss
-\font_typewriter cmtt
+\font_roman default
+\font_sans default
+\font_typewriter default
 \font_default_family default
 \font_sc false
 \font_osf false
