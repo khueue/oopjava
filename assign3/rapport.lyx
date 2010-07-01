@@ -120,7 +120,7 @@ Systemdesign
 \end_layout
 
 \begin_layout Standard
-I huvudsak valde jag mellan två olika lösningar som beskrivs kort nedan.
+I huvudsak valde jag mellan två olika lösningar som beskrivs nedan.
 \end_layout
 
 \begin_layout Subsection
@@ -128,7 +128,11 @@ Kort som JPanel
 \end_layout
 
 \begin_layout Standard
-Min första idé var att varje kort kan ärva av Swing-komponenten JPanel.
+Min första idé var att varje kort kan ärva av Swing-komponenten 
+\emph on
+JPanel
+\emph default
+.
  Denna lösning gör det enkelt för de olika komponenterna i gränssnittet
  att interagera med varandra, och ansvar kan fördelas ut på ett bra och
  intuitivt sätt.
@@ -143,13 +147,13 @@ En annan lösning är att låta varje kort vara en vanlig klass, ungefär som
  en rektangel som vet sin position, storlek och bilderna som skall visas,
  men inte mycket mer än så.
  I detta fall får man troligtvis skapa en annan övergripande klass som håller
- reda på alla korten och alla händelser.
+ reda på alla kort och alla händelser.
  Denna moderatorklass får då ansvaret att undersöka mushändelser och se
  till att rätt kort påverkas på rätt sätt.
 \end_layout
 
 \begin_layout Subsection
-Lösning
+Lösningsval
 \end_layout
 
 \begin_layout Standard
@@ -161,8 +165,12 @@ JPanel
  att det skulle bli enklare att implementera än alternativet.
 \end_layout
 
+\begin_layout Section
+Klasser
+\end_layout
+
 \begin_layout Standard
-asdfasdfas
+Här beskrivs de viktigaste klasserna i systemet.
 \end_layout
 
 \begin_layout Subsection
@@ -177,7 +185,10 @@ Board
 .
  Den skapar alla kort som skall visas, samt har en metod för att underrättas
  om något kort har ändrats.
- Publika metoder:
+\end_layout
+
+\begin_layout Standard
+Publika metoder:
 \end_layout
 
 \begin_layout Description
@@ -189,7 +200,11 @@ notifyChangedCard(Card
 \begin_inset space ~
 \end_inset
 
-card) Placerar kortet 
+
+\emph on
+card
+\emph default
+) Placerar kortet 
 \emph on
 card
 \emph default
@@ -205,12 +220,19 @@ Kort implementeras i klassen
 \emph on
 Card
 \emph default
+ som ärver av 
+\emph on
+JPanel
+\emph default
 .
  Den skapar, utifrån två sökvägar, två bilder som används som kortets fram-
  och baksida.
  Varje kort skapar en egen instans av en klass som prenumererar på mushändelser.
  Kortet får även en referens tillbaka till bordet som skapar det.
- Publika metoder:
+\end_layout
+
+\begin_layout Standard
+Publika metoder:
 \end_layout
 
 \begin_layout Description
@@ -222,7 +244,11 @@ moveByDelta(Integer
 \begin_inset space ~
 \end_inset
 
-deltaX,
+
+\emph on
+deltaX
+\emph default
+,
 \begin_inset space ~
 \end_inset
 
@@ -230,7 +256,11 @@ Integer
 \begin_inset space ~
 \end_inset
 
-deltaY) Flyttar kortet 
+
+\emph on
+deltaY
+\emph default
+) Flyttar kortet 
 \emph on
 deltaX
 \emph default
@@ -250,6 +280,19 @@ void
 flip() Vänder på kortet samt berättar för bordet att det har uppdaterats.
 \end_layout
 
+\begin_layout Standard
+Kort överskuggar 
+\emph on
+JPanel
+\emph default
+-metoden 
+\emph on
+paintComponent
+\emph default
+ så att när kortet skall ritas upp på skärmen så ritas bilden som associerats
+ med kortets synliga sida.
+\end_layout
+
 \begin_layout Subsection
 Muspekaren
 \end_layout
@@ -259,9 +302,20 @@ Varje kort har en egen muspekarlyssnare som implementeras i klassen
 \emph on
 CardMouseListener
 \emph default
+ som implementerar två interface för att hantera mushändelser: 
+\emph on
+MouseListener
+\emph default
+ och 
+\emph on
+MouseMotionListener
+\emph default
 .
  Lyssnaren får meddelanden om musen försöker manipulera kortet.
- Publika metoder av intresse:
+\end_layout
+
+\begin_layout Standard
+Publika metoder av intresse:
 \end_layout
 
 \begin_layout Description
@@ -273,7 +327,12 @@ mouseClicked(MouseEvent
 \begin_inset space ~
 \end_inset
 
-mouse) Anropas när musen har klickat (tryckts och släppts) på kortet.
+
+\emph on
+mouse
+\emph default
+) Anropas när musen har klickat (tryckts och släppts utan rörelse däremellan)
+ på kortet.
  Kortet ombeds vända på sig.
 \end_layout
 
@@ -286,7 +345,11 @@ mousePressed(MouseEvent
 \begin_inset space ~
 \end_inset
 
-mouse) Anropas när musen trycks ned på ett kort.
+
+\emph on
+mouse
+\emph default
+) Anropas när musen trycks ned på ett kort.
  Sparar musens nuvarande tillstånd så att avstånd kan beräknas när kortet
  börjar flyttas.
 \end_layout
@@ -300,76 +363,16 @@ mouseDragged(MouseEvent
 \begin_inset space ~
 \end_inset
 
-mouse) Anropas när en musknapp redan är nedtryckt och muspekaren rör sig.
+
+\emph on
+mouse
+\emph default
+) Anropas när en musknapp redan är nedtryckt och muspekaren rör sig.
  Avståndet från föregående position beräknas och kortet ombeds flytta på
  sig lämplig sträcka.
 \end_layout
 
-\begin_layout Subsection
-Övrigt
-\end_layout
-
-\begin_layout Standard
-XXX
-\end_layout
-
-\begin_layout Description
-Util En abstrakt klass som innehåller ett fåtal statiska metoder för t.ex.
- slumptalsgenerering.
- Publika metoder:
-\end_layout
-
-\begin_deeper
-\begin_layout Description
-static
-\begin_inset space ~
-\end_inset
-
-void
-\begin_inset space ~
-\end_inset
-
-throwIfNull(Object
-\begin_inset space ~
-\end_inset
-
-obj) Kastar ett IllegalArgumentException om 
-\emph on
-obj
-\emph default
- är null.
-\end_layout
-
-\begin_layout Description
-static
-\begin_inset space ~
-\end_inset
-
-Integer
-\begin_inset space ~
-\end_inset
-
-randomIntegerBetween(Integer
-\begin_inset space ~
-\end_inset
-
-min,
-\begin_inset space ~
-\end_inset
-
-Integer
-\begin_inset space ~
-\end_inset
-
-max) Returnerar ett slumpmässigt heltal i intervallet 
-\begin_inset Formula $[min,max]$
-\end_inset
-
-.
-\end_layout
-
-\end_deeper
-\begin_layout Subsubsection
+\begin_layout Section
 Programflöde
 \end_layout
 
@@ -408,7 +411,7 @@ Eftersom bordet är en
 JLayeredPane
 \emph default
  är det mycket lätt att flytta en komponent så att det ritas ut överst,
- nämligen genom ett anrop till metoden 
+ nämligen genom anropa metoden 
 \emph on
 moveToFront
 \emph default
@@ -426,8 +429,8 @@ containern
 \begin_inset Quotes srd
 \end_inset
 
-, lägga tillbaka det igen, fast överst, och sedan låta kortet rita om sig
- själv.
+, lägga tillbaka det igen, men då överst, och sedan låta kortet rita om
+ sig själv.
 \end_layout
 
 \end_body
