@@ -8,7 +8,7 @@ run:
 	java cards.Main
 
 pack: clean javadoc
-	tar -czvf oopjava-assign3-selu7901.tar.gz cards/*.java *.pdf javadoc Makefile
+	tar -czvf oopjava-assign3-selu7901.tar.gz cards/*.java *.pdf img javadoc Makefile
 
 javadoc: clean
 	javadoc cards/*.java -d javadoc
