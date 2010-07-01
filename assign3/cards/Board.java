@@ -22,7 +22,7 @@ public class Board extends JLayeredPane
     {
         setLayout(null); // So we can decide exact positions.
         setOpaque(true); // Must be opaque for background color.
-        setBackground(Color.green);
+        setBackground(Color.GREEN);
     }
 
     protected void
