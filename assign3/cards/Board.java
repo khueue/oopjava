@@ -46,14 +46,14 @@ public class Board extends JLayeredPane
         for (String rank : CARD_RANKS)
         {
             String face = prefix + rank;
-            createCard(face, back);
+            createCard(path(face), path(back));
         }
     }
 
     protected void
-    createCard(String face, String back)
+    createCard(String faceImagePath, String backImagePath)
     {
-        Card c = new Card(this, path(face), path(back));
+        Card c = new Card(this, faceImagePath, backImagePath);
         c.setLocation(rand(), rand());
         super.add(c);
     }
