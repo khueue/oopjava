@@ -44,8 +44,8 @@ public class Card extends JPanel
     public void
     moveByDelta(Integer dx, Integer dy)
     {
-        Integer newX = getX() + dx;
-        Integer newY = getY() + dy;
+        Integer newX = super.getX() + dx;
+        Integer newY = super.getY() + dy;
         super.setLocation(newX, newY);
         board.notifyChangedCard(this);
     }
