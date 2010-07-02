@@ -59,9 +59,9 @@ public class CardMouseListener implements MouseListener, MouseMotionListener
     protected void
     moveCard()
     {
-        Integer deltaX = (int)(current.getX() - previous.getX());
-        Integer deltaY = (int)(current.getY() - previous.getY());
-        card.moveByDelta(deltaX, deltaY);
+        Integer dx = (int)(current.getX() - previous.getX());
+        Integer dy = (int)(current.getY() - previous.getY());
+        card.moveByDelta(dx, dy);
     }
 
     public void
