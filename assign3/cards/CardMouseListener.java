@@ -52,10 +52,16 @@ public class CardMouseListener implements MouseListener, MouseMotionListener
     mouseDragged(MouseEvent mouse)
     {
         setCurrentState(mouse);
+        moveCard();
+        updatePreviousState();
+    }
+
+    protected void
+    moveCard()
+    {
         Integer deltaX = (int)(current.getX() - previous.getX());
         Integer deltaY = (int)(current.getY() - previous.getY());
         card.moveByDelta(deltaX, deltaY);
-        updatePreviousState();
     }
 
     public void
