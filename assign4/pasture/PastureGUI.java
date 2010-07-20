@@ -152,31 +152,23 @@ public class PastureGUI extends JFrame implements ActionListener
      * entity has been removed from a position. One icon among the
      * icons of the remaining entities is displayed at the position.
      */
-
     public void
     removeEntity(Entity e, Point p)
     {
         ImageIcon icon0 = e.getImage();
 
-        java.util.List<ImageIcon> l = icons.get(p);
-        l.remove(icon0);
+        java.util.List<ImageIcon> list = icons.get(p);
+        list.remove(icon0);
 
-        ImageIcon icon;
-        if (l.isEmpty())
-        {
-            icon = II_EMPTY;
-        }
-        else
-        {
-            icon = l.get(0);
-        }
+        ImageIcon icon = list.isEmpty() ? II_EMPTY : list.get(0);
 
         grid[p.x][p.y].setIcon(icon);
 
         --size;
     }
 
-    public void update()
+    public void
+    update()
     {
         clockLabel.setText("Time: " + engine.getTime());
         entitiesLabel.setText("Entities: " + size);

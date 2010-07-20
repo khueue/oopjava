@@ -37,36 +37,51 @@ public class Pasture
         Engine engine = new Engine(this);
         gui = new PastureGUI(width, height, engine);
 
+        createFence();
+        createOtherEntities();
+    }
+
+    protected void
+    createFence()
+    {
         /* The pasture is surrounded by a fence. Replace Dummy for
          * Fence when you have created that class */
         for (int i = 0; i < width; ++i)
         {
-            addEntity(new Dummy(this, false), new Point(i,0));
-            addEntity(new Dummy(this, false), new Point(i, height - 1));
-        }
-        for (int i = 1; i < height-1; ++i)
-        {
-            addEntity(new Dummy(this, false), new Point(0,i));
-            addEntity(new Dummy(this, false), new Point(width - 1,i));
+            addEntity(new Fence(this), new Point(i, 0));
+            addEntity(new Fence(this), new Point(i, height-1));
         }
 
+        for (int i = 1; i < height-1; ++i)
+        {
+            addEntity(new Fence(this), new Point(0, i));
+            addEntity(new Fence(this), new Point(width-1, i));
+        }
+    }
+
+    protected void
+    createOtherEntities()
+    {
         /*
-         * Now insert the right number of different entities in the
-         * pasture.
+         * Now insert the right number of different entities in the pasture.
          */
-        for (int i = 0; i < dummys; i++)
+        for (int i = 0; i < dummys; ++i)
         {
             Entity dummy = new Dummy(this, true);
             addEntity(dummy, getFreePosition(dummy));
         }
-
-        gui.update();
     }
 
     public void
     refresh()
     {
         gui.update();
+    }
+
+    public void
+    run()
+    {
+        refresh();
     }
 
     /**
@@ -84,28 +99,30 @@ public class Pasture
 
         int p = position.x + (position.y * width);
         int m = height * width;
-        int q = 97; //any large prime will do
+        int q = 97; // any large prime will do
 
         for (int i = 0; i < m; ++i)
         {
-            int j = (p+i*q) % m;
+            int j = (p + i*q) % m;
             int x = j % width;
             int y = j / width;
 
             position = new Point(x,y);
             boolean free = true;
 
-            Collection <Entity> c = getEntitiesAt(position);
+            Collection<Entity> c = getEntitiesAt(position);
             if (c != null)
             {
                 for (Entity thisThing : c)
                 {
-                    if (!toPlace.isCompatible(thisThing))
+                    if (!toPlace.mayShareSpaceWith(thisThing))
                     {
-                        free = false; break;
+                        free = false;
+                        break;
                     }
                 }
             }
+
             if (free)
             {
                 return position;
@@ -239,7 +256,7 @@ public class Pasture
 
         for (Entity old : l)
         {
-            if (!old.isCompatible(e))
+            if (!old.mayShareSpaceWith(e))
             {
                 return false;
             }
@@ -251,12 +268,5 @@ public class Pasture
     getEntityPosition(Entity entity)
     {
         return point.get(entity);
-    }
-
-    /** The method for the JVM to run. */
-    public static void
-    main(String[] args)
-    {
-        new Pasture();
     }
 }

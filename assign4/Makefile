@@ -5,7 +5,7 @@ compile:
 
 run:
 	clear
-	java pasture.Pasture
+	java pasture.Main
 
 pack: clean javadoc
 	tar -czvf oopjava-assign4-selu7901.tar.gz cards/*.java *.pdf img javadoc Makefile

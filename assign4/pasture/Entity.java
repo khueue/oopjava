@@ -9,23 +9,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-/**
- * This is the superclass of all entities in the pasture simulation
- * system. This interface <b>must</b> be implemented by all entities
- * that exist in the simulation of the pasture.
- */
-public interface Entity
+abstract public class Entity implements IEntity
 {
-    public void
-    tick();
+    protected Pasture pasture;
+    protected ImageIcon image;
 
-    /**
-     * ImageIcon returns the icon of this entity, to be displayed by
-     * the pasture gui.
-     */
+    public
+    Entity(Pasture pasture, ImageIcon image)
+    {
+        this.pasture = pasture;
+        this.image   = image;
+    }
+
     public ImageIcon
-    getImage();
+    getImage()
+    {
+        return image;
+    }
 
-    public boolean
-    isCompatible(Entity otherEntity);
+    public Boolean
+    mayShareSpaceWith(Entity entity)
+    {
+        return false;
+    }
 }
