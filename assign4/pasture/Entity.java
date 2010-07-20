@@ -5,9 +5,9 @@
 
 package pasture;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.*;
+import java.awt.*;
+import javax.swing.*;
 
 abstract public class Entity implements IEntity
 {

@@ -19,18 +19,14 @@ public class Pasture
     private final int width = 20;
     private final int height = 20;
 
-    private final int dummys = 20;
+    private final int numSheep = 20;
 
-    private final Set<Entity> world = new HashSet<Entity>();
+    private final Set<Entity> entities = new HashSet<Entity>();
     private final Map<Point, List<Entity>> grid = new HashMap<Point, List<Entity>>();
-    private final Map<Entity, Point> point = new HashMap<Entity, Point>();
+    private final Map<Entity, Point> points = new HashMap<Entity, Point>();
 
     private final PastureGUI gui;
 
-    /**
-     * Creates a new instance of this class and places the entities in
-     * it on random positions.
-     */
     public
     Pasture()
     {
@@ -38,20 +34,30 @@ public class Pasture
         gui = new PastureGUI(width, height, engine);
 
         createFence();
-        createOtherEntities();
+        createSheep();
     }
 
     protected void
     createFence()
     {
-        /* The pasture is surrounded by a fence. Replace Dummy for
-         * Fence when you have created that class */
+        createHorizontalFence();
+        createVerticalFence();
+    }
+
+    protected void
+    createHorizontalFence()
+    {
         for (int i = 0; i < width; ++i)
         {
             addEntity(new Fence(this), new Point(i, 0));
             addEntity(new Fence(this), new Point(i, height-1));
         }
+    }
 
+    protected void
+    createVerticalFence()
+    {
+        // Horizontal fence takes care of the corners.
         for (int i = 1; i < height-1; ++i)
         {
             addEntity(new Fence(this), new Point(0, i));
@@ -60,28 +66,25 @@ public class Pasture
     }
 
     protected void
-    createOtherEntities()
+    createSheep()
     {
-        /*
-         * Now insert the right number of different entities in the pasture.
-         */
-        for (int i = 0; i < dummys; ++i)
+        for (int i = 0; i < numSheep; ++i)
         {
-            Entity dummy = new Dummy(this, true);
-            addEntity(dummy, getFreePosition(dummy));
+            Entity entity = new Sheep(this);
+            addEntity(entity, getFreePosition(entity));
         }
-    }
-
-    public void
-    refresh()
-    {
-        gui.update();
     }
 
     public void
     run()
     {
         refresh();
+    }
+
+    public void
+    refresh()
+    {
+        gui.update();
     }
 
     /**
@@ -95,11 +98,12 @@ public class Pasture
     getFreePosition(Entity toPlace) throws MissingResourceException
     {
         Point position = new Point(
-            (int)(Math.random() * width), (int)(Math.random() * height));
+            (int)(Math.random() * width),
+            (int)(Math.random() * height));
 
         int p = position.x + (position.y * width);
         int m = height * width;
-        int q = 97; // any large prime will do
+        int q = 97; // Any large prime will do.
 
         for (int i = 0; i < m; ++i)
         {
@@ -130,14 +134,15 @@ public class Pasture
         }
 
         throw new MissingResourceException(
-                  "There is no free space"+" left in the pasture",
-                  "Pasture", "");
+            "There is no free space left in the pasture",
+            "Pasture",
+            "");
     }
 
     public Point
-    getPosition(Entity e)
+    getPosition(Entity entity)
     {
-        return point.get(e);
+        return points.get(entity);
     }
 
     /**
@@ -146,43 +151,44 @@ public class Pasture
     public void
     addEntity(Entity entity, Point pos)
     {
-        world.add(entity);
+        entities.add(entity);
 
-        List<Entity> l = grid.get(pos);
-        if (l == null) {
-            l = new  ArrayList<Entity>();
-            grid.put(pos, l);
+        List<Entity> list = grid.get(pos);
+        if (list == null)
+        {
+            list = new ArrayList<Entity>();
+            grid.put(pos, list);
         }
-        l.add(entity);
+        list.add(entity);
 
-        point.put(entity,pos);
+        points.put(entity,pos);
 
         gui.addEntity(entity, pos);
     }
 
     public void
-    moveEntity(Entity e, Point newPos)
+    moveEntity(Entity entity, Point newPos)
     {
-        Point oldPos = point.get(e);
-        List<Entity> l = grid.get(oldPos);
-        if (!l.remove(e))
+        Point oldPos = points.get(entity);
+        List<Entity> list = grid.get(oldPos);
+        if (!list.remove(entity))
         {
-            throw new IllegalStateException("Inconsistent stat in Pasture");
+            throw new IllegalStateException("Inconsistent state in Pasture");
         }
         /* We expect the entity to be at its old position, before we
            move, right? */
 
-        l = grid.get(newPos);
-        if (l == null)
+        list = grid.get(newPos);
+        if (list == null)
         {
-            l = new ArrayList<Entity>();
-            grid.put(newPos, l);
+            list = new ArrayList<Entity>();
+            grid.put(newPos, list);
         }
-        l.add(e);
+        list.add(entity);
 
-        point.put(e, newPos);
+        points.put(entity, newPos);
 
-        gui.moveEntity(e, oldPos, newPos);
+        gui.moveEntity(entity, oldPos, newPos);
     }
 
     /**
@@ -191,10 +197,10 @@ public class Pasture
     public void
     removeEntity(Entity entity)
     {
-        Point p = point.get(entity);
-        world.remove(entity);
+        Point p = points.get(entity);
+        entities.remove(entity);
         grid.get(p).remove(entity);
-        point.remove(entity);
+        points.remove(entity);
         gui.removeEntity(entity, p);
     }
 
@@ -205,21 +211,14 @@ public class Pasture
     public List<Entity>
     getEntities()
     {
-        return new ArrayList<Entity>(world);
+        return new ArrayList<Entity>(entities);
     }
 
     public Collection<Entity>
-    getEntitiesAt(Point lookAt)
+    getEntitiesAt(Point point)
     {
-        Collection<Entity> l = grid.get(lookAt);
-        if (l == null)
-        {
-            return null;
-        }
-        else
-        {
-            return new ArrayList<Entity>(l);
-        }
+        Collection<Entity> coll = grid.get(point);
+        return (coll == null) ? null : new ArrayList<Entity>(coll);
     }
 
     public List<Point>
@@ -241,20 +240,20 @@ public class Pasture
                 }
             }
         }
+
         return free;
     }
 
     private boolean
     freeSpace(Point p, Entity e)
     {
-
-        List <Entity> l = grid.get(p);
-        if (l == null)
+        List <Entity> list = grid.get(p);
+        if (list == null)
         {
             return true;
         }
 
-        for (Entity old : l)
+        for (Entity old : list)
         {
             if (!old.mayShareSpaceWith(e))
             {
@@ -267,6 +266,6 @@ public class Pasture
     public Point
     getEntityPosition(Entity entity)
     {
-        return point.get(entity);
+        return points.get(entity);
     }
 }

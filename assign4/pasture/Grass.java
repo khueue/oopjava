@@ -5,10 +5,19 @@
 
 package pasture;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.*;
+import java.awt.*;
+import javax.swing.*;
 
 public class Grass extends Plant
 {
+    public
+    Grass()
+    {
+    }
+
+    public void
+    tick()
+    {
+    }
 }

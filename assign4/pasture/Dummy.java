@@ -5,9 +5,9 @@
 
 package pasture;
 
+import java.util.*;
 import java.awt.*;
 import javax.swing.*;
-import java.util.*;
 
 // Note that Dummy is a pretty BAD example of object-oriented
 // programming. Instead of having separate classes for stationary and
@@ -16,15 +16,9 @@ import java.util.*;
 
 public class Dummy extends Entity
 {
-    /** The number of ticks this entity should get before moving. */
     private int moveDelay;
     private final boolean alive;
 
-    /**
-     * Creates a new instance of this class, with the given pasture as
-     * its pasture.
-     * @param pasture the pasture this entity should belong to.
-     */
     public
     Dummy(Pasture pasture)
     {
@@ -33,12 +27,6 @@ public class Dummy extends Entity
         moveDelay    = 10;
     }
 
-    /**
-     * Creates a new instance of this class, with the given pasture as
-     * its pasture, and position as its position.
-     * @param pasture the pasture this entity should belong to.
-     * @param position the position of this entity.
-     */
     public
     Dummy(Pasture pasture, boolean alive)
     {
@@ -47,10 +35,6 @@ public class Dummy extends Entity
         moveDelay    = 10;
     }
 
-    /**
-     * Performs the relevant actions of this entity, depending on what
-     * kind of entity it is.
-     */
     public void
     tick()
     {

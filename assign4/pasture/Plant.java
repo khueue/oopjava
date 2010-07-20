@@ -5,10 +5,15 @@
 
 package pasture;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.*;
+import java.awt.*;
+import javax.swing.*;
 
-public class Plant extends Entity
+abstract public class Plant extends Entity
 {
+    public
+    Plant()
+    {
+        super(new Pasture(), new ImageIcon("XXXXX"));
+    }
 }
