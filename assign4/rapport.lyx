@@ -1,0 +1,437 @@
+#LyX 1.6.6.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass scrartcl
+\use_default_options true
+\language swedish
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize default
+\spacing onehalf
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language swedish
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Titlehead
+Objektorienterad programmering med Java, 10 hp
+\begin_inset Newline newline
+\end_inset
+
+ST 2010
+\end_layout
+
+\begin_layout Title
+Inlämningsuppgift 3
+\begin_inset Newline newline
+\end_inset
+
+Plocka med kort
+\end_layout
+
+\begin_layout Author
+Sebastian Lundström (selu7901)
+\end_layout
+
+\begin_layout Section
+Inledning
+\end_layout
+
+\begin_layout Standard
+Denna rapport behandlar design och implementation av ett program där spelkort
+ presenteras grafiskt i ett fönster, och användaren kan vända och flytta
+ på dessa kort med hjälp av muspekaren.
+\end_layout
+
+\begin_layout Standard
+Lösningsförslag har diskuterats med Jon Borglund.
+\end_layout
+
+\begin_layout Section
+Installation
+\end_layout
+
+\begin_layout Standard
+Dessa instruktioner förutsätter att du befinner dig i en terminal i samma
+ mapp som programmets Makefile.
+ Du förutsätts även ha tillgång till Java 5 (eller senare) och programmet
+ make.
+ Allt som beskrivs i denna sektion uttrycks i mer detalj i programmets Makefile.
+\end_layout
+
+\begin_layout Standard
+För att både kompilera och köra programmet skrivs enklast (där $ representerar
+ kommandoprompten):
+\end_layout
+
+\begin_layout LyX-Code
+$ make
+\end_layout
+
+\begin_layout Standard
+Detta kommando kompilerar alla .java-filer och kör sedan det resulterande
+ programmet.
+ Vill du endast kompilera programmet skriver du:
+\end_layout
+
+\begin_layout LyX-Code
+$ make compile
+\end_layout
+
+\begin_layout Standard
+Vill du endast köra programmet skriver du:
+\end_layout
+
+\begin_layout LyX-Code
+$ make run
+\end_layout
+
+\begin_layout Section
+Systemdesign
+\end_layout
+
+\begin_layout Standard
+I huvudsak valde jag mellan två olika lösningar som beskrivs nedan.
+\end_layout
+
+\begin_layout Subsection
+Kort som JPanel
+\end_layout
+
+\begin_layout Standard
+Min första idé var att varje kort kan ärva av Swing-komponenten 
+\emph on
+JPanel
+\emph default
+.
+ Denna lösning gör det enkelt för de olika komponenterna i gränssnittet
+ att interagera med varandra, och ansvar kan fördelas ut på ett bra och
+ intuitivt sätt.
+\end_layout
+
+\begin_layout Subsection
+Kort som vanliga klasser
+\end_layout
+
+\begin_layout Standard
+En annan lösning är att låta varje kort vara en vanlig klass, ungefär som
+ en rektangel som vet sin position, storlek och bilderna som skall visas,
+ men inte mycket mer än så.
+ I detta fall får man troligtvis skapa en annan övergripande klass som håller
+ reda på alla kort och alla händelser.
+ Denna moderatorklass får då ansvaret att undersöka mushändelser och se
+ till att rätt kort påverkas på rätt sätt.
+\end_layout
+
+\begin_layout Subsection
+Lösningsval
+\end_layout
+
+\begin_layout Standard
+Jag valde att implementera varje kort som en 
+\emph on
+JPanel
+\emph default
+ av anledningarna att det kändes uppenbart att göra så, samt att jag hoppades
+ att det skulle bli enklare att implementera än alternativet.
+\end_layout
+
+\begin_layout Section
+Klasser
+\end_layout
+
+\begin_layout Standard
+Här beskrivs de viktigaste klasserna i systemet.
+\end_layout
+
+\begin_layout Subsection
+Spelbordet
+\end_layout
+
+\begin_layout Standard
+Spelbordet implementeras i klassen 
+\emph on
+Board
+\emph default
+.
+ Den skapar alla kort som skall visas, samt har en metod för att underrättas
+ om något kort har ändrats.
+\end_layout
+
+\begin_layout Standard
+Publika metoder:
+\end_layout
+
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+notifyChangedCard(Card
+\begin_inset space ~
+\end_inset
+
+
+\emph on
+card
+\emph default
+) Placerar kortet 
+\emph on
+card
+\emph default
+ överst, så att det inte skyms av några andra kort.
+\end_layout
+
+\begin_layout Subsection
+Kort
+\end_layout
+
+\begin_layout Standard
+Kort implementeras i klassen 
+\emph on
+Card
+\emph default
+ som ärver av 
+\emph on
+JPanel
+\emph default
+.
+ Den skapar, utifrån två sökvägar, två bilder som används som kortets fram-
+ och baksida.
+ Varje kort skapar en egen instans av en klass som prenumererar på mushändelser.
+ Kortet får även en referens tillbaka till bordet som skapar det.
+\end_layout
+
+\begin_layout Standard
+Publika metoder:
+\end_layout
+
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+moveByDelta(Integer
+\begin_inset space ~
+\end_inset
+
+
+\emph on
+deltaX
+\emph default
+,
+\begin_inset space ~
+\end_inset
+
+Integer
+\begin_inset space ~
+\end_inset
+
+
+\emph on
+deltaY
+\emph default
+) Flyttar kortet 
+\emph on
+deltaX
+\emph default
+ pixlar i x-led och 
+\emph on
+deltaY
+\emph default
+ pixlar i y-led.
+ Meddelar sedan bordet att det har uppdaterats.
+\end_layout
+
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+flip() Vänder på kortet samt berättar för bordet att det har uppdaterats.
+\end_layout
+
+\begin_layout Standard
+Kort överskuggar 
+\emph on
+JPanel
+\emph default
+-metoden 
+\emph on
+paintComponent
+\emph default
+ så att när kortet skall ritas upp på skärmen så ritas bilden som associerats
+ med kortets synliga sida.
+\end_layout
+
+\begin_layout Subsection
+Muspekaren
+\end_layout
+
+\begin_layout Standard
+Varje kort har en egen muspekarlyssnare som implementeras i klassen 
+\emph on
+CardMouseListener
+\emph default
+ som implementerar två interface för att hantera mushändelser: 
+\emph on
+MouseListener
+\emph default
+ och 
+\emph on
+MouseMotionListener
+\emph default
+.
+ Lyssnaren får meddelanden om musen försöker manipulera kortet.
+\end_layout
+
+\begin_layout Standard
+Publika metoder av intresse:
+\end_layout
+
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+mouseClicked(MouseEvent
+\begin_inset space ~
+\end_inset
+
+
+\emph on
+mouse
+\emph default
+) Anropas när musen har klickat (tryckts och släppts utan rörelse däremellan)
+ på kortet.
+ Kortet ombeds vända på sig.
+\end_layout
+
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+mousePressed(MouseEvent
+\begin_inset space ~
+\end_inset
+
+
+\emph on
+mouse
+\emph default
+) Anropas när musen trycks ned på ett kort.
+ Sparar musens nuvarande tillstånd så att avstånd kan beräknas när kortet
+ börjar flyttas.
+\end_layout
+
+\begin_layout Description
+void
+\begin_inset space ~
+\end_inset
+
+mouseDragged(MouseEvent
+\begin_inset space ~
+\end_inset
+
+
+\emph on
+mouse
+\emph default
+) Anropas när en musknapp redan är nedtryckt och muspekaren rör sig.
+ Avståndet från föregående position beräknas och kortet ombeds flytta på
+ sig lämplig sträcka.
+\end_layout
+
+\begin_layout Section
+Programflöde
+\end_layout
+
+\begin_layout Standard
+Programmet börjar i 
+\emph on
+main
+\emph default
+-metoden som återfinns i klassen 
+\emph on
+Main
+\emph default
+.
+ Den skapar ett fönster och placerar ett spelbord inuti detta.
+ Fönstret ritas sedan upp.
+\end_layout
+
+\begin_layout Standard
+När bordet skapas konstruerar det i sin tur ett antal kort.
+ Varje kort skapar sina bildikoner och sätter upp en egen lyssnare för mushändel
+ser.
+ På så sätt kan Swing se till att mushändelser rapporteras till rätt kort,
+ d.v.s.
+ kortet som ligger överst under muspekaren.
+\end_layout
+
+\begin_layout Standard
+När en mushändelse fångas upp av ett kort uppdaterar kortet sitt eget tillstånd
+ och avslutar med att meddela bordet att kortet har uppdaterats.
+ Bordet ser då till att kortet hamnar överst.
+\end_layout
+
+\begin_layout Standard
+Eftersom bordet är en 
+\emph on
+JLayeredPane
+\emph default
+ är det mycket lätt att flytta en komponent så att det ritas ut överst,
+ nämligen genom anropa metoden 
+\emph on
+moveToFront
+\emph default
+.
+ Vill man i stället implementera bordet som en 
+\emph on
+JPanel
+\emph default
+ går det lika bra, men då måste man lösa problemet på ett annat sätt, exempelvis
+ genom att plocka bort kortet från den egna 
+\begin_inset Quotes sld
+\end_inset
+
+containern
+\begin_inset Quotes srd
+\end_inset
+
+, lägga tillbaka det igen, men då överst, och sedan låta kortet rita om
+ sig själv.
+\end_layout
+
+\end_body
+\end_document
