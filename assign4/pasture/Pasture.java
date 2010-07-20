@@ -95,13 +95,13 @@ public class Pasture
      * of the board is searched to find a free position.
      */
     private Point
-    getFreePosition(Entity toPlace) throws MissingResourceException
+    getFreePosition(Entity entity) throws MissingResourceException
     {
-        Point position = new Point(
+        Point pos = new Point(
             (int)(Math.random() * width),
             (int)(Math.random() * height));
 
-        int p = position.x + (position.y * width);
+        int p = pos.x + (pos.y * width);
         int m = height * width;
         int q = 97; // Any large prime will do.
 
@@ -111,25 +111,21 @@ public class Pasture
             int x = j % width;
             int y = j / width;
 
-            position = new Point(x,y);
-            boolean free = true;
+            pos = new Point(x, y);
+            Boolean free = true;
 
-            Collection<Entity> c = getEntitiesAt(position);
-            if (c != null)
+            for (Entity occupant : getEntitiesAt(pos))
             {
-                for (Entity thisThing : c)
+                if (!entity.mayShareSpaceWith(occupant))
                 {
-                    if (!toPlace.mayShareSpaceWith(thisThing))
-                    {
-                        free = false;
-                        break;
-                    }
+                    free = false;
+                    break;
                 }
             }
 
             if (free)
             {
-                return position;
+                return pos;
             }
         }
 
@@ -140,14 +136,11 @@ public class Pasture
     }
 
     public Point
-    getPosition(Entity entity)
+    getPositionOfEntity(Entity entity)
     {
         return points.get(entity);
     }
 
-    /**
-     * Add a new entity to the pasture.
-     */
     public void
     addEntity(Entity entity, Point pos)
     {
@@ -169,7 +162,7 @@ public class Pasture
     public void
     moveEntity(Entity entity, Point newPos)
     {
-        Point oldPos = points.get(entity);
+        Point oldPos = getPositionOfEntity(entity);
         List<Entity> list = grid.get(oldPos);
         if (!list.remove(entity))
         {
@@ -191,9 +184,6 @@ public class Pasture
         gui.moveEntity(entity, oldPos, newPos);
     }
 
-    /**
-     * Remove the specified entity from this pasture.
-     */
     public void
     removeEntity(Entity entity)
     {
@@ -218,7 +208,14 @@ public class Pasture
     getEntitiesAt(Point point)
     {
         Collection<Entity> coll = grid.get(point);
-        return (coll == null) ? null : new ArrayList<Entity>(coll);
+        if (coll == null)
+        {
+            return new ArrayList<Entity>();
+        }
+        else
+        {
+            return new ArrayList<Entity>(coll);
+        }
     }
 
     public List<Point>
