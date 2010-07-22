@@ -114,7 +114,7 @@ public class Pasture
             pos = new Point(x, y);
             Boolean free = true;
 
-            for (Entity occupant : getEntitiesAt(pos))
+            for (Entity occupant : getSpaceOccupants(pos))
             {
                 if (!entity.mayShareSpaceWith(occupant))
                 {
@@ -135,63 +135,82 @@ public class Pasture
             "");
     }
 
-    public Point
-    getPositionOfEntity(Entity entity)
-    {
-        return points.get(entity);
-    }
-
     public void
     addEntity(Entity entity, Point pos)
     {
         entities.add(entity);
-
-        List<Entity> list = grid.get(pos);
-        if (list == null)
-        {
-            list = new ArrayList<Entity>();
-            grid.put(pos, list);
-        }
-        list.add(entity);
-
-        points.put(entity,pos);
-
+        addSpaceOccupant(pos, entity);
+        setEntityPosition(entity, pos);
         gui.addEntity(entity, pos);
     }
 
     public void
     moveEntity(Entity entity, Point newPos)
     {
-        Point oldPos = getPositionOfEntity(entity);
-        List<Entity> list = grid.get(oldPos);
-        if (!list.remove(entity))
+        Point oldPos = getEntityPosition(entity);
+
+        if (!removeSpaceOccupant(oldPos, entity))
         {
-            throw new IllegalStateException("Inconsistent state in Pasture");
+            throw new IllegalStateException(
+                "Occupant to be removed was not an occupant!");
         }
-        /* We expect the entity to be at its old position, before we
-           move, right? */
 
-        list = grid.get(newPos);
-        if (list == null)
-        {
-            list = new ArrayList<Entity>();
-            grid.put(newPos, list);
-        }
-        list.add(entity);
-
-        points.put(entity, newPos);
-
+        addSpaceOccupant(newPos, entity);
+        setEntityPosition(entity, newPos);
         gui.moveEntity(entity, oldPos, newPos);
+    }
+
+    protected void
+    addSpaceOccupant(Point pos, Entity entity)
+    {
+        getSpaceOccupants(pos).add(entity);
+    }
+
+    protected Boolean
+    removeSpaceOccupant(Point pos, Entity entity)
+    {
+        return getSpaceOccupants(pos).remove(entity);
+    }
+
+    protected List<Entity>
+    getSpaceOccupants(Point pos)
+    {
+        List<Entity> occupants = grid.get(pos);
+        if (occupants == null)
+        {
+            occupants = new ArrayList<Entity>();
+            grid.put(pos, occupants);
+        }
+        return occupants;
+    }
+
+    protected void
+    setEntityPosition(Entity entity, Point pos)
+    {
+        points.put(entity, pos);
+    }
+
+    public Point
+    getEntityPosition(Entity entity)
+    {
+        return points.get(entity);
+    }
+
+    protected void
+    removeEntityPosition(Entity entity)
+    {
+        points.remove(entity);
     }
 
     public void
     removeEntity(Entity entity)
     {
-        Point p = points.get(entity);
         entities.remove(entity);
-        grid.get(p).remove(entity);
-        points.remove(entity);
-        gui.removeEntity(entity, p);
+
+        Point pos = getEntityPosition(entity);
+        removeSpaceOccupant(pos, entity);
+        removeEntityPosition(entity);
+        gui.removeEntity(entity, pos);
     }
 
     /**
@@ -204,10 +223,11 @@ public class Pasture
         return new ArrayList<Entity>(entities);
     }
 
+    /** /
     public Collection<Entity>
-    getEntitiesAt(Point point)
+    getEntitiesAt(Point pos)
     {
-        Collection<Entity> coll = grid.get(point);
+        Collection<Entity> coll = getSpaceOccupants(pos);
         if (coll == null)
         {
             return new ArrayList<Entity>();
@@ -217,6 +237,7 @@ public class Pasture
             return new ArrayList<Entity>(coll);
         }
     }
+    /**/
 
     public List<Point>
     getFreeNeighbours(Entity entity)
@@ -226,14 +247,14 @@ public class Pasture
         int entityX = getEntityPosition(entity).x;
         int entityY = getEntityPosition(entity).y;
 
-        for (int x = -1; x <= 1; x++)
+        for (int x = -1; x <= 1; ++x)
         {
-            for (int y = -1; y <= 1; y++)
+            for (int y = -1; y <= 1; ++y)
             {
-                Point p = new Point(entityX + x, entityY + y);
-                if (freeSpace(p, entity))
+                Point pos = new Point(entityX + x, entityY + y);
+                if (freeSpace(pos, entity))
                 {
-                    free.add(p);
+                    free.add(pos);
                 }
             }
         }
@@ -242,27 +263,18 @@ public class Pasture
     }
 
     private boolean
-    freeSpace(Point p, Entity e)
+    freeSpace(Point pos, Entity entity)
     {
-        List <Entity> list = grid.get(p);
-        if (list == null)
-        {
-            return true;
-        }
+        List<Entity> occupants = getSpaceOccupants(pos);
 
-        for (Entity old : list)
+        for (Entity occupant : occupants)
         {
-            if (!old.mayShareSpaceWith(e))
+            if (!occupant.mayShareSpaceWith(entity))
             {
                 return false;
             }
         }
-        return true;
-    }
 
-    public Point
-    getEntityPosition(Entity entity)
-    {
-        return points.get(entity);
+        return true;
     }
 }
