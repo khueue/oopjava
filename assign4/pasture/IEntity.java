@@ -18,5 +18,5 @@ public interface IEntity
     getImage();
 
     public Boolean
-    mayShareSpaceWith(Entity entity);
+    maySharePositionWith(Entity entity);
 }

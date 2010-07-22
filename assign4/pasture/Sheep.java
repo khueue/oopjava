@@ -25,11 +25,11 @@ public class Sheep extends Entity
     {
         if (--moveDelay == 0)
         {
-            Point possible =
-                Util.getRandomMember(pasture.getPossibleNeighbours(this));
-            if (possible != null)
+            Point free =
+                Util.getRandomMember(pasture.getFreeAdjacentPositions(this));
+            if (free != null)
             {
-                pasture.moveEntity(this, possible);
+                pasture.moveEntity(this, free);
             }
             moveDelay = 10;
         }

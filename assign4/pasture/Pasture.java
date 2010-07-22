@@ -65,7 +65,7 @@ public class Pasture
         for (int i = 0; i < numSheep; ++i)
         {
             Entity entity = new Sheep(this);
-            addEntity(entity, getRandomPossiblePosition(entity));
+            addEntity(entity, getRandomFreePosition(entity));
         }
     }
 
@@ -88,7 +88,7 @@ public class Pasture
      * board is searched to find a free position.
      */
     private Point
-    getRandomPossiblePosition(Entity entity) throws MissingResourceException
+    getRandomFreePosition(Entity entity) throws MissingResourceException
     {
         Point pos = new Point(
             (int)(Math.random() * width),
@@ -105,11 +105,11 @@ public class Pasture
             int y = j / width;
 
             pos = new Point(x, y);
-            Boolean free = true;
+            boolean free = true;
 
             for (Entity occupant : grid.getOccupants(pos))
             {
-                if (!entity.mayShareSpaceWith(occupant))
+                if (!entity.maySharePositionWith(occupant))
                 {
                     free = false;
                     break;
@@ -123,7 +123,7 @@ public class Pasture
         }
 
         throw new MissingResourceException(
-            "There is no free space left in the pasture",
+            "There is no free space left in the pasture!",
             "Pasture",
             "");
     }
@@ -133,34 +133,25 @@ public class Pasture
     {
         entities.add(entity);
         grid.addOccupant(pos, entity);
-        setEntityPosition(entity, pos);
+        positions.put(entity, pos);
         gui.addEntity(entity, pos);
     }
 
     public void
     moveEntity(Entity entity, Point newPos)
     {
-        Point oldPos = getEntityPosition(entity);
-
-        if (!grid.removeOccupant(oldPos, entity))
-        {
-            throw new IllegalStateException(
-                "Occupant to be removed was not an occupant!");
-        }
-
-        grid.addOccupant(newPos, entity);
-        setEntityPosition(entity, newPos);
-        gui.moveEntity(entity, oldPos, newPos);
+        removeEntity(entity);
+        addEntity(entity, newPos);
     }
 
     public void
     removeEntity(Entity entity)
     {
-        Point pos = getEntityPosition(entity);
+        Point pos = positions.get(entity);
 
         entities.remove(entity);
         grid.removeOccupant(pos, entity);
-        removeEntityPosition(entity);
+        positions.remove(entity);
         gui.removeEntity(entity, pos);
     }
 
@@ -170,38 +161,20 @@ public class Pasture
         return new ArrayList<Entity>(entities);
     }
 
-    private void
-    setEntityPosition(Entity entity, Point pos)
-    {
-        positions.put(entity, pos);
-    }
-
-    private Point
-    getEntityPosition(Entity entity)
-    {
-        return positions.get(entity);
-    }
-
-    private void
-    removeEntityPosition(Entity entity)
-    {
-        positions.remove(entity);
-    }
-
     public List<Point>
-    getPossibleNeighbours(Entity entity)
+    getFreeAdjacentPositions(Entity entity)
     {
         List<Point> free = new ArrayList<Point>();
 
-        int entityX = getEntityPosition(entity).x;
-        int entityY = getEntityPosition(entity).y;
+        int entityX = positions.get(entity).x;
+        int entityY = positions.get(entity).y;
 
         for (int x = -1; x <= 1; ++x)
         {
             for (int y = -1; y <= 1; ++y)
             {
                 Point pos = new Point(entityX + x, entityY + y);
-                if (freeSpace(pos, entity))
+                if (isFreePosition(pos, entity))
                 {
                     free.add(pos);
                 }
@@ -211,16 +184,17 @@ public class Pasture
         return free;
     }
 
-    private boolean
-    freeSpace(Point pos, Entity entity)
+    private Boolean
+    isFreePosition(Point pos, Entity entity)
     {
         for (Entity occupant : grid.getOccupants(pos))
         {
-            if (!occupant.mayShareSpaceWith(entity))
+            if (!occupant.maySharePositionWith(entity))
             {
                 return false;
             }
         }
+
         return true;
     }
 }

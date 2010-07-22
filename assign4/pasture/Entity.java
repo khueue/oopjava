@@ -11,8 +11,8 @@ import javax.swing.*;
 
 abstract public class Entity implements IEntity
 {
-    protected Pasture pasture;
-    protected ImageIcon image;
+    protected final Pasture pasture;
+    protected final ImageIcon image;
 
     public
     Entity(Pasture pasture, ImageIcon image)
@@ -28,7 +28,7 @@ abstract public class Entity implements IEntity
     }
 
     public Boolean
-    mayShareSpaceWith(Entity entity)
+    maySharePositionWith(Entity entity)
     {
         return false;
     }
