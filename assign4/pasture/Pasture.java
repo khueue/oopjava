@@ -22,7 +22,7 @@ public class Pasture
 
     private final Set<Entity> entities = new HashSet<Entity>();
     private final Grid grid;
-    private final Map<Entity, Point> points = new HashMap<Entity, Point>();
+    private final Map<Entity, Point> positions = new HashMap<Entity, Point>();
     private final Gui gui;
 
     public
@@ -71,7 +71,7 @@ public class Pasture
         for (int i = 0; i < numSheep; ++i)
         {
             Entity entity = new Sheep(this);
-            addEntity(entity, getFreePosition(entity));
+            addEntity(entity, getRandomPossiblePosition(entity));
         }
     }
 
@@ -88,14 +88,13 @@ public class Pasture
     }
 
     /**
-     * Returns a random free position in the pasture if there exists
-     * one.
+     * Returns a random free position in the pasture if there exists one.
      *
-     * If the first random position turns out to be occupied, the rest
-     * of the board is searched to find a free position.
+     * If the first random position turns out to be occupied, the rest of the
+     * board is searched to find a free position.
      */
     private Point
-    getFreePosition(Entity entity) throws MissingResourceException
+    getRandomPossiblePosition(Entity entity) throws MissingResourceException
     {
         Point pos = new Point(
             (int)(Math.random() * width),
@@ -163,9 +162,9 @@ public class Pasture
     public void
     removeEntity(Entity entity)
     {
-        entities.remove(entity);
-
         Point pos = getEntityPosition(entity);
+
+        entities.remove(entity);
         grid.removeOccupant(pos, entity);
         removeEntityPosition(entity);
         gui.removeEntity(entity, pos);
@@ -180,23 +179,23 @@ public class Pasture
     private void
     setEntityPosition(Entity entity, Point pos)
     {
-        points.put(entity, pos);
+        positions.put(entity, pos);
     }
 
     private Point
     getEntityPosition(Entity entity)
     {
-        return points.get(entity);
+        return positions.get(entity);
     }
 
     private void
     removeEntityPosition(Entity entity)
     {
-        points.remove(entity);
+        positions.remove(entity);
     }
 
     public List<Point>
-    getFreeNeighbours(Entity entity)
+    getPossibleNeighbours(Entity entity)
     {
         List<Point> free = new ArrayList<Point>();
 

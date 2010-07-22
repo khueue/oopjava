@@ -45,7 +45,8 @@ public class Dummy extends Entity
 
         if (moveDelay == 0)
         {
-            Point neighbour = Util.getRandomMember(pasture.getFreeNeighbours(this));
+            Point neighbour =
+                Util.getRandomMember(pasture.getPossibleNeighbours(this));
             if (neighbour != null)
             {
                 pasture.moveEntity(this, neighbour);
