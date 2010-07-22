@@ -126,7 +126,7 @@ public class Pasture
             int y = j / width;
 
             pos = new Point(x, y);
-            if (isFreePosition(pos, entity))
+            if (entity.mayStandAt(pos))
             {
                 return pos;
             }
