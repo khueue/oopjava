@@ -223,22 +223,6 @@ public class Pasture
         return new ArrayList<Entity>(entities);
     }
 
-    /** /
-    public Collection<Entity>
-    getEntitiesAt(Point pos)
-    {
-        Collection<Entity> coll = getSpaceOccupants(pos);
-        if (coll == null)
-        {
-            return new ArrayList<Entity>();
-        }
-        else
-        {
-            return new ArrayList<Entity>(coll);
-        }
-    }
-    /**/
-
     public List<Point>
     getFreeNeighbours(Entity entity)
     {
@@ -265,16 +249,13 @@ public class Pasture
     private boolean
     freeSpace(Point pos, Entity entity)
     {
-        List<Entity> occupants = getSpaceOccupants(pos);
-
-        for (Entity occupant : occupants)
+        for (Entity occupant : getSpaceOccupants(pos))
         {
             if (!occupant.mayShareSpaceWith(entity))
             {
                 return false;
             }
         }
-
         return true;
     }
 }
