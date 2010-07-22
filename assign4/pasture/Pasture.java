@@ -8,12 +8,6 @@ package pasture;
 import java.util.*;
 import java.awt.Point;
 
-/**
- * A pasture contains sheep, wolves, fences, plants, and possibly
- * other entities. These entities move around in the pasture and try
- * to find food, other entities of the same kind and run away from
- * possible enimies.
- */
 public class Pasture
 {
     private final int width = 20;
