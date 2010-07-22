@@ -12,8 +12,9 @@ import javax.swing.*;
 public class Grass extends Plant
 {
     public
-    Grass()
+    Grass(Pasture pasture)
     {
+        super(pasture, new ImageIcon("img/plant.gif"));
     }
 
     public void

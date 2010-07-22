@@ -9,7 +9,7 @@ import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 
-abstract public class Entity implements IEntity
+abstract public class Entity extends JFrame implements IEntity
 {
     protected final Pasture pasture;
     protected final ImageIcon image;
@@ -28,8 +28,26 @@ abstract public class Entity implements IEntity
     }
 
     public Boolean
+    isHerbivore()
+    {
+        return false;
+    }
+
+    public Boolean
+    isCarnivore()
+    {
+        return false;
+    }
+
+    public Boolean
     maySharePositionWith(Entity entity)
     {
         return false;
+    }
+
+    public Boolean
+    mayStandAt(Point pos)
+    {
+        return pasture.isFreePosition(pos, this);
     }
 }

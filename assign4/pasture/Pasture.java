@@ -12,7 +12,10 @@ public class Pasture
 {
     private final int width = 20;
     private final int height = 20;
-    private final int numSheep = 20;
+
+    private final int numSheep = 15;
+    private final int numWolves = 10;
+    private final int numGrass = 100;
 
     private final Set<Entity> entities = new HashSet<Entity>();
     private final Grid grid;
@@ -29,6 +32,8 @@ public class Pasture
 
         createFence();
         createSheep();
+        createWolves();
+        createGrass();
     }
 
     private void
@@ -69,6 +74,28 @@ public class Pasture
         }
     }
 
+    private void
+    createWolves()
+    {
+        /** /
+        for (int i = 0; i < numWolves; ++i)
+        {
+            Entity entity = new Wolf(this);
+            addEntity(entity, getRandomFreePosition(entity));
+        }
+        /**/
+    }
+
+    private void
+    createGrass()
+    {
+        for (int i = 0; i < numGrass; ++i)
+        {
+            Entity entity = new Grass(this);
+            addEntity(entity, getRandomFreePosition(entity));
+        }
+    }
+
     public void
     run()
     {
@@ -81,12 +108,6 @@ public class Pasture
         gui.update();
     }
 
-    /**
-     * Returns a random free position in the pasture if there exists one.
-     *
-     * If the first random position turns out to be occupied, the rest of the
-     * board is searched to find a free position.
-     */
     private Point
     getRandomFreePosition(Entity entity) throws MissingResourceException
     {
@@ -127,21 +148,20 @@ public class Pasture
     }
 
     public void
-    moveEntity(Entity entity, Point newPos)
-    {
-        removeEntity(entity);
-        addEntity(entity, newPos);
-    }
-
-    public void
     removeEntity(Entity entity)
     {
         Point pos = positions.get(entity);
-
         entities.remove(entity);
         grid.removeOccupant(pos, entity);
         positions.remove(entity);
         gui.removeEntity(entity, pos);
+    }
+
+    public void
+    moveEntity(Entity entity, Point newPos)
+    {
+        removeEntity(entity);
+        addEntity(entity, newPos);
     }
 
     public List<Entity>
@@ -155,17 +175,20 @@ public class Pasture
     {
         List<Point> free = new ArrayList<Point>();
 
-        int entityX = positions.get(entity).x;
-        int entityY = positions.get(entity).y;
+        Point origin = positions.get(entity);
 
         for (int x = -1; x <= 1; ++x)
         {
             for (int y = -1; y <= 1; ++y)
             {
-                Point pos = new Point(entityX + x, entityY + y);
-                if (isFreePosition(pos, entity))
+                // You are not adjacent to yourself.
+                if (!(x == 0 && y == 0))
                 {
-                    free.add(pos);
+                    Point pos = new Point(origin.x + x, origin.y + y);
+                    if (entity.mayStandAt(pos))
+                    {
+                        free.add(pos);
+                    }
                 }
             }
         }
@@ -173,12 +196,26 @@ public class Pasture
         return free;
     }
 
-    private Boolean
+    public List<Entity>
+    getFriends(Entity entity) // XXXXXXX rename
+    {
+        List<Entity> friends = new ArrayList<Entity>();
+        for (Entity occupant : grid.getOccupants(positions.get(entity)))
+        {
+            if (occupant != entity)
+            {
+                friends.add(occupant);
+            }
+        }
+        return friends;
+    }
+
+    public Boolean
     isFreePosition(Point pos, Entity entity)
     {
         for (Entity occupant : grid.getOccupants(pos))
         {
-            if (!occupant.maySharePositionWith(entity))
+            if (!entity.maySharePositionWith(occupant))
             {
                 return false;
             }

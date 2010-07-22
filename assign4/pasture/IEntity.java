@@ -19,4 +19,7 @@ public interface IEntity
 
     public Boolean
     maySharePositionWith(Entity entity);
+
+    public Boolean
+    mayStandAt(Point pos);
 }

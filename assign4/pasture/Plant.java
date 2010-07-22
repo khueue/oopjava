@@ -12,8 +12,14 @@ import javax.swing.*;
 abstract public class Plant extends Entity
 {
     public
-    Plant()
+    Plant(Pasture pasture, ImageIcon image)
     {
-        super(new Pasture(), new ImageIcon("XXXXX"));
+        super(pasture, image);
+    }
+
+    public Boolean
+    maySharePositionWith(Entity entity)
+    {
+        return !(entity instanceof Fence);
     }
 }
