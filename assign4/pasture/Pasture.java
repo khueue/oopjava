@@ -213,10 +213,6 @@ public class Pasture
         gui.removeEntity(entity, pos);
     }
 
-    /**
-     * Various methods for getting information about the pasture
-     */
-
     public List<Entity>
     getEntities()
     {
