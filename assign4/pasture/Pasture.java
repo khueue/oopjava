@@ -105,18 +105,7 @@ public class Pasture
             int y = j / width;
 
             pos = new Point(x, y);
-            boolean free = true;
-
-            for (Entity occupant : grid.getOccupants(pos))
-            {
-                if (!entity.maySharePositionWith(occupant))
-                {
-                    free = false;
-                    break;
-                }
-            }
-
-            if (free)
+            if (isFreePosition(pos, entity))
             {
                 return pos;
             }
