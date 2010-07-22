@@ -177,6 +177,7 @@ public class Pasture
 
         Point origin = positions.get(entity);
 
+        // Offsets relative to origin.
         for (int x = -1; x <= 1; ++x)
         {
             for (int y = -1; y <= 1; ++y)

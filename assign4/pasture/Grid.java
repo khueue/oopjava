@@ -15,7 +15,7 @@ public class Grid
 
     /**
      * This method ensures that we never have to deal with null: the list is
-     * either empty or non-empty.
+     * either empty or non-empty, but never null.
      */
     public List<Entity>
     getOccupants(Point pos)
