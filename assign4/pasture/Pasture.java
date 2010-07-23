@@ -10,28 +10,28 @@ import java.awt.Point;
 
 public class Pasture
 {
-    private final Integer width = 20;
-    private final Integer height = 20;
+    private final Integer width = 35;
+    private final Integer height = 24;
 
-    private final Integer numSheep = 15;
+    private final Integer numSheep = 3;
     private final Integer numWolves = 10;
     private final Integer numGrass = 100;
 
     private final Set<Entity> entities = new HashSet<Entity>();
-    private final Grid grid;
+    private final Grid grid = new Grid();
     private final Map<Entity, Point> positions = new HashMap<Entity, Point>();
     private final Gui gui;
 
     public
     Pasture()
     {
-        grid = new Grid();
         gui = new Gui(width, height, new Engine(this));
 
+        // Order of creation determines what is visible.
         createFence();
+        createGrass();
         createSheep();
         createWolves();
-        createGrass();
     }
 
     private void
@@ -148,7 +148,7 @@ public class Pasture
     public void
     removeEntity(Entity entity)
     {
-        Point pos = positions.get(entity);
+        Point pos = entity.getPosition();
         entities.remove(entity);
         grid.removeOccupant(pos, entity);
         positions.remove(entity);
@@ -173,7 +173,7 @@ public class Pasture
     {
         List<Point> free = new ArrayList<Point>();
 
-        Point origin = positions.get(entity);
+        Point origin = entity.getPosition();
 
         // Offsets relative to origin.
         for (int x = -1; x <= 1; ++x)
@@ -195,11 +195,17 @@ public class Pasture
         return free;
     }
 
+    public Point
+    getEntityPosition(Entity entity)
+    {
+        return positions.get(entity);
+    }
+
     public List<Entity>
-    getOtherEntitiesAtSamePosition(Entity entity) // XXXXXXX rename
+    getOtherEntitiesAtSamePosition(Entity entity)
     {
         List<Entity> friends = new ArrayList<Entity>();
-        for (Entity occupant : grid.getOccupants(positions.get(entity)))
+        for (Entity occupant : grid.getOccupants(entity.getPosition()))
         {
             if (occupant != entity)
             {

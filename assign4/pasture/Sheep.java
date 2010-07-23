@@ -14,20 +14,25 @@ public class Sheep extends Entity
     public final Integer TICKS_BETWEEN_MOVES = 5;
 
     protected Integer ticksUntilMove;
+    protected Integer ticksUntilReproduce;
 
     public
     Sheep(Pasture pasture)
     {
         super(pasture, new ImageIcon("img/sheep.gif"));
         ticksUntilMove = TICKS_BETWEEN_MOVES;
+        ticksUntilReproduce = (int)(1000 * Math.random()) + 100;
     }
 
     public void
     tick()
     {
-        move();
-        eat();
-        procreate();
+        if (!isRemoved())
+        {
+            move();
+            eat();
+            reproduce();
+        }
     }
 
     public Boolean
@@ -72,7 +77,19 @@ public class Sheep extends Entity
     }
 
     public void
-    procreate()
+    reproduce()
     {
+        if (--ticksUntilReproduce == 0)
+        {
+            List<Point> freeAdjacent = pasture.getFreeAdjacentPositions(this);
+            if (freeAdjacent.size() > 0)
+            {
+                Entity entity = new Sheep(pasture);
+                Point pos = Util.getRandomMember(freeAdjacent);
+                pasture.addEntity(entity, pos);
+            }
+
+            ticksUntilReproduce = (int)(1000 * Math.random()) + 100;
+        }
     }
 }

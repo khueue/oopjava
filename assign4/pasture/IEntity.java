@@ -22,4 +22,7 @@ public interface IEntity
 
     public Boolean
     mayStandAt(Point pos);
+
+    public Point
+    getPosition();
 }

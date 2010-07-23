@@ -21,6 +21,12 @@ abstract public class Entity extends JFrame implements IEntity
         this.image   = image;
     }
 
+    public Boolean
+    isRemoved()
+    {
+        return getPosition() == null;
+    }
+
     public ImageIcon
     getImage()
     {
@@ -37,6 +43,12 @@ abstract public class Entity extends JFrame implements IEntity
     isCarnivore()
     {
         return false;
+    }
+
+    public Point
+    getPosition()
+    {
+        return pasture.getEntityPosition(this);
     }
 
     public Boolean
