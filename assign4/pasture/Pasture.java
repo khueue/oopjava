@@ -170,30 +170,44 @@ public class Pasture
     }
 
     public List<Point>
-    getFreeAdjacentPositions(Entity entity)
+    getNearestPositions(Point origin, Integer range)
     {
-        List<Point> free = new ArrayList<Point>();
-
-        Point origin = entity.getPosition();
+        List<Point> nearest = new ArrayList<Point>();
 
         // Offsets relative to origin.
-        for (int x = -1; x <= 1; ++x)
+        for (int x = -range; x <= range; ++x)
         {
-            for (int y = -1; y <= 1; ++y)
+            for (int y = -range; y <= range; ++y)
             {
-                // You are not adjacent to yourself.
-                if (!(x == 0 && y == 0))
-                {
-                    Point pos = new Point(origin.x + x, origin.y + y);
-                    if (entity.mayStandAt(pos))
-                    {
-                        free.add(pos);
-                    }
-                }
+                Point pos = new Point(origin.x + x, origin.y + y);
+                nearest.add(pos);
             }
         }
 
-        return free;
+        return nearest;
+    }
+
+    public List<Point>
+    getNearestFreePositions(Entity entity, Integer range)
+    {
+        Point pos = entity.getPosition();
+        List<Point> nearest = getNearestPositions(pos, range);
+        return removeNonFreePositions(nearest, entity);
+    }
+
+    private List<Point>
+    removeNonFreePositions(List<Point> positions, Entity entity)
+    {
+        Iterator<Point> it = positions.iterator();
+        while (it.hasNext())
+        {
+            Point pos = it.next();
+            if (!entity.mayStandAt(pos))
+            {
+                it.remove();
+            }
+        }
+        return positions;
     }
 
     public Point

@@ -52,7 +52,7 @@ public class Sheep extends Entity
     {
         if (--ticksUntilMove == 0)
         {
-            List<Point> freeAdjacent = pasture.getFreeAdjacentPositions(this);
+            List<Point> freeAdjacent = pasture.getNearestFreePositions(this, 1);
             Point pos = Util.getRandomMember(freeAdjacent);
             if (pos != null)
             {
@@ -81,7 +81,7 @@ public class Sheep extends Entity
     {
         if (--ticksUntilReproduce == 0)
         {
-            List<Point> freeAdjacent = pasture.getFreeAdjacentPositions(this);
+            List<Point> freeAdjacent = pasture.getNearestFreePositions(this, 1);
             if (freeAdjacent.size() > 0)
             {
                 Entity entity = new Sheep(pasture);

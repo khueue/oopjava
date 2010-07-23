@@ -67,9 +67,10 @@ public class Gui extends JFrame implements ActionListener
         {
             for (int x = 0; x < width; ++x)
             {
-                grid[x][y] = new JLabel(ICON_EMPTY);
-                grid[x][y].setVisible(true);
-                field.add(grid[x][y]);
+                JLabel label = new JLabel(ICON_EMPTY);
+                label.setVisible(true);
+                field.add(label);
+                grid[x][y] = label;
             }
         }
 
