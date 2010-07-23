@@ -12,7 +12,7 @@ import javax.swing.*;
 
 public class Gui extends JFrame implements ActionListener
 {
-    private final ImageIcon II_EMPTY = new ImageIcon("img/empty.gif");
+    private final ImageIcon ICON_EMPTY = new ImageIcon("img/empty.gif");
     private final int SCALE = 30;
     private final Engine engine;
 
@@ -44,14 +44,14 @@ public class Gui extends JFrame implements ActionListener
 
         this.engine = engine;
 
-        setSize(width * SCALE, height * SCALE);
+        setSize(width*SCALE, height*SCALE);
 
         startButton.addActionListener(this);
         stopButton.addActionListener(this);
         exitButton.addActionListener(this);
 
         JPanel buttons = new JPanel();
-        buttons.setLayout(new GridLayout(1,5));
+        buttons.setLayout(new GridLayout(1, 5));
         buttons.add(clockLabel);
         buttons.add(entitiesLabel);
         buttons.add(startButton);
@@ -59,25 +59,26 @@ public class Gui extends JFrame implements ActionListener
         buttons.add(exitButton);
 
         JPanel field = new JPanel();
-        field.setBackground(new Color(27,204,89));
+        field.setBackground(new Color(27, 204, 89));
         field.setLayout(new GridLayout(height, width));
         grid = new JLabel[width][height];
 
-        for (int y = 0; y < height; y++)
+        for (int y = 0; y < height; ++y)
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < width; ++x)
             {
-                grid[x][y] = new JLabel(II_EMPTY);
+                grid[x][y] = new JLabel(ICON_EMPTY);
                 grid[x][y].setVisible(true);
                 field.add(grid[x][y]);
             }
         }
 
+        // Create a JLayeredPane so we can control z-order.
         display = new JLayeredPane();
-        display.setBackground(new Color(27,204,89));
+        display.setBackground(new Color(27, 204, 89));
         display.setLayout(new BorderLayout());
-        display.add(field,BorderLayout.CENTER);
-        display.add(buttons,BorderLayout.SOUTH);
+        display.add(field, BorderLayout.CENTER);
+        display.add(buttons, BorderLayout.SOUTH);
         add(display);
 
         startButton.setEnabled(true);
@@ -124,32 +125,24 @@ public class Gui extends JFrame implements ActionListener
      * has been added to a position. The icon of the added entity is
      * displayed at the position.
      */
-
     public void
-    addEntity(Entity e, Point p)
+    addEntity(Entity entity, Point pos)
     {
-        ImageIcon icon = e.getImage();
+        ImageIcon icon = entity.getImage();
 
-        java.util.List<ImageIcon> l = icons.get(p);
-        if (l == null)
+        java.util.List<ImageIcon> list = icons.get(pos);
+        if (list == null)
         {
-            l = new ArrayList<ImageIcon>();
-            icons.put(p, l);
+            list = new ArrayList<ImageIcon>();
+            icons.put(pos, list);
         }
-        l.add(icon);
+        list.add(icon);
 
-        grid[p.x][p.y].setIcon(icon);
+        grid[pos.x][pos.y].setIcon(icon);
 
         ++size;
 
-        display.moveToFront(e);
-    }
-
-    public void
-    moveEntity(Entity e, Point old, Point ny)
-    {
-        removeEntity(e, old);
-        addEntity(e, ny);
+        display.moveToFront(entity);
     }
 
     /**
@@ -158,18 +151,24 @@ public class Gui extends JFrame implements ActionListener
      * icons of the remaining entities is displayed at the position.
      */
     public void
-    removeEntity(Entity e, Point p)
+    removeEntity(Entity entity, Point pos)
     {
-        ImageIcon icon0 = e.getImage();
+        ImageIcon icon = entity.getImage();
 
-        java.util.List<ImageIcon> list = icons.get(p);
-        list.remove(icon0);
+        java.util.List<ImageIcon> list = icons.get(pos);
+        list.remove(icon);
 
-        ImageIcon icon = list.isEmpty() ? II_EMPTY : list.get(0);
-
-        grid[p.x][p.y].setIcon(icon);
+        icon = list.isEmpty() ? ICON_EMPTY : list.get(0);
+        grid[pos.x][pos.y].setIcon(icon);
 
         --size;
+    }
+
+    public void
+    moveEntity(Entity entity, Point oldPos, Point newPos)
+    {
+        removeEntity(entity, oldPos);
+        addEntity(entity, newPos);
     }
 
     public void

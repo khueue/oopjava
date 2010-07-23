@@ -19,12 +19,12 @@ import java.awt.event.*;
  */
 public class Engine implements ActionListener
 {
-    private final int SPEED_REFERENCE = 1000; /* 1000 */
-    private final int speed = 10;
-    private final Timer timer = new Timer(SPEED_REFERENCE/speed,this);
-    private int time = 0;
+    private final Integer SPEED_REFERENCE = 1000;
+    private final Integer SPEED = 10;
+    private final Timer timer = new Timer(SPEED_REFERENCE/SPEED, this);
+    private Integer time = 0;
 
-    private Pasture pasture;
+    private final Pasture pasture;
 
     public
     Engine(Pasture pasture)
@@ -35,25 +35,24 @@ public class Engine implements ActionListener
     public void
     actionPerformed(ActionEvent event)
     {
-        List<Entity> queue = pasture.getEntities();
-        for (Entity e : queue)
+        for (Entity entity : pasture.getEntities())
         {
-            e.tick();
+            entity.tick();
         }
         pasture.refresh();
         ++time;
     }
 
     public void
-    setSpeed(int speed)
+    setSpeed(Integer speed)
     {
-        timer.setDelay(SPEED_REFERENCE/speed);
+        timer.setDelay(SPEED_REFERENCE / speed);
     }
 
     public void
     start()
     {
-        setSpeed(speed);
+        setSpeed(SPEED);
         timer.start();
     }
 
@@ -63,7 +62,7 @@ public class Engine implements ActionListener
         timer.stop();
     }
 
-    public int
+    public Integer
     getTime()
     {
         return time;

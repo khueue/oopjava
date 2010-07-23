@@ -10,12 +10,12 @@ import java.awt.Point;
 
 public class Pasture
 {
-    private final int width = 20;
-    private final int height = 20;
+    private final Integer width = 20;
+    private final Integer height = 20;
 
-    private final int numSheep = 15;
-    private final int numWolves = 10;
-    private final int numGrass = 100;
+    private final Integer numSheep = 15;
+    private final Integer numWolves = 10;
+    private final Integer numGrass = 100;
 
     private final Set<Entity> entities = new HashSet<Entity>();
     private final Grid grid;
@@ -26,9 +26,7 @@ public class Pasture
     Pasture()
     {
         grid = new Grid();
-
-        Engine engine = new Engine(this);
-        gui = new Gui(width, height, engine);
+        gui = new Gui(width, height, new Engine(this));
 
         createFence();
         createSheep();
@@ -198,7 +196,7 @@ public class Pasture
     }
 
     public List<Entity>
-    getFriends(Entity entity) // XXXXXXX rename
+    getOtherEntitiesAtSamePosition(Entity entity) // XXXXXXX rename
     {
         List<Entity> friends = new ArrayList<Entity>();
         for (Entity occupant : grid.getOccupants(positions.get(entity)))

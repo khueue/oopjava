@@ -61,7 +61,7 @@ public class Sheep extends Entity
     public void
     eat()
     {
-        List<Entity> victims = pasture.getFriends(this);
+        List<Entity> victims = pasture.getOtherEntitiesAtSamePosition(this);
         for (Entity victim : victims)
         {
             if (victim instanceof Grass)
