@@ -28,7 +28,7 @@ public class Gui extends JFrame implements ActionListener
 
     private final int height;
     private final int width;
-    private int size = 0;
+    private int numEntities = 0;
 
     private final JLayeredPane display;
 
@@ -140,7 +140,7 @@ public class Gui extends JFrame implements ActionListener
 
         grid[pos.x][pos.y].setIcon(icon);
 
-        ++size;
+        ++numEntities;
 
         display.moveToFront(entity);
     }
@@ -161,7 +161,7 @@ public class Gui extends JFrame implements ActionListener
         icon = list.isEmpty() ? ICON_EMPTY : list.get(0);
         grid[pos.x][pos.y].setIcon(icon);
 
-        --size;
+        --numEntities;
     }
 
     public void
@@ -175,6 +175,6 @@ public class Gui extends JFrame implements ActionListener
     update()
     {
         clockLabel.setText("Time: " + engine.getTime());
-        entitiesLabel.setText("Entities: " + size);
+        entitiesLabel.setText("Entities: " + numEntities);
     }
 }
