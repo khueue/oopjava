@@ -149,6 +149,7 @@ public class Pasture
     removeEntity(Entity entity)
     {
         Point pos = entity.getPosition();
+
         entities.remove(entity);
         grid.removeOccupant(pos, entity);
         positions.remove(entity);

@@ -57,7 +57,6 @@ public class Sheep extends Entity
             if (pos != null)
             {
                 pasture.moveEntity(this, pos);
-                pasture.removeEntity(this);
             }
 
             ticksUntilMove = TICKS_BETWEEN_MOVES;
