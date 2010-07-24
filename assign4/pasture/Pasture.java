@@ -174,12 +174,12 @@ public class Pasture
     }
 
     public List<Point>
-    getNearestPositions(Point origin, Integer range)
+    getNearestPositions(Point origin, Integer radius)
     {
         List<Point> nearest = new ArrayList<Point>();
-        for (int x = -range; x <= range; ++x)
+        for (int x = -radius; x <= radius; ++x)
         {
-            for (int y = -range; y <= range; ++y)
+            for (int y = -radius; y <= radius; ++y)
             {
                 Point pos = new Point(origin.x + x, origin.y + y);
                 nearest.add(pos);
@@ -189,10 +189,10 @@ public class Pasture
     }
 
     public List<Point>
-    getNearestSafePositions(Entity entity, Integer range)
+    getNearestSafePositions(Entity entity, Integer radius)
     {
         Point pos = entity.getPosition();
-        List<Point> nearest = getNearestPositions(pos, range);
+        List<Point> nearest = getNearestPositions(pos, radius);
         return removeNonSafePositions(nearest, entity);
     }
 
