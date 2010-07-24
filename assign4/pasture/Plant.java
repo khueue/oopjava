@@ -9,7 +9,7 @@ import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 
-abstract public class Plant extends Entity
+abstract public class Plant extends ImmobileEntity
 {
     public
     Plant(Pasture pasture, ImageIcon image)

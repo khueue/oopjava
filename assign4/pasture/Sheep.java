@@ -9,7 +9,7 @@ import java.util.*;
 import java.awt.Point;
 import javax.swing.ImageIcon;
 
-public class Sheep extends Entity
+public class Sheep extends MobileEntity
 {
     public final Integer TICKS_BETWEEN_MOVES = 5;
 
@@ -52,8 +52,8 @@ public class Sheep extends Entity
     {
         if (--ticksUntilMove == 0)
         {
-            List<Point> freeAdjacent = pasture.getNearestFreePositions(this, 1);
-            Point pos = Util.getRandomMember(freeAdjacent);
+            List<Point> safe = pasture.getNearestSafePositions(this, 1);
+            Point pos = Util.getRandomMember(safe);
             if (pos != null)
             {
                 pasture.moveEntity(this, pos);
@@ -81,11 +81,11 @@ public class Sheep extends Entity
     {
         if (--ticksUntilReproduce == 0)
         {
-            List<Point> freeAdjacent = pasture.getNearestFreePositions(this, 1);
-            if (freeAdjacent.size() > 0)
+            List<Point> safe = pasture.getNearestSafePositions(this, 1);
+            if (safe.size() > 0)
             {
                 Entity entity = new Sheep(pasture);
-                Point pos = Util.getRandomMember(freeAdjacent);
+                Point pos = Util.getRandomMember(safe);
                 pasture.addEntity(entity, pos);
             }
 

@@ -68,20 +68,18 @@ public class Pasture
         for (int i = 0; i < numSheep; ++i)
         {
             Entity entity = new Sheep(this);
-            addEntity(entity, getRandomFreePosition(entity));
+            addEntity(entity, getRandomSafePosition(entity));
         }
     }
 
     private void
     createWolves()
     {
-        /** /
         for (int i = 0; i < numWolves; ++i)
         {
             Entity entity = new Wolf(this);
-            addEntity(entity, getRandomFreePosition(entity));
+            addEntity(entity, getRandomSafePosition(entity));
         }
-        /**/
     }
 
     private void
@@ -90,7 +88,7 @@ public class Pasture
         for (int i = 0; i < numGrass; ++i)
         {
             Entity entity = new Grass(this);
-            addEntity(entity, getRandomFreePosition(entity));
+            addEntity(entity, getRandomSafePosition(entity));
         }
     }
 
@@ -106,34 +104,10 @@ public class Pasture
         gui.update();
     }
 
-    private Point
-    getRandomFreePosition(Entity entity) throws MissingResourceException
+    public Boolean
+    includes(Entity entity)
     {
-        Point pos = new Point(
-            (int)(Math.random() * width),
-            (int)(Math.random() * height));
-
-        int p = pos.x + (pos.y * width);
-        int m = height * width;
-        int q = 97; // Any large prime will do.
-
-        for (int i = 0; i < m; ++i)
-        {
-            int j = (p + i*q) % m;
-            int x = j % width;
-            int y = j / width;
-
-            pos = new Point(x, y);
-            if (entity.mayStandAt(pos))
-            {
-                return pos;
-            }
-        }
-
-        throw new MissingResourceException(
-            "There is no free space left in the pasture!",
-            "Pasture",
-            "");
+        return entity.getPosition() != null;
     }
 
     public void
@@ -169,12 +143,40 @@ public class Pasture
         return new ArrayList<Entity>(entities);
     }
 
+    private Point
+    getRandomSafePosition(Entity entity) throws MissingResourceException
+    {
+        Point pos = new Point(
+            (int)(Math.random() * width),
+            (int)(Math.random() * height));
+
+        int p = pos.x + (pos.y * width);
+        int m = height * width;
+        int q = 97; // Any large prime will do.
+
+        for (int i = 0; i < m; ++i)
+        {
+            int j = (p + i*q) % m;
+            int x = j % width;
+            int y = j / width;
+
+            pos = new Point(x, y);
+            if (entity.mayStandAt(pos))
+            {
+                return pos;
+            }
+        }
+
+        throw new MissingResourceException(
+            "There is no safe space left in the pasture for this entity!",
+            "Pasture",
+            "");
+    }
+
     public List<Point>
     getNearestPositions(Point origin, Integer range)
     {
         List<Point> nearest = new ArrayList<Point>();
-
-        // Offsets relative to origin.
         for (int x = -range; x <= range; ++x)
         {
             for (int y = -range; y <= range; ++y)
@@ -183,20 +185,19 @@ public class Pasture
                 nearest.add(pos);
             }
         }
-
         return nearest;
     }
 
     public List<Point>
-    getNearestFreePositions(Entity entity, Integer range)
+    getNearestSafePositions(Entity entity, Integer range)
     {
         Point pos = entity.getPosition();
         List<Point> nearest = getNearestPositions(pos, range);
-        return removeNonFreePositions(nearest, entity);
+        return removeNonSafePositions(nearest, entity);
     }
 
     private List<Point>
-    removeNonFreePositions(List<Point> positions, Entity entity)
+    removeNonSafePositions(List<Point> positions, Entity entity)
     {
         Iterator<Point> it = positions.iterator();
         while (it.hasNext())
@@ -231,7 +232,7 @@ public class Pasture
     }
 
     public Boolean
-    isFreePosition(Point pos, Entity entity)
+    isSafePosition(Point pos, Entity entity)
     {
         for (Entity occupant : grid.getOccupants(pos))
         {
