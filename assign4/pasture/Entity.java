@@ -14,7 +14,8 @@ abstract public class Entity extends JFrame implements IEntity
 {
     protected final Pasture pasture;
     protected final ImageIcon image;
-    protected Integer ticksUntilReproduce = Util.randomIntegerBetween(100, 140);
+    protected Integer ticksUntilReproduce = Util.randomIntegerBetween(50, 140);
+    protected Integer ticksUntilMove = Util.randomIntegerBetween(5, 12);
 
     public
     Entity(Pasture pasture, ImageIcon image)
@@ -39,9 +40,50 @@ abstract public class Entity extends JFrame implements IEntity
     {
     }
 
-    private void
+    public void
     eat()
     {
+        List<Entity> victims = pasture.getOtherEntitiesAtSamePosition(this);
+        for (Entity victim : victims)
+        {
+            if (mayEat(victim))
+            {
+                // get food points also XXXXX
+                pasture.removeEntity(victim);
+            }
+        }
+    }
+
+    public Boolean
+    mayEat(Entity entity)
+    {
+        Boolean vegEater  = isHerbivore() && entity.isVegetable();
+        Boolean meatEater = isCarnivore() && entity.isAnimal();
+        return vegEater || meatEater;
+    }
+
+    public Boolean
+    isAnimal()
+    {
+        return false;
+    }
+
+    public Boolean
+    isVegetable()
+    {
+        return false;
+    }
+
+    public Boolean
+    isHerbivore()
+    {
+        return false;
+    }
+
+    public Boolean
+    isCarnivore()
+    {
+        return false;
     }
 
     public void
@@ -86,18 +128,6 @@ abstract public class Entity extends JFrame implements IEntity
     getImage()
     {
         return image;
-    }
-
-    public Boolean
-    isHerbivore()
-    {
-        return false;
-    }
-
-    public Boolean
-    isCarnivore()
-    {
-        return false;
     }
 
     public Point

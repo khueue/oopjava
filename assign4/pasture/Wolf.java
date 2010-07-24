@@ -11,17 +11,12 @@ import javax.swing.ImageIcon;
 
 public class Wolf extends MobileEntity
 {
-    public final Integer TICKS_BETWEEN_MOVES = 5;
-
-    protected Integer ticksUntilMove;
-    protected Integer ticksUntilReproduce;
-
     public
     Wolf(Pasture pasture)
     {
         super(pasture, new ImageIcon("img/wolf.gif"));
-        ticksUntilMove = TICKS_BETWEEN_MOVES;
-        ticksUntilReproduce = (int)(1000 * Math.random()) + 100;
+        ticksUntilMove = Util.randomIntegerBetween(5, 15);
+        ticksUntilReproduce = Util.randomIntegerBetween(30, 150);
     }
 
     public void
@@ -36,7 +31,13 @@ public class Wolf extends MobileEntity
     }
 
     public Boolean
-    isHerbivore()
+    isCarnivore()
+    {
+        return true;
+    }
+
+    public Boolean
+    isAnimal()
     {
         return true;
     }
@@ -45,34 +46,5 @@ public class Wolf extends MobileEntity
     maySharePositionWith(Entity entity)
     {
         return !(entity instanceof Fence);
-    }
-
-    public void
-    move()
-    {
-        if (--ticksUntilMove == 0)
-        {
-            ticksUntilMove = TICKS_BETWEEN_MOVES;
-
-            List<Point> safe = pasture.getNearestSafePositions(this, 1);
-            Point pos = Util.getRandomMember(safe);
-            if (pos != null)
-            {
-                pasture.moveEntity(this, pos);
-            }
-        }
-    }
-
-    public void
-    eat()
-    {
-        List<Entity> victims = pasture.getOtherEntitiesAtSamePosition(this);
-        for (Entity victim : victims)
-        {
-            if (victim instanceof Sheep)
-            {
-                pasture.removeEntity(victim);
-            }
-        }
     }
 }

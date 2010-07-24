@@ -220,15 +220,15 @@ public class Pasture
     public List<Entity>
     getOtherEntitiesAtSamePosition(Entity entity)
     {
-        List<Entity> friends = new ArrayList<Entity>();
+        List<Entity> others = new ArrayList<Entity>();
         for (Entity occupant : grid.getOccupants(entity.getPosition()))
         {
             if (occupant != entity)
             {
-                friends.add(occupant);
+                others.add(occupant);
             }
         }
-        return friends;
+        return others;
     }
 
     public Boolean
@@ -241,7 +241,6 @@ public class Pasture
                 return false;
             }
         }
-
         return true;
     }
 }

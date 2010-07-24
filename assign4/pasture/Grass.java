@@ -15,5 +15,12 @@ public class Grass extends Plant
     Grass(Pasture pasture)
     {
         super(pasture, new ImageIcon("img/plant.gif"));
+        ticksUntilReproduce = Util.randomIntegerBetween(60, 90);
+    }
+
+    public Boolean
+    isVegetable()
+    {
+        return true;
     }
 }
