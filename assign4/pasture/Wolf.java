@@ -52,14 +52,14 @@ public class Wolf extends MobileEntity
     {
         if (--ticksUntilMove == 0)
         {
+            ticksUntilMove = TICKS_BETWEEN_MOVES;
+
             List<Point> safe = pasture.getNearestSafePositions(this, 1);
             Point pos = Util.getRandomMember(safe);
             if (pos != null)
             {
                 pasture.moveEntity(this, pos);
             }
-
-            ticksUntilMove = TICKS_BETWEEN_MOVES;
         }
     }
 

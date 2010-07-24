@@ -49,14 +49,14 @@ abstract public class Entity extends JFrame implements IEntity
     {
         if (--ticksUntilReproduce == 0)
         {
+            ticksUntilReproduce = Util.randomIntegerBetween(100, 140);
+
             List<Point> safe = pasture.getNearestSafePositions(this, 1);
             if (safe.size() > 0)
             {
                 Point pos = Util.getRandomMember(safe);
                 pasture.addEntity(createOwnInstance(), pos);
             }
-
-            ticksUntilReproduce = Util.randomIntegerBetween(100, 140);
         }
     }
 
@@ -79,7 +79,6 @@ abstract public class Entity extends JFrame implements IEntity
     public Boolean
     isRemoved()
     {
-        // Hack, but works.
         return !pasture.includes(this);
     }
 

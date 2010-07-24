@@ -11,8 +11,6 @@ import javax.swing.ImageIcon;
 
 public class Grass extends Plant
 {
-    private Integer ticksUntilReproduce = (int)(1000 * Math.random()) + 100;
-
     public
     Grass(Pasture pasture)
     {

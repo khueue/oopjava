@@ -21,7 +21,7 @@ public class Sheep extends MobileEntity
     {
         super(pasture, new ImageIcon("img/sheep.gif"));
         ticksUntilMove = TICKS_BETWEEN_MOVES;
-        ticksUntilReproduce = (int)(1000 * Math.random()) + 100;
+        ticksUntilReproduce = 30;
     }
 
     public void
@@ -81,6 +81,8 @@ public class Sheep extends MobileEntity
     {
         if (--ticksUntilReproduce == 0)
         {
+            ticksUntilReproduce = Util.randomIntegerBetween(50, 150);
+
             List<Point> safe = pasture.getNearestSafePositions(this, 1);
             if (safe.size() > 0)
             {
@@ -88,8 +90,6 @@ public class Sheep extends MobileEntity
                 Point pos = Util.getRandomMember(safe);
                 pasture.addEntity(entity, pos);
             }
-
-            ticksUntilReproduce = (int)(1000 * Math.random()) + 100;
         }
     }
 }
