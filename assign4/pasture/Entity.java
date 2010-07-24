@@ -57,9 +57,9 @@ abstract public class Entity extends JFrame implements IEntity
     public Boolean
     mayEat(Entity entity)
     {
-        Boolean vegEater  = isHerbivore() && entity.isVegetable();
-        Boolean meatEater = isCarnivore() && entity.isAnimal();
-        return vegEater || meatEater;
+        Boolean veg  = isHerbivore() && entity.isVegetable();
+        Boolean meat = isCarnivore() && entity.isAnimal();
+        return veg || meat;
     }
 
     public Boolean
