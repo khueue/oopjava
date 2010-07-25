@@ -1,5 +1,5 @@
 /**
- * OOPJAVA - Assignment 4
+ * OOPJAVA ST10 - Assignment 4
  * Sebastian Lundström (selu7901)
  */
 
@@ -25,11 +25,12 @@ public class SheepMove implements IBehavior
     {
         if (trigger.fire())
         {
-            List<Point> safe = entity.getPasture().getNearestSafePositions(entity, 1); // factor out XXX
-            if (safe.size() > 0)
+            Pasture pasture = entity.getPasture();
+            List<Point> safe = pasture.getNearestSafePositions(entity, 1);
+            if (!safe.isEmpty())
             {
                 Point pos = Util.getRandomMember(safe);
-                entity.getPasture().moveEntity(entity, pos);
+                pasture.moveEntity(entity, pos);
             }
         }
     }

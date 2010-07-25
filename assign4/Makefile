@@ -14,5 +14,7 @@ pack: clean
 clean:
 	clear
 	rm -f pasture/*.class
+	rm -f pasture/behavior/*.class
+	rm -f pasture/entity/*.class
 	rm -f *.tar.gz
 	- ../trim_and_clean.rb pasture/**/*.java

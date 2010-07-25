@@ -1,5 +1,5 @@
 /**
- * OOPJAVA - Assignment 4
+ * OOPJAVA ST10 - Assignment 4
  * Sebastian Lundström (selu7901)
  */
 
@@ -25,12 +25,13 @@ public class GrassReproduce implements IBehavior
     {
         if (trigger.fire())
         {
-            List<Point> safe = entity.getPasture().getNearestSafePositions(entity, 1);
-            if (safe.size() > 0)
+            Pasture pasture = entity.getPasture();
+            List<Point> safe = pasture.getNearestSafePositions(entity, 1);
+            if (!safe.isEmpty())
             {
                 Point pos = Util.getRandomMember(safe);
-                IEntity offspring = new Grass(entity.getPasture());
-                entity.getPasture().addEntity(offspring, pos);
+                IEntity offspring = new Grass(pasture);
+                pasture.addEntity(offspring, pos);
             }
         }
     }

@@ -1,5 +1,5 @@
 /**
- * OOPJAVA - Assignment 4
+ * OOPJAVA ST10 - Assignment 4
  * Sebastian Lundström (selu7901)
  */
 

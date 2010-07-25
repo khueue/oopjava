@@ -1,5 +1,5 @@
 /**
- * OOPJAVA - Assignment 4
+ * OOPJAVA ST10 - Assignment 4
  * Sebastian Lundström (selu7901)
  */
 
@@ -15,13 +15,14 @@ public class SheepEat implements IBehavior
     public void
     behave(IEntity entity)
     {
-        List<IEntity> victims = entity.getPasture().getOtherEntitiesAtSamePosition(entity);
+        Pasture pasture = entity.getPasture();
+        List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
         for (IEntity victim : victims)
         {
             if (mayEat(victim))
             {
                 // get food points also XXXXX
-                entity.getPasture().removeEntity(victim);
+                pasture.removeEntity(victim);
             }
         }
     }
