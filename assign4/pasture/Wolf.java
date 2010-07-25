@@ -9,31 +9,27 @@ import java.util.*;
 import java.awt.Point;
 import javax.swing.ImageIcon;
 
-public class Wolf extends MobileEntity
+public class Wolf extends Entity
 {
     public
     Wolf(Pasture pasture)
     {
         super(pasture, new ImageIcon("img/wolf.gif"));
-        ticksUntilMove = Util.randomIntegerBetween(5, 15);
-        ticksUntilReproduce = Util.randomIntegerBetween(30, 150);
+        behaviors.add(new WolfMove());
+        behaviors.add(new WolfEat());
+        behaviors.add(new WolfReproduce());
     }
 
     public Boolean
-    isCarnivore()
+    mayEat(Entity entity)
     {
-        return true;
-    }
-
-    public Boolean
-    isAnimal()
-    {
-        return true;
+        return entity instanceof Sheep;
     }
 
     public Boolean
     maySharePositionWith(Entity entity)
     {
-        return !(entity instanceof Fence);
+        return (entity instanceof Grass)
+            || (entity instanceof Sheep);
     }
 }

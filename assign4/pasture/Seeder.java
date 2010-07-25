@@ -9,9 +9,10 @@ import java.awt.Point;
 
 public class Seeder
 {
-    private final Integer numSheep  = 3;
-    private final Integer numWolves = 10;
-    private final Integer numGrass  = 100;
+    private final Integer numSheep     = 20;
+    private final Integer numWolves    = 10;
+    private final Integer numGrass     = 40;
+    private final Integer numObstacles = 40;
 
     private final Pasture pasture;
     private final Integer width;
@@ -29,6 +30,7 @@ public class Seeder
     createEntities()
     {
         createFence();
+        createObstacles();
         createGrass();
         createSheep();
         createWolves();
@@ -59,6 +61,16 @@ public class Seeder
         {
             pasture.addEntity(new Fence(pasture), new Point(0, i));
             pasture.addEntity(new Fence(pasture), new Point(width-1, i));
+        }
+    }
+
+    private void
+    createObstacles()
+    {
+        for (int i = 0; i < numObstacles; ++i)
+        {
+            Entity entity = new Fence(pasture);
+            pasture.addEntity(entity, pasture.getRandomSafePosition(entity));
         }
     }
 
