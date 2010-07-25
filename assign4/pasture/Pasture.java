@@ -13,83 +13,19 @@ public class Pasture
     private final Integer width = 35;
     private final Integer height = 24;
 
-    private final Integer numSheep = 3;
-    private final Integer numWolves = 10;
-    private final Integer numGrass = 100;
-
     private final Set<Entity> entities = new HashSet<Entity>();
-    private final Grid grid = new Grid(width, height);
+    private final Grid grid;
     private final Map<Entity, Point> positions = new HashMap<Entity, Point>();
     private final Gui gui;
 
     public
     Pasture()
     {
-        gui = new Gui(width, height, new Engine(this));
+        grid = new Grid(width, height);
+        gui  = new Gui(width, height, new Engine(this));
 
-        // Order of creation determines what is visible.
-        createFence();
-        createGrass();
-        createSheep();
-        createWolves();
-    }
-
-    private void
-    createFence()
-    {
-        createHorizontalFence();
-        createVerticalFence();
-    }
-
-    private void
-    createHorizontalFence()
-    {
-        for (int i = 0; i < width; ++i)
-        {
-            addEntity(new Fence(this), new Point(i, 0));
-            addEntity(new Fence(this), new Point(i, height-1));
-        }
-    }
-
-    private void
-    createVerticalFence()
-    {
-        // Horizontal fence takes care of corners.
-        for (int i = 1; i < height-1; ++i)
-        {
-            addEntity(new Fence(this), new Point(0, i));
-            addEntity(new Fence(this), new Point(width-1, i));
-        }
-    }
-
-    private void
-    createSheep()
-    {
-        for (int i = 0; i < numSheep; ++i)
-        {
-            Entity entity = new Sheep(this);
-            addEntity(entity, getRandomSafePosition(entity));
-        }
-    }
-
-    private void
-    createWolves()
-    {
-        for (int i = 0; i < numWolves; ++i)
-        {
-            Entity entity = new Wolf(this);
-            addEntity(entity, getRandomSafePosition(entity));
-        }
-    }
-
-    private void
-    createGrass()
-    {
-        for (int i = 0; i < numGrass; ++i)
-        {
-            Entity entity = new Grass(this);
-            addEntity(entity, getRandomSafePosition(entity));
-        }
+        Seeder seeder = new Seeder(this, width, height);
+        seeder.createEntities();
     }
 
     public void
@@ -123,7 +59,6 @@ public class Pasture
     removeEntity(Entity entity)
     {
         Point pos = entity.getPosition();
-
         entities.remove(entity);
         grid.removeOccupant(pos, entity);
         positions.remove(entity);
@@ -149,8 +84,8 @@ public class Pasture
         return new ArrayList<Entity>(entities);
     }
 
-    private Point
-    getRandomSafePosition(Entity entity) throws MissingResourceException
+    public Point
+    getRandomSafePosition(Entity entity)
     {
         return grid.getRandomSafePosition(entity);
     }

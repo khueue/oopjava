@@ -52,7 +52,7 @@ public class Grid
     }
 
     public Point
-    getRandomSafePosition(Entity entity) throws MissingResourceException
+    getRandomSafePosition(Entity entity)
     {
         Point pos = new Point(
             (int)(Math.random() * width),
