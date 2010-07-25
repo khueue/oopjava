@@ -20,6 +20,17 @@ abstract public class MobileEntity extends Entity
     }
 
     public void
+    tick()
+    {
+        if (notRemoved())
+        {
+            move();
+            eat();
+            reproduce();
+        }
+    }
+
+    public void
     move()
     {
         if (--ticksUntilMove == 0)

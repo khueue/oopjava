@@ -19,17 +19,6 @@ public class Sheep extends MobileEntity
         ticksUntilReproduce = Util.randomIntegerBetween(30, 70);
     }
 
-    public void
-    tick()
-    {
-        if (!isRemoved())
-        {
-            move();
-            eat();
-            reproduce();
-        }
-    }
-
     public Boolean
     isHerbivore()
     {

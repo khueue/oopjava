@@ -18,6 +18,15 @@ public class Grass extends Plant
         ticksUntilReproduce = Util.randomIntegerBetween(60, 90);
     }
 
+    public void
+    tick()
+    {
+        if (notRemoved())
+        {
+            reproduce();
+        }
+    }
+
     public Boolean
     isVegetable()
     {

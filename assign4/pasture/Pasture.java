@@ -18,7 +18,7 @@ public class Pasture
     private final Integer numGrass = 100;
 
     private final Set<Entity> entities = new HashSet<Entity>();
-    private final Grid grid = new Grid();
+    private final Grid grid = new Grid(width, height);
     private final Map<Entity, Point> positions = new HashMap<Entity, Point>();
     private final Gui gui;
 
@@ -105,7 +105,7 @@ public class Pasture
     }
 
     public Boolean
-    includes(Entity entity)
+    contains(Entity entity)
     {
         return entity.getPosition() != null;
     }
@@ -137,6 +137,12 @@ public class Pasture
         addEntity(entity, newPos);
     }
 
+    public Point
+    getEntityPosition(Entity entity)
+    {
+        return positions.get(entity);
+    }
+
     public List<Entity>
     getEntities()
     {
@@ -146,101 +152,30 @@ public class Pasture
     private Point
     getRandomSafePosition(Entity entity) throws MissingResourceException
     {
-        Point pos = new Point(
-            (int)(Math.random() * width),
-            (int)(Math.random() * height));
-
-        int p = pos.x + (pos.y * width);
-        int m = height * width;
-        int q = 97; // Any large prime will do.
-
-        for (int i = 0; i < m; ++i)
-        {
-            int j = (p + i*q) % m;
-            int x = j % width;
-            int y = j / width;
-
-            pos = new Point(x, y);
-            if (entity.mayStandAt(pos))
-            {
-                return pos;
-            }
-        }
-
-        throw new MissingResourceException(
-            "There is no safe space left in the pasture for this entity!",
-            "Pasture",
-            "");
+        return grid.getRandomSafePosition(entity);
     }
 
     public List<Point>
     getNearestPositions(Point origin, Integer radius)
     {
-        List<Point> nearest = new ArrayList<Point>();
-        for (int x = -radius; x <= radius; ++x)
-        {
-            for (int y = -radius; y <= radius; ++y)
-            {
-                Point pos = new Point(origin.x + x, origin.y + y);
-                nearest.add(pos);
-            }
-        }
-        return nearest;
+        return grid.getNearestPositions(origin, radius);
     }
 
     public List<Point>
     getNearestSafePositions(Entity entity, Integer radius)
     {
-        Point pos = entity.getPosition();
-        List<Point> nearest = getNearestPositions(pos, radius);
-        return removeNonSafePositions(nearest, entity);
-    }
-
-    private List<Point>
-    removeNonSafePositions(List<Point> positions, Entity entity)
-    {
-        Iterator<Point> it = positions.iterator();
-        while (it.hasNext())
-        {
-            Point pos = it.next();
-            if (!entity.mayStandAt(pos))
-            {
-                it.remove();
-            }
-        }
-        return positions;
-    }
-
-    public Point
-    getEntityPosition(Entity entity)
-    {
-        return positions.get(entity);
+        return grid.getNearestSafePositions(entity, radius);
     }
 
     public List<Entity>
     getOtherEntitiesAtSamePosition(Entity entity)
     {
-        List<Entity> others = new ArrayList<Entity>();
-        for (Entity occupant : grid.getOccupants(entity.getPosition()))
-        {
-            if (occupant != entity)
-            {
-                others.add(occupant);
-            }
-        }
-        return others;
+        return grid.getOtherEntitiesAtSamePosition(entity);
     }
 
     public Boolean
     isSafePosition(Point pos, Entity entity)
     {
-        for (Entity occupant : grid.getOccupants(pos))
-        {
-            if (!entity.maySharePositionWith(occupant))
-            {
-                return false;
-            }
-        }
-        return true;
+        return grid.isSafePosition(pos, entity);
     }
 }

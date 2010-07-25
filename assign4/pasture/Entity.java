@@ -24,17 +24,6 @@ abstract public class Entity extends JFrame implements IEntity
         this.image   = image;
     }
 
-    public void
-    tick()
-    {
-        if (!isRemoved())
-        {
-            move();
-            eat();
-            reproduce();
-        }
-    }
-
     private void
     move()
     {
@@ -119,9 +108,9 @@ abstract public class Entity extends JFrame implements IEntity
     }
 
     public Boolean
-    isRemoved()
+    notRemoved()
     {
-        return !pasture.includes(this);
+        return pasture.contains(this);
     }
 
     public ImageIcon

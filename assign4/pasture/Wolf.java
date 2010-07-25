@@ -19,17 +19,6 @@ public class Wolf extends MobileEntity
         ticksUntilReproduce = Util.randomIntegerBetween(30, 150);
     }
 
-    public void
-    tick()
-    {
-        if (!isRemoved())
-        {
-            move();
-            eat();
-            reproduce();
-        }
-    }
-
     public Boolean
     isCarnivore()
     {
