@@ -8,6 +8,7 @@ package pasture;
 import java.util.*;
 import javax.swing.Timer;
 import java.awt.event.*;
+import pasture.entity.*;
 
 /**
  * The simulation is run by an internal timer that sends out a 'tick'

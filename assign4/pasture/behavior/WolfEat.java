@@ -3,23 +3,26 @@
  * Sebastian Lundström (selu7901)
  */
 
-package pasture;
+package pasture.behavior;
 
 import java.util.*;
 import java.awt.Point;
+import pasture.*;
+import pasture.entity.*;
 
-public class SheepEat implements IBehavior
+public class WolfEat implements IBehavior
 {
     public void
     behave(IEntity entity)
     {
-        List<IEntity> victims = entity.getPasture().getOtherEntitiesAtSamePosition(entity);
+        Pasture pasture = entity.getPasture();
+        List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
         for (IEntity victim : victims)
         {
             if (mayEat(victim))
             {
                 // get food points also XXXXX
-                entity.getPasture().removeEntity(victim);
+                pasture.removeEntity(victim);
             }
         }
     }
@@ -27,6 +30,6 @@ public class SheepEat implements IBehavior
     private Boolean
     mayEat(IEntity entity)
     {
-        return (entity instanceof Grass);
+        return (entity instanceof Sheep);
     }
 }

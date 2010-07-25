@@ -3,17 +3,19 @@
  * Sebastian Lundström (selu7901)
  */
 
-package pasture;
+package pasture.behavior;
 
 import java.util.*;
 import java.awt.Point;
+import pasture.*;
+import pasture.entity.*;
 
-public class SheepMove implements IBehavior
+public class WolfMove implements IBehavior
 {
     private IntervalTrigger trigger;
 
     public
-    SheepMove()
+    WolfMove()
     {
         trigger = new IntervalTrigger(8);
     }

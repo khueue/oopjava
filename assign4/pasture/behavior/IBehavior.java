@@ -3,7 +3,10 @@
  * Sebastian Lundström (selu7901)
  */
 
-package pasture;
+package pasture.behavior;
+
+import pasture.*;
+import pasture.entity.*;
 
 public interface IBehavior
 {

@@ -7,6 +7,7 @@ package pasture;
 
 import java.util.*;
 import java.awt.Point;
+import pasture.entity.*;
 
 public class Pasture
 {

@@ -3,7 +3,7 @@
  * Sebastian Lundström (selu7901)
  */
 
-package pasture;
+package pasture.behavior;
 
 public class IntervalTrigger
 {
@@ -19,7 +19,7 @@ public class IntervalTrigger
     public Boolean
     fire()
     {
-        if (--delay == 0) // XXX pre or post?
+        if (--delay == 0)
         {
             delay = interval;
             return true;

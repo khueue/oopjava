@@ -3,11 +3,13 @@
  * Sebastian Lundström (selu7901)
  */
 
-package pasture;
+package pasture.entity;
 
 import java.util.*;
 import java.awt.*;
 import javax.swing.*;
+import pasture.*;
+import pasture.behavior.*;
 
 public class Fence extends Entity
 {

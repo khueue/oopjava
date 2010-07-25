@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
+import pasture.entity.*;
 
 public class Gui extends JFrame implements ActionListener
 {

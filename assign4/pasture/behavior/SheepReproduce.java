@@ -3,19 +3,21 @@
  * Sebastian Lundström (selu7901)
  */
 
-package pasture;
+package pasture.behavior;
 
 import java.util.*;
 import java.awt.Point;
+import pasture.*;
+import pasture.entity.*;
 
-public class GrassReproduce implements IBehavior
+public class SheepReproduce implements IBehavior
 {
     private IntervalTrigger trigger;
 
     public
-    GrassReproduce()
+    SheepReproduce()
     {
-        trigger = new IntervalTrigger(10);
+        trigger = new IntervalTrigger(101);
     }
 
     public void
@@ -27,7 +29,7 @@ public class GrassReproduce implements IBehavior
             if (safe.size() > 0)
             {
                 Point pos = Util.getRandomMember(safe);
-                IEntity offspring = new Grass(entity.getPasture());
+                IEntity offspring = new Sheep(entity.getPasture());
                 entity.getPasture().addEntity(offspring, pos);
             }
         }

@@ -6,6 +6,7 @@
 package pasture;
 
 import java.awt.Point;
+import pasture.entity.*;
 
 public class Seeder
 {

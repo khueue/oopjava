@@ -3,19 +3,21 @@
  * Sebastian Lundström (selu7901)
  */
 
-package pasture;
+package pasture.behavior;
 
 import java.util.*;
 import java.awt.Point;
+import pasture.*;
+import pasture.entity.*;
 
-public class WolfMove implements IBehavior
+public class WolfReproduce implements IBehavior
 {
     private IntervalTrigger trigger;
 
     public
-    WolfMove()
+    WolfReproduce()
     {
-        trigger = new IntervalTrigger(8);
+        trigger = new IntervalTrigger(201);
     }
 
     public void
@@ -23,11 +25,12 @@ public class WolfMove implements IBehavior
     {
         if (trigger.fire())
         {
-            List<Point> safe = entity.getPasture().getNearestSafePositions(entity, 1); // factor out XXX
+            List<Point> safe = entity.getPasture().getNearestSafePositions(entity, 1);
             if (safe.size() > 0)
             {
                 Point pos = Util.getRandomMember(safe);
-                entity.getPasture().moveEntity(entity, pos);
+                IEntity offspring = new Wolf(entity.getPasture());
+                entity.getPasture().addEntity(offspring, pos);
             }
         }
     }

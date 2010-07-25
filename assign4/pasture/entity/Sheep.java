@@ -3,11 +3,13 @@
  * Sebastian Lundström (selu7901)
  */
 
-package pasture;
+package pasture.entity;
 
 import java.util.*;
 import java.awt.Point;
 import javax.swing.ImageIcon;
+import pasture.*;
+import pasture.behavior.*;
 
 public class Sheep extends Entity
 {
