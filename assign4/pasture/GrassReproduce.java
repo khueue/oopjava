@@ -19,7 +19,7 @@ public class GrassReproduce implements IBehavior
     }
 
     public void
-    behave(Entity entity)
+    behave(IEntity entity)
     {
         if (trigger.fire())
         {
@@ -27,7 +27,7 @@ public class GrassReproduce implements IBehavior
             if (safe.size() > 0)
             {
                 Point pos = Util.getRandomMember(safe);
-                Entity offspring = new Grass(entity.getPasture());
+                IEntity offspring = new Grass(entity.getPasture());
                 entity.getPasture().addEntity(offspring, pos);
             }
         }

@@ -30,8 +30,6 @@ public class Gui extends JFrame implements ActionListener
     private final int width;
     private int numEntities = 0;
 
-    private final JLayeredPane display;
-
     /**
      * Creates a new instance of this class with the specified
      * settings for the pasture to display.
@@ -74,13 +72,10 @@ public class Gui extends JFrame implements ActionListener
             }
         }
 
-        // Create a JLayeredPane so we can control z-order.
-        display = new JLayeredPane();
-        display.setBackground(new Color(27, 204, 89));
-        display.setLayout(new BorderLayout());
-        display.add(field, BorderLayout.CENTER);
-        display.add(buttons, BorderLayout.SOUTH);
-        add(display);
+        setBackground(new Color(27, 204, 89));
+        setLayout(new BorderLayout());
+        add(field, BorderLayout.CENTER);
+        add(buttons, BorderLayout.SOUTH);
 
         startButton.setEnabled(true);
         stopButton.setEnabled(false);
@@ -127,7 +122,7 @@ public class Gui extends JFrame implements ActionListener
      * displayed at the position.
      */
     public void
-    addEntity(Entity entity, Point pos)
+    addEntity(IEntity entity, Point pos)
     {
         ImageIcon icon = entity.getImage();
 
@@ -143,7 +138,7 @@ public class Gui extends JFrame implements ActionListener
 
         ++numEntities;
 
-        display.moveToFront(entity);
+        //display.moveToFront(entity);
     }
 
     /**
@@ -152,7 +147,7 @@ public class Gui extends JFrame implements ActionListener
      * icons of the remaining entities is displayed at the position.
      */
     public void
-    removeEntity(Entity entity, Point pos)
+    removeEntity(IEntity entity, Point pos)
     {
         ImageIcon icon = entity.getImage();
 
@@ -166,7 +161,7 @@ public class Gui extends JFrame implements ActionListener
     }
 
     public void
-    moveEntity(Entity entity, Point oldPos, Point newPos)
+    moveEntity(IEntity entity, Point oldPos, Point newPos)
     {
         removeEntity(entity, oldPos);
         addEntity(entity, newPos);

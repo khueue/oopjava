@@ -19,7 +19,7 @@ public class Grass extends Entity
     }
 
     public Boolean
-    maySharePositionWith(Entity entity)
+    maySharePositionWith(IEntity entity)
     {
         return (entity instanceof Wolf)
             || (entity instanceof Sheep);

@@ -8,5 +8,5 @@ package pasture;
 public interface IBehavior
 {
     public void
-    behave(Entity entity);
+    behave(IEntity entity);
 }

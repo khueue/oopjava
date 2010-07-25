@@ -69,7 +69,7 @@ public class Seeder
     {
         for (int i = 0; i < numObstacles; ++i)
         {
-            Entity entity = new Fence(pasture);
+            IEntity entity = new Fence(pasture);
             pasture.addEntity(entity, pasture.getRandomSafePosition(entity));
         }
     }
@@ -79,7 +79,7 @@ public class Seeder
     {
         for (int i = 0; i < numGrass; ++i)
         {
-            Entity entity = new Grass(pasture);
+            IEntity entity = new Grass(pasture);
             pasture.addEntity(entity, pasture.getRandomSafePosition(entity));
         }
     }
@@ -89,7 +89,7 @@ public class Seeder
     {
         for (int i = 0; i < numSheep; ++i)
         {
-            Entity entity = new Sheep(pasture);
+            IEntity entity = new Sheep(pasture);
             pasture.addEntity(entity, pasture.getRandomSafePosition(entity));
         }
     }
@@ -99,7 +99,7 @@ public class Seeder
     {
         for (int i = 0; i < numWolves; ++i)
         {
-            Entity entity = new Wolf(pasture);
+            IEntity entity = new Wolf(pasture);
             pasture.addEntity(entity, pasture.getRandomSafePosition(entity));
         }
     }

@@ -35,7 +35,7 @@ public class Engine implements ActionListener
     public void
     actionPerformed(ActionEvent event)
     {
-        for (Entity entity : pasture.getEntities())
+        for (IEntity entity : pasture.getEntities())
         {
             entity.tick();
         }

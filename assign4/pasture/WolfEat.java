@@ -11,16 +11,23 @@ import java.awt.Point;
 public class WolfEat implements IBehavior
 {
     public void
-    behave(Entity entity)
+    behave(IEntity entity)
     {
-        List<Entity> victims = entity.getPasture().getOtherEntitiesAtSamePosition(entity);
-        for (Entity victim : victims)
+        Pasture pasture = entity.getPasture();
+        List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
+        for (IEntity victim : victims)
         {
-            if (entity.mayEat(victim))
+            if (mayEat(victim))
             {
                 // get food points also XXXXX
-                entity.getPasture().removeEntity(victim);
+                pasture.removeEntity(victim);
             }
         }
+    }
+
+    private Boolean
+    mayEat(IEntity entity)
+    {
+        return (entity instanceof Sheep);
     }
 }

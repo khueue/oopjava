@@ -19,7 +19,7 @@ public class SheepReproduce implements IBehavior
     }
 
     public void
-    behave(Entity entity)
+    behave(IEntity entity)
     {
         if (trigger.fire())
         {
@@ -27,27 +27,9 @@ public class SheepReproduce implements IBehavior
             if (safe.size() > 0)
             {
                 Point pos = Util.getRandomMember(safe);
-                Entity offspring = new Sheep(entity.getPasture());
+                IEntity offspring = new Sheep(entity.getPasture());
                 entity.getPasture().addEntity(offspring, pos);
             }
         }
     }
-
-    /** /
-    private Entity
-    createOwnInstance() // clone in Entity? wolfs construcotor runs own news for behav
-    {
-        try
-        {
-            Class[] argTypes = new Class[] { pasture.getClass() };
-            Constructor constructor = getClass().getConstructor(argTypes);
-            Object[] args = new Object[] { pasture };
-            return (Entity)constructor.newInstance(args);
-        }
-        catch (Exception e)
-        {
-            return null;
-        }
-    }
-    /**/
 }

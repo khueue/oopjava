@@ -11,8 +11,8 @@ import java.awt.Point;
 public class Grid
 {
     // Each position can have several occupants.
-    private final Map<Point, List<Entity>> grid =
-        new HashMap<Point, List<Entity>>();
+    private final Map<Point, List<IEntity>> grid =
+        new HashMap<Point, List<IEntity>>();
 
     private Integer width;
     private Integer height;
@@ -28,32 +28,32 @@ public class Grid
      * This method ensures that we never have to deal with null: the list is
      * either empty or non-empty, but never null.
      */
-    public List<Entity>
+    public List<IEntity>
     getOccupants(Point pos)
     {
-        List<Entity> occupants = grid.get(pos);
+        List<IEntity> occupants = grid.get(pos);
         if (occupants == null)
         {
-            occupants = new ArrayList<Entity>();
+            occupants = new ArrayList<IEntity>();
             grid.put(pos, occupants);
         }
         return occupants;
     }
 
     public Boolean
-    addOccupant(Point pos, Entity entity)
+    addOccupant(Point pos, IEntity entity)
     {
         return getOccupants(pos).add(entity);
     }
 
     public Boolean
-    removeOccupant(Point pos, Entity entity)
+    removeOccupant(Point pos, IEntity entity)
     {
         return getOccupants(pos).remove(entity);
     }
 
     public Point
-    getRandomSafePosition(Entity entity)
+    getRandomSafePosition(IEntity entity)
     {
         Point pos = new Point(
             (int)(Math.random() * width),
@@ -98,7 +98,7 @@ public class Grid
     }
 
     public List<Point>
-    getNearestSafePositions(Entity entity, Integer radius)
+    getNearestSafePositions(IEntity entity, Integer radius)
     {
         Point pos = entity.getPosition();
         List<Point> nearest = getNearestPositions(pos, radius);
@@ -106,7 +106,7 @@ public class Grid
     }
 
     private List<Point>
-    excludeNonSafePositions(List<Point> positions, Entity entity)
+    excludeNonSafePositions(List<Point> positions, IEntity entity)
     {
         Iterator<Point> it = positions.iterator();
         while (it.hasNext())
@@ -120,11 +120,11 @@ public class Grid
         return positions;
     }
 
-    public List<Entity>
-    getOtherEntitiesAtSamePosition(Entity entity)
+    public List<IEntity>
+    getOtherEntitiesAtSamePosition(IEntity entity)
     {
-        List<Entity> others = new ArrayList<Entity>();
-        for (Entity occupant : getOccupants(entity.getPosition()))
+        List<IEntity> others = new ArrayList<IEntity>();
+        for (IEntity occupant : getOccupants(entity.getPosition()))
         {
             if (occupant != entity)
             {
@@ -135,9 +135,9 @@ public class Grid
     }
 
     public Boolean
-    isSafePosition(Point pos, Entity entity)
+    isSafePosition(Point pos, IEntity entity)
     {
-        for (Entity occupant : getOccupants(pos))
+        for (IEntity occupant : getOccupants(pos))
         {
             if (!entity.maySharePositionWith(occupant))
             {

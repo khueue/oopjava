@@ -9,7 +9,7 @@ import java.util.*;
 import java.awt.Point;
 import javax.swing.*;
 
-abstract public class Entity extends JFrame implements IEntity
+abstract public class Entity implements IEntity
 {
     protected Pasture pasture;
     protected ImageIcon image;
@@ -28,22 +28,10 @@ abstract public class Entity extends JFrame implements IEntity
         return pasture;
     }
 
-    public void
-    setPasture(Pasture pasture)
-    {
-        this.pasture = pasture;
-    }
-
     public ImageIcon
     getImage()
     {
         return image;
-    }
-
-    public void
-    setImage(ImageIcon image)
-    {
-        this.image = image;
     }
 
     public void
@@ -59,12 +47,6 @@ abstract public class Entity extends JFrame implements IEntity
     }
 
     public Boolean
-    maySharePositionWith(Entity entity)
-    {
-        return false;
-    }
-
-    public Boolean
     notRemoved()
     {
         return pasture.contains(this);
@@ -74,12 +56,6 @@ abstract public class Entity extends JFrame implements IEntity
     getPosition()
     {
         return pasture.getEntityPosition(this);
-    }
-
-    public Boolean
-    mayEat(Entity entity)
-    {
-        return false;
     }
 
     public Boolean

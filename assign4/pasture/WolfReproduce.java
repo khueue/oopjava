@@ -19,7 +19,7 @@ public class WolfReproduce implements IBehavior
     }
 
     public void
-    behave(Entity entity)
+    behave(IEntity entity)
     {
         if (trigger.fire())
         {
@@ -27,7 +27,7 @@ public class WolfReproduce implements IBehavior
             if (safe.size() > 0)
             {
                 Point pos = Util.getRandomMember(safe);
-                Entity offspring = new Wolf(entity.getPasture());
+                IEntity offspring = new Wolf(entity.getPasture());
                 entity.getPasture().addEntity(offspring, pos);
             }
         }

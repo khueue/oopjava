@@ -21,13 +21,7 @@ public class Sheep extends Entity
     }
 
     public Boolean
-    mayEat(Entity entity)
-    {
-        return entity instanceof Grass;
-    }
-
-    public Boolean
-    maySharePositionWith(Entity entity)
+    maySharePositionWith(IEntity entity)
     {
         return (entity instanceof Grass);
     }

@@ -13,9 +13,9 @@ public class Pasture
     private final Integer width = 35;
     private final Integer height = 24;
 
-    private final Set<Entity> entities = new HashSet<Entity>();
+    private final Set<IEntity> entities = new HashSet<IEntity>();
     private final Grid grid;
-    private final Map<Entity, Point> positions = new HashMap<Entity, Point>();
+    private final Map<IEntity, Point> positions = new HashMap<IEntity, Point>();
     private final Gui gui;
 
     public
@@ -41,13 +41,13 @@ public class Pasture
     }
 
     public Boolean
-    contains(Entity entity)
+    contains(IEntity entity)
     {
         return entity.getPosition() != null;
     }
 
     public void
-    addEntity(Entity entity, Point pos)
+    addEntity(IEntity entity, Point pos)
     {
         entities.add(entity);
         grid.addOccupant(pos, entity);
@@ -56,7 +56,7 @@ public class Pasture
     }
 
     public void
-    removeEntity(Entity entity)
+    removeEntity(IEntity entity)
     {
         Point pos = entity.getPosition();
         entities.remove(entity);
@@ -66,26 +66,26 @@ public class Pasture
     }
 
     public void
-    moveEntity(Entity entity, Point newPos)
+    moveEntity(IEntity entity, Point newPos)
     {
         removeEntity(entity);
         addEntity(entity, newPos);
     }
 
     public Point
-    getEntityPosition(Entity entity)
+    getEntityPosition(IEntity entity)
     {
         return positions.get(entity);
     }
 
-    public List<Entity>
+    public List<IEntity>
     getEntities()
     {
-        return new ArrayList<Entity>(entities);
+        return new ArrayList<IEntity>(entities);
     }
 
     public Point
-    getRandomSafePosition(Entity entity)
+    getRandomSafePosition(IEntity entity)
     {
         return grid.getRandomSafePosition(entity);
     }
@@ -97,19 +97,19 @@ public class Pasture
     }
 
     public List<Point>
-    getNearestSafePositions(Entity entity, Integer radius)
+    getNearestSafePositions(IEntity entity, Integer radius)
     {
         return grid.getNearestSafePositions(entity, radius);
     }
 
-    public List<Entity>
-    getOtherEntitiesAtSamePosition(Entity entity)
+    public List<IEntity>
+    getOtherEntitiesAtSamePosition(IEntity entity)
     {
         return grid.getOtherEntitiesAtSamePosition(entity);
     }
 
     public Boolean
-    isSafePosition(Point pos, Entity entity)
+    isSafePosition(Point pos, IEntity entity)
     {
         return grid.isSafePosition(pos, entity);
     }

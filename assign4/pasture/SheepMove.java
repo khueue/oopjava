@@ -19,7 +19,7 @@ public class SheepMove implements IBehavior
     }
 
     public void
-    behave(Entity entity)
+    behave(IEntity entity)
     {
         if (trigger.fire())
         {

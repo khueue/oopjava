@@ -14,15 +14,18 @@ public interface IEntity
     public void
     tick();
 
+    public Pasture
+    getPasture();
+
     public ImageIcon
     getImage();
 
+    public Point
+    getPosition();
+
     public Boolean
-    maySharePositionWith(Entity entity);
+    maySharePositionWith(IEntity entity);
 
     public Boolean
     mayStandAt(Point pos);
-
-    public Point
-    getPosition();
 }
