@@ -34,7 +34,7 @@ public class Seeder
         createWolves();
     }
 
-    public void
+    private void
     createFence()
     {
         createHorizontalFence();
@@ -62,7 +62,7 @@ public class Seeder
         }
     }
 
-    public void
+    private void
     createSheep()
     {
         for (int i = 0; i < numSheep; ++i)
@@ -72,7 +72,7 @@ public class Seeder
         }
     }
 
-    public void
+    private void
     createWolves()
     {
         for (int i = 0; i < numWolves; ++i)
@@ -82,7 +82,7 @@ public class Seeder
         }
     }
 
-    public void
+    private void
     createGrass()
     {
         for (int i = 0; i < numGrass; ++i)
