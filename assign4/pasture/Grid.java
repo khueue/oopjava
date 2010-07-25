@@ -10,6 +10,7 @@ import java.awt.Point;
 
 public class Grid
 {
+    // Each position can have several occupants.
     private final Map<Point, List<Entity>> grid =
         new HashMap<Point, List<Entity>>();
 

@@ -63,6 +63,16 @@ public class Seeder
     }
 
     private void
+    createGrass()
+    {
+        for (int i = 0; i < numGrass; ++i)
+        {
+            Entity entity = new Grass(pasture);
+            pasture.addEntity(entity, pasture.getRandomSafePosition(entity));
+        }
+    }
+
+    private void
     createSheep()
     {
         for (int i = 0; i < numSheep; ++i)
@@ -78,16 +88,6 @@ public class Seeder
         for (int i = 0; i < numWolves; ++i)
         {
             Entity entity = new Wolf(pasture);
-            pasture.addEntity(entity, pasture.getRandomSafePosition(entity));
-        }
-    }
-
-    private void
-    createGrass()
-    {
-        for (int i = 0; i < numGrass; ++i)
-        {
-            Entity entity = new Grass(pasture);
             pasture.addEntity(entity, pasture.getRandomSafePosition(entity));
         }
     }
