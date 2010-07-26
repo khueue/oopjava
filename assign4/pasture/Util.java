@@ -29,11 +29,6 @@ abstract public class Util
     static public <T>T
     getRandomMember(List<T> list)
     {
-        if (list.isEmpty())
-        {
-            return null;
-        }
-
         int rand = (int)(Math.random() * list.size());
         return list.get(rand);
     }
