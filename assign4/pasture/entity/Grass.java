@@ -5,8 +5,6 @@
 
 package pasture.entity;
 
-import java.util.*;
-import java.awt.Point;
 import pasture.*;
 import pasture.behavior.*;
 
