@@ -23,7 +23,7 @@ abstract public class Reproduce implements IBehavior
     public Boolean
     timeToAct()
     {
-        return timer.tickAndCheck();
+        return timer.tickAndCheckAlarm();
     }
 
     public void

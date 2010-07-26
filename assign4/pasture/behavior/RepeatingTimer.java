@@ -17,7 +17,7 @@ public class RepeatingTimer
     }
 
     public Boolean
-    tickAndCheck()
+    tickAndCheckAlarm()
     {
         if (--delay == 0)
         {
