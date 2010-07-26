@@ -5,9 +5,6 @@
 
 package pasture.entity;
 
-import java.util.*;
-import java.awt.Point;
-import javax.swing.ImageIcon;
 import pasture.*;
 import pasture.behavior.*;
 
@@ -16,7 +13,7 @@ public class Fence extends Entity
     public
     Fence(Pasture pasture)
     {
-        super(pasture, new ImageIcon("img/fence.gif"));
+        super(pasture, "img/fence.gif");
     }
 
     public Boolean

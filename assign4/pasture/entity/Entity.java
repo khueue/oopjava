@@ -18,10 +18,10 @@ abstract public class Entity implements IEntity
     protected Collection<IBehavior> behaviors = new ArrayList<IBehavior>();
 
     public
-    Entity(Pasture pasture, ImageIcon image)
+    Entity(Pasture pasture, String imagePath)
     {
         this.pasture = pasture;
-        this.image   = image;
+        this.image   = new ImageIcon(imagePath);
     }
 
     public void

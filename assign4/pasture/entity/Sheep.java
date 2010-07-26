@@ -5,9 +5,6 @@
 
 package pasture.entity;
 
-import java.util.*;
-import java.awt.Point;
-import javax.swing.ImageIcon;
 import pasture.*;
 import pasture.behavior.*;
 
@@ -16,7 +13,7 @@ public class Sheep extends Entity
     public
     Sheep(Pasture pasture)
     {
-        super(pasture, new ImageIcon("img/sheep.gif"));
+        super(pasture, "img/sheep.gif");
         behaviors.add(new SheepMove());
         behaviors.add(new SheepEat());
         behaviors.add(new SheepReproduce());

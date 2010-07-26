@@ -5,7 +5,6 @@
 
 package pasture.entity;
 
-import java.util.*;
 import java.awt.Point;
 import javax.swing.ImageIcon;
 import pasture.*;
