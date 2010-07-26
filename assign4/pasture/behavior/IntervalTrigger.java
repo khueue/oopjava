@@ -17,7 +17,7 @@ public class IntervalTrigger
     }
 
     public Boolean
-    step()
+    fires()
     {
         if (--delay == 0)
         {

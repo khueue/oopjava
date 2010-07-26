@@ -23,7 +23,7 @@ abstract public class Move implements IBehavior
     public Boolean
     timeToAct()
     {
-        return trigger.step();
+        return trigger.fires();
     }
 
     public void
