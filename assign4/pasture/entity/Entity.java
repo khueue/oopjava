@@ -31,7 +31,7 @@ abstract public class Entity implements IEntity
         {
             for (IBehavior behavior : behaviors)
             {
-                behavior.behave(this);
+                behavior.act(this);
             }
         }
     }

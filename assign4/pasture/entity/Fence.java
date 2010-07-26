@@ -16,6 +16,12 @@ public class Fence extends Entity
         super(pasture, "img/fence.gif");
     }
 
+    public IEntity
+    spawnChild()
+    {
+        return new Fence(pasture);
+    }
+
     public Boolean
     maySharePositionWith(IEntity entity)
     {

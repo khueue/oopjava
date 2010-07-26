@@ -10,28 +10,11 @@ import java.awt.Point;
 import pasture.*;
 import pasture.entity.*;
 
-public class WolfMove implements IBehavior
+public class WolfMove extends Move
 {
-    private IntervalTrigger trigger;
-
     public
     WolfMove()
     {
-        trigger = new IntervalTrigger(8);
-    }
-
-    public void
-    behave(IEntity entity)
-    {
-        if (trigger.fire())
-        {
-            Pasture pasture = entity.getPasture();
-            List<Point> safe = pasture.getNearestSafePositions(entity, 1);
-            if (!safe.isEmpty())
-            {
-                Point pos = Util.getRandomMember(safe);
-                pasture.moveEntity(entity, pos);
-            }
-        }
+        super(8);
     }
 }
