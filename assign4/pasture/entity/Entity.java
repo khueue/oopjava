@@ -24,18 +24,6 @@ abstract public class Entity implements IEntity
         this.image   = image;
     }
 
-    public Pasture
-    getPasture()
-    {
-        return pasture;
-    }
-
-    public ImageIcon
-    getImage()
-    {
-        return image;
-    }
-
     public void
     tick()
     {
@@ -48,16 +36,28 @@ abstract public class Entity implements IEntity
         }
     }
 
-    public Boolean
-    notRemoved()
+    public Pasture
+    getPasture()
     {
-        return pasture.contains(this);
+        return pasture;
+    }
+
+    public ImageIcon
+    getImage()
+    {
+        return image;
     }
 
     public Point
     getPosition()
     {
         return pasture.getEntityPosition(this);
+    }
+
+    private Boolean
+    notRemoved()
+    {
+        return pasture.contains(this);
     }
 
     public Boolean
