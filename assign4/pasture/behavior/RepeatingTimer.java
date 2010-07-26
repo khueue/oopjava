@@ -8,25 +8,42 @@ package pasture.behavior;
 public class RepeatingTimer
 {
     private final Integer interval;
-    private Integer delay;
+    private Integer time;
 
     public
     RepeatingTimer(Integer interval)
     {
-        delay = this.interval = interval;
+        this.interval = interval;
+        reset();
     }
 
     public Boolean
     tickAndCheckAlarm()
     {
-        if (--delay == 0)
+        decrease();
+        if (alarm())
         {
-            delay = interval;
+            reset();
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return false;
+    }
+
+    private void
+    decrease()
+    {
+        --time;
+    }
+
+    private Boolean
+    alarm()
+    {
+        return time == 0;
+    }
+
+    private void
+    reset()
+    {
+        time = this.interval;
     }
 }
