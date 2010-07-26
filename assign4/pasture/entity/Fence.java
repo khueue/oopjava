@@ -6,7 +6,7 @@
 package pasture.entity;
 
 import java.util.*;
-import java.awt.*;
+import java.awt.Point;
 import javax.swing.ImageIcon;
 import pasture.*;
 import pasture.behavior.*;
