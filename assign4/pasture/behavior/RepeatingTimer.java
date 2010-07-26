@@ -17,7 +17,7 @@ public class RepeatingTimer
     }
 
     public Boolean
-    stepAndCheck()
+    tickAndCheck()
     {
         if (--delay == 0)
         {
