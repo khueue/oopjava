@@ -92,6 +92,12 @@ public class Pasture
     }
 
     public List<Point>
+    getNearestPositions(IEntity entity, Integer radius)
+    {
+        return getNearestPositions(entity.getPosition(), radius);
+    }
+
+    public List<Point>
     getNearestPositions(Point origin, Integer radius)
     {
         return grid.getNearestPositions(origin, radius);

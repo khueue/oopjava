@@ -12,18 +12,18 @@ import pasture.entity.*;
 
 abstract public class Reproduce implements IBehavior
 {
-    private IntervalTrigger trigger;
+    private RepeatingTimer timer;
 
     public
     Reproduce(Integer interval)
     {
-        trigger = new IntervalTrigger(interval);
+        timer = new RepeatingTimer(interval);
     }
 
     public Boolean
     timeToAct()
     {
-        return trigger.fires();
+        return timer.stepAndCheck();
     }
 
     public void

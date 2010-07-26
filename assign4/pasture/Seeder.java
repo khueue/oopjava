@@ -104,6 +104,7 @@ public class Seeder
     private void
     placeRandomly(IEntity entity)
     {
-        pasture.addEntity(entity, pasture.getRandomSafePosition(entity));
+        Point random = pasture.getRandomSafePosition(entity);
+        pasture.addEntity(entity, random);
     }
 }

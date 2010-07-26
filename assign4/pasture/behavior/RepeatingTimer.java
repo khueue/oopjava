@@ -5,19 +5,19 @@
 
 package pasture.behavior;
 
-public class IntervalTrigger
+public class RepeatingTimer
 {
     private final Integer interval;
     private Integer delay;
 
     public
-    IntervalTrigger(Integer interval)
+    RepeatingTimer(Integer interval)
     {
         delay = this.interval = interval;
     }
 
     public Boolean
-    fires()
+    stepAndCheck()
     {
         if (--delay == 0)
         {

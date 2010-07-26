@@ -12,18 +12,18 @@ import pasture.entity.*;
 
 abstract public class Move implements IBehavior
 {
-    private IntervalTrigger trigger;
+    private RepeatingTimer timer;
 
     public
     Move(Integer interval)
     {
-        trigger = new IntervalTrigger(interval);
+        timer = new RepeatingTimer(interval);
     }
 
     public Boolean
     timeToAct()
     {
-        return trigger.fires();
+        return timer.stepAndCheck();
     }
 
     public void
