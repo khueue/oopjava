@@ -29,7 +29,7 @@ abstract public class Util
     static public <T>T
     getRandomMember(List<T> list)
     {
-        if (list.size() == 0)
+        if (list.isEmpty())
         {
             return null;
         }
