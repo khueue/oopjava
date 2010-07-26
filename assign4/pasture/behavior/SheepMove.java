@@ -15,8 +15,7 @@ public class SheepMove extends Move
     public
     SheepMove()
     {
-        Integer interval = 8;
-        super(interval);
+        super(8);
     }
 
     public void
