@@ -20,7 +20,7 @@ public class RepeatingTimer
     public Boolean
     tickAndCheckAlarm()
     {
-        decrease();
+        tick();
         if (alarm())
         {
             reset();
@@ -30,7 +30,7 @@ public class RepeatingTimer
     }
 
     private void
-    decrease()
+    tick()
     {
         --time;
     }
