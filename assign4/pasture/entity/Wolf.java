@@ -14,9 +14,9 @@ public class Wolf extends Entity
     Wolf(Pasture pasture)
     {
         super(pasture, "img/wolf.gif");
-        behaviors.add(new WolfMove());
-        behaviors.add(new WolfEat());
-        behaviors.add(new WolfReproduce());
+        behaviors.add(new WolfMove(this));
+        behaviors.add(new WolfEat(this));
+        behaviors.add(new WolfReproduce(this));
     }
 
     public IEntity

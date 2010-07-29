@@ -38,7 +38,7 @@ abstract public class Entity implements IEntity
     {
         for (IBehavior behavior : behaviors)
         {
-            behavior.act(this);
+            behavior.act();
         }
     }
 
@@ -60,10 +60,16 @@ abstract public class Entity implements IEntity
         return pasture.getEntityPosition(this);
     }
 
-    private Boolean
+    public Boolean
     notRemoved()
     {
         return pasture.contains(this);
+    }
+
+    public void
+    remove()
+    {
+        pasture.removeEntity(this);
     }
 
     public Boolean

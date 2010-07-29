@@ -10,13 +10,14 @@ import java.awt.Point;
 import pasture.*;
 import pasture.entity.*;
 
-abstract public class Reproduce implements IBehavior
+abstract public class Reproduce extends Behavior
 {
     private RepeatingTimer timer;
 
     public
-    Reproduce(Integer interval)
+    Reproduce(IEntity entity, Integer interval)
     {
+        super(entity);
         timer = new RepeatingTimer(interval);
     }
 
@@ -27,11 +28,10 @@ abstract public class Reproduce implements IBehavior
     }
 
     public void
-    act(IEntity entity)
+    act()
     {
-        if (timeToAct())
+        if (entity.notRemoved() && timeToAct())
         {
-            Pasture pasture = entity.getPasture();
             List<Point> safe = pasture.getNearestSafePositions(entity, 1);
             if (!safe.isEmpty())
             {

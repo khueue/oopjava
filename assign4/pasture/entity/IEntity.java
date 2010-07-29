@@ -28,6 +28,12 @@ public interface IEntity
     getPosition();
 
     public Boolean
+    notRemoved();
+
+    public void
+    remove();
+
+    public Boolean
     maySharePositionWith(IEntity entity);
 
     public Boolean

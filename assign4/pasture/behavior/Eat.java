@@ -10,19 +10,27 @@ import java.awt.Point;
 import pasture.*;
 import pasture.entity.*;
 
-abstract public class Eat implements IBehavior
+abstract public class Eat extends Behavior
 {
-    public void
-    act(IEntity entity)
+    public
+    Eat(IEntity entity)
     {
-        Pasture pasture = entity.getPasture();
-        List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
-        for (IEntity victim : victims)
+        super(entity);
+    }
+
+    public void
+    act()
+    {
+        if (entity.notRemoved())
         {
-            if (mayEat(victim))
+            List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
+            for (IEntity victim : victims)
             {
-                // get food points also XXXXX
-                pasture.removeEntity(victim);
+                if (mayEat(victim))
+                {
+                    // get food points also XXXXX
+                    victim.remove();
+                }
             }
         }
     }

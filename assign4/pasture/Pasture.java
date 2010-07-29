@@ -85,6 +85,12 @@ public class Pasture
         return new ArrayList<IEntity>(entities);
     }
 
+    public List<IEntity>
+    getOccupants(Point pos)
+    {
+        return grid.getOccupants(pos);
+    }
+
     public Point
     getRandomSafePosition(IEntity entity)
     {

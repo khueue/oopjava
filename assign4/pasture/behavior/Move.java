@@ -10,14 +10,15 @@ import java.awt.Point;
 import pasture.*;
 import pasture.entity.*;
 
-abstract public class Move implements IBehavior
+abstract public class Move extends Behavior
 {
     private RepeatingTimer timer;
 
     public
-    Move(Integer interval)
+    Move(IEntity entity, Integer interval)
     {
-        timer = new RepeatingTimer(interval);
+        super(entity);
+        this.timer = new RepeatingTimer(interval);
     }
 
     public Boolean
@@ -27,11 +28,10 @@ abstract public class Move implements IBehavior
     }
 
     public void
-    act(IEntity entity)
+    act()
     {
-        if (timeToAct())
+        if (entity.notRemoved() && timeToAct())
         {
-            Pasture pasture = entity.getPasture();
             List<Point> safe = pasture.getNearestSafePositions(entity, 1);
             if (!safe.isEmpty())
             {

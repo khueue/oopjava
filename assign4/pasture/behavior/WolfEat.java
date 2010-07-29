@@ -12,6 +12,12 @@ import pasture.entity.*;
 
 public class WolfEat extends Eat
 {
+    public
+    WolfEat(IEntity entity)
+    {
+        super(entity);
+    }
+
     public Boolean
     mayEat(IEntity entity)
     {

@@ -13,8 +13,8 @@ import pasture.entity.*;
 public class WolfMove extends Move
 {
     public
-    WolfMove()
+    WolfMove(IEntity entity)
     {
-        super(8);
+        super(entity, 8);
     }
 }

@@ -11,5 +11,5 @@ import pasture.entity.*;
 public interface IBehavior
 {
     public void
-    act(IEntity entity);
+    act();
 }

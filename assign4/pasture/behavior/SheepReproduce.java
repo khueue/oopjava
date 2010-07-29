@@ -13,8 +13,8 @@ import pasture.entity.*;
 public class SheepReproduce extends Reproduce
 {
     public
-    SheepReproduce()
+    SheepReproduce(IEntity entity)
     {
-        super(101);
+        super(entity, 101);
     }
 }

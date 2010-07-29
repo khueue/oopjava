@@ -13,8 +13,8 @@ import pasture.entity.*;
 public class GrassReproduce extends Reproduce
 {
     public
-    GrassReproduce()
+    GrassReproduce(IEntity entity)
     {
-        super(10);
+        super(entity, 50); // 10
     }
 }
