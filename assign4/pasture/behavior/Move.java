@@ -24,13 +24,13 @@ abstract public class Move extends Behavior
     public Boolean
     timeToAct()
     {
-        return timer.tickAndCheckIfAlarm();
+        return entity.notRemoved() && timer.tickAndCheckIfAlarm();
     }
 
     public void
     act()
     {
-        if (entity.notRemoved() && timeToAct())
+        if (timeToAct())
         {
             List<Point> safe = pasture.getNearestSafePositions(entity, 1);
             if (!safe.isEmpty())
