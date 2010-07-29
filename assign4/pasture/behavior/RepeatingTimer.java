@@ -18,7 +18,7 @@ public class RepeatingTimer
     }
 
     public Boolean
-    tickAndCheckAlarm()
+    tickAndCheckIfAlarm()
     {
         tick();
         if (alarm())
@@ -44,6 +44,6 @@ public class RepeatingTimer
     private void
     reset()
     {
-        time = this.interval;
+        time = interval;
     }
 }

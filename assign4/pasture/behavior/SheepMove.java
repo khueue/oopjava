@@ -28,8 +28,14 @@ public class SheepMove extends Move
             if (!nearest.isEmpty())
             {
                 Map<Point, Integer> weights = new HashMap<Point, Integer>();
-                //Point pos = Util.getRandomMember(safe);
-                //pasture.moveEntity(entity, pos);
+                if (wolfInSight(nearest))
+                {
+                    moveInOppositeDirectionTo();
+                }
+                else if ()
+                {
+                    
+                }
             }
         }
     }
