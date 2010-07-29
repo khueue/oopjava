@@ -16,6 +16,6 @@ public class GrassReproduce extends Reproduce
     GrassReproduce(IEntity entity)
     {
         super(entity);
-        setTimerInterval(50); // 10
+        setTriggerInterval(50); // 10
     }
 }

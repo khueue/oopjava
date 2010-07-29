@@ -16,6 +16,7 @@ public class SheepEat extends Eat
     SheepEat(IEntity entity)
     {
         super(entity);
+        starveAfter(100);
     }
 
     public Boolean

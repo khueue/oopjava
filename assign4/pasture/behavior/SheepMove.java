@@ -16,7 +16,7 @@ public class SheepMove extends Move
     SheepMove(IEntity entity)
     {
         super(entity);
-        setTimerInterval(8);
+        setTriggerInterval(8);
     }
 
     public void

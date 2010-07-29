@@ -23,7 +23,7 @@ abstract public class Behavior implements IBehavior
     }
 
     public void
-    setTimerInterval(Integer interval)
+    setTriggerInterval(Integer interval)
     {
         timer.setInterval(interval);
     }

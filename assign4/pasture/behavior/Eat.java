@@ -12,22 +12,38 @@ import pasture.entity.*;
 
 abstract public class Eat extends Behavior
 {
+    protected RepeatingTimer starveTimer;
+
     public
     Eat(IEntity entity)
     {
         super(entity);
+        this.starveTimer = new RepeatingTimer(0); // Default: never starve.
+    }
+
+    public void
+    starveAfter(Integer period)
+    {
+        starveTimer.setInterval(period);
     }
 
     public void
     triggerAct()
     {
-        List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
-        for (IEntity victim : victims)
+        if (starveTimer.tickAndCheckIfAlarm())
         {
-            if (mayEat(victim))
+            entity.remove();
+        }
+        else
+        {
+            List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
+            for (IEntity victim : victims)
             {
-                // get food points also XXXXX
-                victim.remove();
+                if (mayEat(victim))
+                {
+                    // get food points also XXXXX
+                    victim.remove();
+                }
             }
         }
     }

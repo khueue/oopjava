@@ -16,6 +16,6 @@ public class WolfMove extends Move
     WolfMove(IEntity entity)
     {
         super(entity);
-        setTimerInterval(8);
+        setTriggerInterval(8);
     }
 }
