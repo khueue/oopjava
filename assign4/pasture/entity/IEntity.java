@@ -31,7 +31,7 @@ public interface IEntity
     notRemoved();
 
     public void
-    remove();
+    die();
 
     public Boolean
     maySharePositionWith(IEntity entity);

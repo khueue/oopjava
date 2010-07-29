@@ -18,32 +18,44 @@ abstract public class Eat extends Behavior
     Eat(IEntity entity)
     {
         super(entity);
-        this.starveTimer = new RepeatingTimer(0); // Default: never starve.
+        starveTimer = new RepeatingTimer(0); // Default: never starve.
     }
 
     public void
     starveAfter(Integer period)
     {
-        starveTimer.setInterval(period);
+        starveTimer.ringAfter(period);
+    }
+
+    public void
+    act()
+    {
+        if (starvesToDeath())
+        {
+            entity.die();
+        }
+        else if (shouldAct())
+        {
+            triggerAct();
+        }
+    }
+
+    protected Boolean
+    starvesToDeath()
+    {
+        return entity.notRemoved() && starveTimer.tickAndCheckIfRinging();
     }
 
     public void
     triggerAct()
     {
-        if (starveTimer.tickAndCheckIfAlarm())
+        List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
+        for (IEntity victim : victims)
         {
-            entity.remove();
-        }
-        else
-        {
-            List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
-            for (IEntity victim : victims)
+            if (mayEat(victim))
             {
-                if (mayEat(victim))
-                {
-                    // get food points also XXXXX
-                    victim.remove();
-                }
+                // get food points also XXXXX
+                victim.die();
             }
         }
     }

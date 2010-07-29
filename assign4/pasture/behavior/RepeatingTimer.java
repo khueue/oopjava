@@ -13,21 +13,21 @@ public class RepeatingTimer
     public
     RepeatingTimer(Integer interval)
     {
-        setInterval(interval);
+        ringAfter(interval);
     }
 
     public void
-    setInterval(Integer interval)
+    ringAfter(Integer interval)
     {
         this.interval = interval;
         reset();
     }
 
     public Boolean
-    tickAndCheckIfAlarm()
+    tickAndCheckIfRinging()
     {
         tick();
-        if (alarm())
+        if (ringing())
         {
             reset();
             return true;
@@ -42,7 +42,7 @@ public class RepeatingTimer
     }
 
     public Boolean
-    alarm()
+    ringing()
     {
         return now == 0;
     }

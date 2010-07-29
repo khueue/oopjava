@@ -73,7 +73,7 @@ abstract public class Entity implements IEntity
     }
 
     public void
-    remove()
+    die()
     {
         pasture.removeEntity(this);
     }

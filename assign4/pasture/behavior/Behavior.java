@@ -25,7 +25,7 @@ abstract public class Behavior implements IBehavior
     public void
     setTriggerInterval(Integer interval)
     {
-        timer.setInterval(interval);
+        timer.ringAfter(interval);
     }
 
     public void
@@ -40,7 +40,7 @@ abstract public class Behavior implements IBehavior
     protected Boolean
     shouldAct()
     {
-        return entity.notRemoved() && timer.tickAndCheckIfAlarm();
+        return entity.notRemoved() && timer.tickAndCheckIfRinging();
     }
 
     abstract protected void
