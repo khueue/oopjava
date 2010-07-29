@@ -7,11 +7,17 @@ package pasture.behavior;
 
 public class RepeatingTimer
 {
-    private final Integer interval;
-    private Integer time;
+    private Integer interval;
+    private Integer now;
 
     public
     RepeatingTimer(Integer interval)
+    {
+        setInterval(interval);
+    }
+
+    public void
+    setInterval(Integer interval)
     {
         this.interval = interval;
         reset();
@@ -32,18 +38,18 @@ public class RepeatingTimer
     private void
     tick()
     {
-        --time;
+        --now;
     }
 
     private Boolean
     alarm()
     {
-        return time == 0;
+        return now == 0;
     }
 
     private void
     reset()
     {
-        time = interval;
+        now = interval;
     }
 }

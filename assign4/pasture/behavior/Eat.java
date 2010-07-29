@@ -19,18 +19,15 @@ abstract public class Eat extends Behavior
     }
 
     public void
-    act()
+    triggerAct()
     {
-        if (entity.notRemoved())
+        List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
+        for (IEntity victim : victims)
         {
-            List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
-            for (IEntity victim : victims)
+            if (mayEat(victim))
             {
-                if (mayEat(victim))
-                {
-                    // get food points also XXXXX
-                    victim.remove();
-                }
+                // get food points also XXXXX
+                victim.remove();
             }
         }
     }

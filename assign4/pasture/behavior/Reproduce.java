@@ -12,33 +12,21 @@ import pasture.entity.*;
 
 abstract public class Reproduce extends Behavior
 {
-    private RepeatingTimer timer;
-
     public
-    Reproduce(IEntity entity, Integer interval)
+    Reproduce(IEntity entity)
     {
         super(entity);
-        timer = new RepeatingTimer(interval);
-    }
-
-    public Boolean
-    timeToAct()
-    {
-        return entity.notRemoved() && timer.tickAndCheckIfAlarm();
     }
 
     public void
-    act()
+    triggerAct()
     {
-        if (timeToAct())
+        List<Point> safe = pasture.getNearestSafePositions(entity, 1);
+        if (!safe.isEmpty())
         {
-            List<Point> safe = pasture.getNearestSafePositions(entity, 1);
-            if (!safe.isEmpty())
-            {
-                Point pos = Util.getRandomMember(safe);
-                IEntity offspring = entity.spawnChild();
-                pasture.addEntity(offspring, pos);
-            }
+            Point pos = Util.getRandomMember(safe);
+            IEntity offspring = entity.spawnChild();
+            pasture.addEntity(offspring, pos);
         }
     }
 }

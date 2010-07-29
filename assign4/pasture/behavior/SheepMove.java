@@ -13,53 +13,51 @@ import pasture.entity.*;
 public class SheepMove extends Move
 {
     public
-    SheepMove(Entity entity)
+    SheepMove(IEntity entity)
     {
-        super(entity, 8);
+        super(entity);
+        setTimerInterval(8);
     }
 
     public void
-    act()
+    triggerAct()
     {
-        if (timeToAct())
+        List<Point> nearest = pasture.getNearestPositions(entity, 1);
+        if (!nearest.isEmpty())
         {
-            List<Point> nearest = pasture.getNearestPositions(entity, 1);
-            if (!nearest.isEmpty())
+            Map<Point, Integer> weights = initializeWeightMap(nearest);
+            Iterator it = weights.entrySet().iterator();
+            while (it.hasNext())
             {
-                Map<Point, Integer> weights = initializeWeightMap(nearest);
-                Iterator it = weights.entrySet().iterator();
-                while (it.hasNext())
-                {
-                    weighPoint((Map.Entry)it.next());
-                }
+                weighPoint((Map.Entry)it.next());
+            }
 
-                it = weights.entrySet().iterator();
-                Map.Entry maxpair = (Map.Entry)it.next();
-                while (it.hasNext())
+            it = weights.entrySet().iterator();
+            Map.Entry maxpair = (Map.Entry)it.next();
+            while (it.hasNext())
+            {
+                Map.Entry pair = (Map.Entry)it.next();
+                Point pos = (Point)pair.getKey();
+                Integer weight = (Integer)pair.getValue();
+                if (weight > (Integer)maxpair.getValue())
                 {
-                    Map.Entry pair = (Map.Entry)it.next();
-                    Point pos = (Point)pair.getKey();
-                    Integer weight = (Integer)pair.getValue();
-                    if (weight > (Integer)maxpair.getValue())
-                    {
-                        maxpair = pair;
-                    }
+                    maxpair = pair;
                 }
+            }
 
-                if (entity.getPosition().equals((Point)maxpair.getKey()))
-                {
-                    Point pos = Util.getRandomMember(nearest);
-                    pasture.moveEntity(entity, pos);
-                }
-                else
-                {
-                    pasture.moveEntity(entity, (Point)maxpair.getKey());
-                }
+            if (entity.getPosition().equals((Point)maxpair.getKey()))
+            {
+                Point pos = Util.getRandomMember(nearest);
+                pasture.moveEntity(entity, pos);
             }
             else
             {
-                System.out.println("oj");
+                pasture.moveEntity(entity, (Point)maxpair.getKey());
             }
+        }
+        else
+        {
+            System.out.println("oj");
         }
     }
 

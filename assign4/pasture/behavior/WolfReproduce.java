@@ -15,6 +15,7 @@ public class WolfReproduce extends Reproduce
     public
     WolfReproduce(IEntity entity)
     {
-        super(entity, 201);
+        super(entity);
+        setTimerInterval(201);
     }
 }

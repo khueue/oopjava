@@ -15,6 +15,7 @@ public class SheepReproduce extends Reproduce
     public
     SheepReproduce(IEntity entity)
     {
-        super(entity, 101);
+        super(entity);
+        setTimerInterval(101);
     }
 }
