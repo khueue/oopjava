@@ -42,6 +42,12 @@ abstract public class Entity implements IEntity
         }
     }
 
+    public void
+    addBehavior(IBehavior behavior)
+    {
+        behaviors.add(behavior);
+    }
+
     public Pasture
     getPasture()
     {

@@ -14,7 +14,7 @@ public class Grass extends Entity
     Grass(Pasture pasture)
     {
         super(pasture, "img/plant.gif");
-        behaviors.add(new GrassReproduce(this));
+        addBehavior(new GrassReproduce(this));
     }
 
     public IEntity

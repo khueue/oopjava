@@ -14,9 +14,9 @@ public class Sheep extends Entity
     Sheep(Pasture pasture)
     {
         super(pasture, "img/sheep.gif");
-        behaviors.add(new SheepMove(this));
-        behaviors.add(new SheepEat(this));
-        behaviors.add(new SheepReproduce(this));
+        addBehavior(new SheepMove(this));
+        addBehavior(new SheepEat(this));
+        addBehavior(new SheepReproduce(this));
     }
 
     public IEntity
