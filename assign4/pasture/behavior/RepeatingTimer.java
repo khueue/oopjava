@@ -35,19 +35,19 @@ public class RepeatingTimer
         return false;
     }
 
-    private void
+    public void
     tick()
     {
         --now;
     }
 
-    private Boolean
+    public Boolean
     alarm()
     {
         return now == 0;
     }
 
-    private void
+    public void
     reset()
     {
         now = interval;
