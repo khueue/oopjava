@@ -29,10 +29,16 @@ abstract public class Entity implements IEntity
     {
         if (notRemoved())
         {
-            for (IBehavior behavior : behaviors)
-            {
-                behavior.act(this);
-            }
+            act();
+        }
+    }
+
+    private void
+    act()
+    {
+        for (IBehavior behavior : behaviors)
+        {
+            behavior.act(this);
         }
     }
 
