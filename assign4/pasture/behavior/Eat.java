@@ -18,7 +18,7 @@ abstract public class Eat extends Behavior
     Eat(IEntity entity)
     {
         super(entity);
-        starvationTimer = new RepeatingTimer(0); // Default: never starve.
+        starvationTimer = new RepeatingTimer(0); // 0 == never ring.
     }
 
     public void

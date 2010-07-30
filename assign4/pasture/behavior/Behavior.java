@@ -19,13 +19,13 @@ abstract public class Behavior implements IBehavior
     {
         this.entity  = entity;
         this.pasture = entity.getPasture();
-        this.timer   = new RepeatingTimer(1); // Default: act on every tick.
+        this.timer   = new RepeatingTimer(1); // 1 == ring on each tick.
     }
 
     public void
-    setTriggerInterval(Integer interval)
+    setTriggerPeriod(Integer period)
     {
-        timer.ringAfter(interval);
+        timer.ringAfter(period);
     }
 
     public void

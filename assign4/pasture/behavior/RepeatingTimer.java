@@ -7,19 +7,19 @@ package pasture.behavior;
 
 public class RepeatingTimer
 {
-    private Integer interval;
+    private Integer period;
     private Integer now;
 
     public
-    RepeatingTimer(Integer interval)
+    RepeatingTimer(Integer period)
     {
-        ringAfter(interval);
+        ringAfter(period);
     }
 
     public void
-    ringAfter(Integer interval)
+    ringAfter(Integer period)
     {
-        this.interval = interval;
+        this.period = period;
         reset();
     }
 
@@ -50,6 +50,6 @@ public class RepeatingTimer
     public void
     reset()
     {
-        now = interval;
+        now = period;
     }
 }
