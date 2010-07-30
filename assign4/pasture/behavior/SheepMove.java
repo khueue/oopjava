@@ -22,6 +22,21 @@ public class SheepMove extends Move
     public void
     triggerAct()
     {
+        /** /
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("Seb",   25);
+        map.put("Jon",   30);
+        map.put("Stina", 26);
+        Iterator<Map.Entry<String, Integer>> it = map.entrySet().iterator();
+        while (it.hasNext())
+        {
+            Map.Entry<String, Integer> pair = it.next();
+            String key    = pair.getKey();
+            Integer value = pair.getValue();
+            System.out.println("key: " + key + ", value: " + value);
+        }
+        /**/
+
         List<Point> nearest = pasture.getNearestPositions(entity, 1);
         if (!nearest.isEmpty())
         {
