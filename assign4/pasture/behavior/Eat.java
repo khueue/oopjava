@@ -12,19 +12,19 @@ import pasture.entity.*;
 
 abstract public class Eat extends Behavior
 {
-    protected RepeatingTimer starveTimer;
+    protected RepeatingTimer starvationTimer;
 
     public
     Eat(IEntity entity)
     {
         super(entity);
-        starveTimer = new RepeatingTimer(0); // Default: never starve.
+        starvationTimer = new RepeatingTimer(0); // Default: never starve.
     }
 
     public void
     starveAfter(Integer period)
     {
-        starveTimer.ringAfter(period);
+        starvationTimer.ringAfter(period);
     }
 
     public void
@@ -43,7 +43,7 @@ abstract public class Eat extends Behavior
     protected Boolean
     starvesToDeath()
     {
-        return entity.notRemoved() && starveTimer.tickAndCheckIfRinging();
+        return entity.notRemoved() && starvationTimer.tickAndCheckIfRinging();
     }
 
     public void
