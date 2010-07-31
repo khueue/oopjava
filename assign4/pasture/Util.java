@@ -26,7 +26,7 @@ abstract public class Util
         return (int)(zeroToAlmostOne * (max-min+1)) + min;
     }
 
-    static public <T>T
+    static public <T> T
     getRandomMember(List<T> list)
     {
         int rand = (int)(Math.random() * list.size());

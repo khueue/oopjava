@@ -16,14 +16,14 @@ public class SheepMove extends Move
     SheepMove(IEntity entity)
     {
         super(entity);
-        setTriggerPeriod(8);
+        triggerAfter(8);
     }
 
     public void
     triggerAct()
     {
         /** /
-        Map<String, Integer> map = new HashMap<String, Integer>();
+        Map<String, Integer> map = new LinkedHashMap<String, Integer>();
         map.put("Seb",   25);
         map.put("Jon",   30);
         map.put("Stina", 26);
@@ -35,6 +35,7 @@ public class SheepMove extends Move
             Integer value = pair.getValue();
             System.out.println("key: " + key + ", value: " + value);
         }
+        // CollectionsSSSS.max
         /**/
 
         List<Point> nearest = pasture.getNearestPositions(entity, 1);

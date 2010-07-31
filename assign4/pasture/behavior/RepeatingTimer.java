@@ -7,8 +7,17 @@ package pasture.behavior;
 
 public class RepeatingTimer
 {
+    public static final Integer NEVER_RING  = 0;
+    public static final Integer ALWAYS_RING = 1;
+
     private Integer period;
     private Integer now;
+
+    public
+    RepeatingTimer()
+    {
+        ringAfter(NEVER_RING);
+    }
 
     public
     RepeatingTimer(Integer period)

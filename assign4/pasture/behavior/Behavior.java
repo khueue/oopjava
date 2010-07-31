@@ -12,20 +12,32 @@ abstract public class Behavior implements IBehavior
 {
     protected IEntity entity;
     protected Pasture pasture;
-    protected RepeatingTimer timer;
+    protected RepeatingTimer timer = new RepeatingTimer();
 
     public
     Behavior(IEntity entity)
     {
         this.entity  = entity;
         this.pasture = entity.getPasture();
-        this.timer   = new RepeatingTimer(1); // 1 == ring on each tick.
+        triggerAlways();
     }
 
     public void
-    setTriggerPeriod(Integer period)
+    triggerAfter(Integer period)
     {
         timer.ringAfter(period);
+    }
+
+    public void
+    triggerAlways()
+    {
+        timer.ringAfter(RepeatingTimer.ALWAYS_RING);
+    }
+
+    public void
+    triggerNever()
+    {
+        timer.ringAfter(RepeatingTimer.NEVER_RING);
     }
 
     public void

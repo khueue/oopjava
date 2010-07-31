@@ -16,6 +16,6 @@ public class SheepReproduce extends Reproduce
     SheepReproduce(IEntity entity)
     {
         super(entity);
-        setTriggerPeriod(101);
+        triggerAfter(101);
     }
 }
