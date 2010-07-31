@@ -19,7 +19,7 @@ abstract public class Behavior implements IBehavior
     {
         this.entity  = entity;
         this.pasture = entity.getPasture();
-        triggerAlways();
+        alwaysTrigger();
     }
 
     public void
@@ -29,13 +29,13 @@ abstract public class Behavior implements IBehavior
     }
 
     public void
-    triggerAlways()
+    alwaysTrigger()
     {
         timer.ringAfter(RepeatingTimer.ALWAYS_RING);
     }
 
     public void
-    triggerNever()
+    neverTrigger()
     {
         timer.ringAfter(RepeatingTimer.NEVER_RING);
     }
@@ -45,7 +45,7 @@ abstract public class Behavior implements IBehavior
     {
         if (shouldAct())
         {
-            triggerAct();
+            actNow();
         }
     }
 
@@ -56,5 +56,5 @@ abstract public class Behavior implements IBehavior
     }
 
     abstract protected void
-    triggerAct();
+    actNow();
 }

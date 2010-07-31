@@ -19,7 +19,7 @@ abstract public class Move extends Behavior
     }
 
     public void
-    triggerAct()
+    actNow()
     {
         List<Point> safe = pasture.getNearestSafePositions(entity, 1);
         if (!safe.isEmpty())

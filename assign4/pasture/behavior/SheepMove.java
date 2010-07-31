@@ -20,7 +20,7 @@ public class SheepMove extends Move
     }
 
     public void
-    triggerAct()
+    actNow()
     {
         /** /
         Map<String, Integer> map = new LinkedHashMap<String, Integer>();

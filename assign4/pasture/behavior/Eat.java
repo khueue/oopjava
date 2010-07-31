@@ -18,7 +18,7 @@ abstract public class Eat extends Behavior
     Eat(IEntity entity)
     {
         super(entity);
-        triggerAlways();
+        alwaysTrigger();
         starvationTimer = new RepeatingTimer(RepeatingTimer.NEVER_RING);
     }
 
@@ -37,7 +37,7 @@ abstract public class Eat extends Behavior
         }
         else if (shouldAct())
         {
-            triggerAct();
+            actNow();
         }
     }
 
@@ -48,7 +48,7 @@ abstract public class Eat extends Behavior
     }
 
     public void
-    triggerAct()
+    actNow()
     {
         List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
         for (IEntity victim : victims)
