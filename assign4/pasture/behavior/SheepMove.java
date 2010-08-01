@@ -23,14 +23,14 @@ public class SheepMove extends Move
     actNow()
     {
         /** /
-        Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+        Map<String,Integer> map = new LinkedHashMap<String,Integer>();
         map.put("Seb",   25);
         map.put("Jon",   30);
         map.put("Stina", 26);
-        Iterator<Map.Entry<String, Integer>> it = map.entrySet().iterator();
+        Iterator<Map.Entry<String,Integer>> it = map.entrySet().iterator();
         while (it.hasNext())
         {
-            Map.Entry<String, Integer> pair = it.next();
+            Map.Entry<String,Integer> pair = it.next();
             String key    = pair.getKey();
             Integer value = pair.getValue();
             System.out.println("key: " + key + ", value: " + value);
@@ -41,48 +41,48 @@ public class SheepMove extends Move
         List<Point> nearest = pasture.getNearestPositions(entity, 1);
         if (!nearest.isEmpty())
         {
-            Map<Point, Integer> weights = initializeWeightMap(nearest);
-            Iterator it = weights.entrySet().iterator();
+            Map<Point,Integer> weights = initializeWeightMap(nearest);
+            Iterator<Map.Entry<Point,Integer>> it = weights.entrySet().iterator();
             while (it.hasNext())
             {
-                weighPoint((Map.Entry)it.next());
+                weighPoint(it.next());
             }
 
             it = weights.entrySet().iterator();
-            Map.Entry maxpair = (Map.Entry)it.next();
+            Map.Entry<Point,Integer> maxpair = it.next();
             while (it.hasNext())
             {
-                Map.Entry pair = (Map.Entry)it.next();
-                Point pos = (Point)pair.getKey();
-                Integer weight = (Integer)pair.getValue();
-                if (weight > (Integer)maxpair.getValue())
+                Map.Entry<Point,Integer> pair = it.next();
+                Point pos = pair.getKey();
+                Integer weight = pair.getValue();
+                if (weight > maxpair.getValue())
                 {
                     maxpair = pair;
                 }
             }
 
-            if (entity.getPosition().equals((Point)maxpair.getKey()))
+            if (entity.getPosition().equals(maxpair.getKey()))
             {
                 Point pos = Util.getRandomMember(nearest);
                 pasture.moveEntity(entity, pos);
             }
             else
             {
-                pasture.moveEntity(entity, (Point)maxpair.getKey());
+                pasture.moveEntity(entity, maxpair.getKey());
             }
         }
         else
         {
-            System.out.println("oj");
+            System.out.println("no empty positions");
         }
     }
 
     private void
-    weighPoint(Map.Entry pair)
+    weighPoint(Map.Entry<Point,Integer> pair)
     {
         // System.out.println(pair.getKey() + " = " + pair.getValue());
-        Point pos = (Point)pair.getKey();
-        Integer weight = (Integer)pair.getValue();
+        Point pos = pair.getKey();
+        Integer weight = pair.getValue();
         List<IEntity> occupants = pasture.getOccupants(pos);
         if (!occupants.isEmpty())
         {
@@ -103,10 +103,10 @@ public class SheepMove extends Move
         }
     }
 
-    private Map<Point, Integer>
+    private Map<Point,Integer>
     initializeWeightMap(List<Point> nearest)
     {
-        Map<Point, Integer> weights = new HashMap<Point, Integer>();
+        Map<Point,Integer> weights = new HashMap<Point,Integer>();
         for (Point pos : nearest)
         {
             weights.put(pos, 0);

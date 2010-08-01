@@ -55,7 +55,7 @@ abstract public class Eat extends Behavior
         {
             if (mayEat(victim))
             {
-                // get food points also XXXXX
+                starvationTimer.reset();
                 victim.die();
             }
         }

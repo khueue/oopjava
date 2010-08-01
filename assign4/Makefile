@@ -1,8 +1,8 @@
-all: clean compile run
+all: compile run
 
-compile:
+compile: clean
 	clear
-	javac pasture/*.java
+	javac pasture/*.java -Xlint:unchecked
 
 run:
 	clear
