@@ -12,7 +12,7 @@ import pasture.entity.*;
 
 public class SheepMove extends Move
 {
-    public static final Integer VISIBILITY = 2;
+    public static final Integer VISIBILITY = 3;
     public static final Integer REACH      = 1;
 
     public
@@ -22,14 +22,15 @@ public class SheepMove extends Move
         triggerAfter(5);
     }
 
+    // visible, reasonable/possible
     public void
     actNow()
     {
         List<Point> visible = pasture.getNearestPositions(entity, VISIBILITY);
         if (visible.size() > 0)
         {
-            List<WeightedPoint> weights = calculateWeights(visible);
-            List<Point> candidates = selectBestPositions(weights);
+            Map<Point,Double> weightMap = calculateWeights(visible);
+            List<Point> candidates = selectBestPositions(weightMap);
             if (candidates.size() > 0)
             {
                 Point newPos = Util.getRandomMember(candidates);
@@ -38,47 +39,67 @@ public class SheepMove extends Move
         }
     }
 
-    private List<Point>
-    selectBestPositions(List<WeightedPoint> weights)
-    {
-        List<Point> candidates;
-        candidates = includeOnlyBest(weights);
-        candidates = includeOnlySafe(candidates);
-        return candidates;
-    }
-
-    private List<Point>
-    includeOnlyBest(List<WeightedPoint> candidates)
-    {
-        return WeightedPoint.getHeaviestPoints(candidates);
-    }
-
-    private List<Point>
-    includeOnlySafe(List<Point> candidates)
-    {
-        List<Point> safe = pasture.getNearestSafePositions(entity, REACH);
-        return Util.intersection(candidates, safe);
-    }
-
-    private List<WeightedPoint>
+    private Map<Point,Double>
     calculateWeights(List<Point> positions)
     {
-        List<WeightedPoint> weights = new ArrayList<WeightedPoint>();
+        Map<Point,Double> results = new HashMap<Point,Double>();
         for (Point pos : positions)
         {
-            WeightedPoint weightedPos = new WeightedPoint(pos);
-            evaluatePoint(weightedPos, positions);
-            weights.add(weightedPos);
+            Double weight = evaluatePosition(pos, positions);
+            results.put(pos, weight);
         }
-        return weights;
+        return results;
     }
 
-    private void
-    evaluatePoint(WeightedPoint pos, List<Point> nearest)
+    private List<Point>
+    selectBestPositions(Map<Point,Double> weights)
     {
-        Double w = distanceToClosestWolf(pos, nearest);
-        Double f = distanceToClosestFood(pos, nearest);
-        pos.setWeight(100.0*w - f);
+        Map<Point,Double> candidates;
+        candidates = keepOnlySafe(weights);
+        candidates = keepOnlyBest(candidates);
+        return new ArrayList<Point>(candidates.keySet());
+    }
+
+    private Double
+    evaluatePosition(Point origin, List<Point> visible)
+    {
+        Double w = distanceToClosestWolf(origin, visible);
+        Double f = distanceToClosestFood(origin, visible);
+        return 100.0*w - f;
+    }
+
+    private Map<Point,Double>
+    keepOnlyBest(Map<Point,Double> weightMap)
+    {
+        Map<Point,Double> result = new HashMap<Point,Double>();
+        Double max = Collections.max(weightMap.values());
+        for (Map.Entry<Point,Double> pair : weightMap.entrySet())
+        {
+            Double weight = pair.getValue();
+            if (weight >= max)
+            {
+                Point pos = pair.getKey();
+                result.put(pos, weight);
+            }
+        }
+        return result;
+    }
+
+    private Map<Point,Double>
+    keepOnlySafe(Map<Point,Double> weightMap)
+    {
+        Map<Point,Double> result = new HashMap<Point,Double>();
+        List<Point> safe = pasture.getNearestSafePositions(entity, REACH);
+        for (Map.Entry<Point,Double> pair : weightMap.entrySet())
+        {
+            Point pos = pair.getKey();
+            if (safe.contains(pos))
+            {
+                Double weight = pair.getValue();
+                result.put(pos, weight);
+            }
+        }
+        return result;
     }
 
     private Double
