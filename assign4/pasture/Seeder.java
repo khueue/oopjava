@@ -10,8 +10,8 @@ import pasture.entity.*;
 
 public class Seeder
 {
-    private final Integer numSheep     = 1;
-    private final Integer numWolves    = 10;
+    private final Integer numSheep     = 3;
+    private final Integer numWolves    = 3;
     private final Integer numGrass     = 40;
     private final Integer numObstacles = 40;
 

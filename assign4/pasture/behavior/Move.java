@@ -99,10 +99,9 @@ abstract public class Move extends Behavior
     private List<Point>
     selectCandidatePositions(Map<Point,Double> weightMap)
     {
-        Map<Point,Double> candidates;
-        candidates = keepOnlySafeAndReachable(weightMap);
-        candidates = keepOnlyBest(candidates);
-        List<Point> positions = new ArrayList<Point>(candidates.keySet());
+        weightMap = keepOnlySafeAndReachable(weightMap);
+        weightMap = keepOnlyBest(weightMap);
+        List<Point> positions = new ArrayList<Point>(weightMap.keySet());
         return positions;
     }
 
@@ -127,14 +126,17 @@ abstract public class Move extends Behavior
     keepOnlyBest(Map<Point,Double> weightMap)
     {
         Map<Point,Double> result = new HashMap<Point,Double>();
-        Double max = Collections.max(weightMap.values());
-        for (Map.Entry<Point,Double> pair : weightMap.entrySet())
+        if (weightMap.size() > 0)
         {
-            Double weight = pair.getValue();
-            if (weight >= max)
+            Double max = Collections.max(weightMap.values());
+            for (Map.Entry<Point,Double> pair : weightMap.entrySet())
             {
-                Point pos = pair.getKey();
-                result.put(pos, weight);
+                Double weight = pair.getValue();
+                if (weight >= max)
+                {
+                    Point pos = pair.getKey();
+                    result.put(pos, weight);
+                }
             }
         }
         return result;
