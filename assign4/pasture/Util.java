@@ -6,6 +6,7 @@
 package pasture;
 
 import java.util.*;
+import java.awt.Point;
 
 abstract public class Util
 {
@@ -31,5 +32,32 @@ abstract public class Util
     {
         int rand = (int)(Math.random() * list.size());
         return list.get(rand);
+    }
+
+    static public List<Point>
+    intersection(List<Point> a, List<Point> b)
+    {
+        List<Point> result = new ArrayList<Point>();
+        for (Point pos : a)
+        {
+            if (in(b, pos))
+            {
+                result.add(pos);
+            }
+        }
+        return result;
+    }
+
+    static private Boolean
+    in(List<Point> list, Point pos)
+    {
+        for (Point p : list)
+        {
+            if (pos.equals(p))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

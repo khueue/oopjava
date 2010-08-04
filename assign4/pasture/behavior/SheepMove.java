@@ -12,105 +12,136 @@ import pasture.entity.*;
 
 public class SheepMove extends Move
 {
+    public static final Integer VISIBILITY = 2;
+    public static final Integer REACH      = 1;
+
     public
     SheepMove(IEntity entity)
     {
         super(entity);
-        triggerAfter(8);
+        triggerAfter(5);
     }
 
     public void
     actNow()
     {
-        /** /
-        Map<String,Integer> map = new LinkedHashMap<String,Integer>();
-        map.put("Seb",   25);
-        map.put("Jon",   30);
-        map.put("Stina", 26);
-        Iterator<Map.Entry<String,Integer>> it = map.entrySet().iterator();
-        while (it.hasNext())
+        List<Point> visible = pasture.getNearestPositions(entity, VISIBILITY);
+        if (visible.size() > 0)
         {
-            Map.Entry<String,Integer> pair = it.next();
-            String key    = pair.getKey();
-            Integer value = pair.getValue();
-            System.out.println("key: " + key + ", value: " + value);
-        }
-        // CollectionsSSSS.max
-        /**/
-
-        List<Point> nearest = pasture.getNearestPositions(entity, 1);
-        if (!nearest.isEmpty())
-        {
-            Map<Point,Integer> weights = initializeWeightMap(nearest);
-            Iterator<Map.Entry<Point,Integer>> it = weights.entrySet().iterator();
-            while (it.hasNext())
+            List<WeightedPoint> weights = calculateWeights(visible);
+            List<Point> candidates = selectBestPositions(weights);
+            if (candidates.size() > 0)
             {
-                weighPoint(it.next());
-            }
-
-            it = weights.entrySet().iterator();
-            Map.Entry<Point,Integer> maxpair = it.next();
-            while (it.hasNext())
-            {
-                Map.Entry<Point,Integer> pair = it.next();
-                Point pos = pair.getKey();
-                Integer weight = pair.getValue();
-                if (weight > maxpair.getValue())
-                {
-                    maxpair = pair;
-                }
-            }
-
-            if (entity.getPosition().equals(maxpair.getKey()))
-            {
-                Point pos = Util.getRandomMember(nearest);
-                pasture.moveEntity(entity, pos);
-            }
-            else
-            {
-                pasture.moveEntity(entity, maxpair.getKey());
+                Point newPos = Util.getRandomMember(candidates);
+                pasture.moveEntity(entity, newPos);
             }
         }
-        else
+    }
+
+    private List<Point>
+    selectBestPositions(List<WeightedPoint> weights)
+    {
+        List<Point> candidates;
+        candidates = includeOnlyBest(weights);
+        candidates = includeOnlySafe(candidates);
+        return candidates;
+    }
+
+    private List<Point>
+    includeOnlyBest(List<WeightedPoint> candidates)
+    {
+        return WeightedPoint.getHeaviestPoints(candidates);
+    }
+
+    private List<Point>
+    includeOnlySafe(List<Point> candidates)
+    {
+        List<Point> safe = pasture.getNearestSafePositions(entity, REACH);
+        return Util.intersection(candidates, safe);
+    }
+
+    private List<WeightedPoint>
+    calculateWeights(List<Point> positions)
+    {
+        List<WeightedPoint> weights = new ArrayList<WeightedPoint>();
+        for (Point pos : positions)
         {
-            System.out.println("no empty positions");
+            WeightedPoint weightedPos = new WeightedPoint(pos);
+            evaluatePoint(weightedPos, positions);
+            weights.add(weightedPos);
         }
+        return weights;
     }
 
     private void
-    weighPoint(Map.Entry<Point,Integer> pair)
+    evaluatePoint(WeightedPoint pos, List<Point> nearest)
     {
-        // System.out.println(pair.getKey() + " = " + pair.getValue());
-        Point pos = pair.getKey();
-        Integer weight = pair.getValue();
-        List<IEntity> occupants = pasture.getOccupants(pos);
-        if (!occupants.isEmpty())
-        {
-            IEntity occ = occupants.get(0);
-            if (occ instanceof Wolf)
-            {
-                pair.setValue(weight - 100);
-            }
-            else if (occ instanceof Grass)
-            {
-                pair.setValue(weight + 100);
-                //System.out.println("incr " + pair.getValue());
-            }
-            else if (occ instanceof Fence)
-            {
-                pair.setValue(weight - 10000);
-            }
-        }
+        Double w = distanceToClosestWolf(pos, nearest);
+        Double f = distanceToClosestFood(pos, nearest);
+        pos.setWeight(100.0*w - f);
     }
 
-    private Map<Point,Integer>
-    initializeWeightMap(List<Point> nearest)
+    private Double
+    distanceToClosestWolf(Point origin, List<Point> positions)
     {
-        Map<Point,Integer> weights = new HashMap<Point,Integer>();
-        for (Point pos : nearest)
+        Double closest = Double.MAX_VALUE;
+        for (Point point : positions)
         {
-            weights.put(pos, 0);
+            List<IEntity> occupants = pasture.getOccupants(point);
+            if (containsWolf(occupants))
+            {
+                Double distance = origin.distance(point);
+                if (distance < closest)
+                {
+                    closest = distance;
+                }
+            }
         }
-        return weights;
+        return (closest < Double.MAX_VALUE) ? closest : 0.0;
+    }
+
+    private Double
+    distanceToClosestFood(Point origin, List<Point> positions)
+    {
+        Double closest = Double.MAX_VALUE;
+        for (Point point : positions)
+        {
+            List<IEntity> occupants = pasture.getOccupants(point);
+            if (containsGrass(occupants))
+            {
+                Double distance = origin.distance(point);
+                if (distance < closest)
+                {
+                    closest = distance;
+                }
+            }
+        }
+        return (closest < Double.MAX_VALUE) ? closest : 0.0;
+    }
+
+    private Boolean
+    containsWolf(List<IEntity> entities)
+    {
+        for (IEntity entity : entities)
+        {
+            if (entity instanceof Wolf)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Boolean
+    containsGrass(List<IEntity> entities)
+    {
+        for (IEntity entity : entities)
+        {
+            if (entity instanceof Grass)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
