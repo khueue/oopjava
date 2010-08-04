@@ -49,7 +49,7 @@ abstract public class Move extends Behavior
         }
     }
 
-    private Map<Point,Double>
+    protected Map<Point,Double>
     calculateWeightMap(List<Point> positions)
     {
         Map<Point,Double> results = new HashMap<Point,Double>();
@@ -96,7 +96,7 @@ abstract public class Move extends Behavior
         return false;
     }
 
-    private List<Point>
+    protected List<Point>
     selectCandidatePositions(Map<Point,Double> weightMap)
     {
         weightMap = keepOnlySafeAndReachable(weightMap);
