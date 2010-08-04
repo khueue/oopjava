@@ -63,8 +63,8 @@ public class SheepMove extends Move
     private Double
     evaluatePosition(Point origin, List<Point> visible)
     {
-        Double w = distanceToClosestWolf(origin, visible);
-        Double f = distanceToClosestFood(origin, visible);
+        Double w = distanceToClosestEntity(origin, visible, Wolf.class);
+        Double f = distanceToClosestEntity(origin, visible, Grass.class);
         return 100.0*w - f;
     }
 
@@ -103,32 +103,13 @@ public class SheepMove extends Move
     }
 
     private Double
-    distanceToClosestWolf(Point origin, List<Point> positions)
+    distanceToClosestEntity(Point origin, List<Point> positions, Class klass)
     {
         Double closest = Double.MAX_VALUE;
         for (Point point : positions)
         {
             List<IEntity> occupants = pasture.getOccupants(point);
-            if (containsWolf(occupants))
-            {
-                Double distance = origin.distance(point);
-                if (distance < closest)
-                {
-                    closest = distance;
-                }
-            }
-        }
-        return (closest < Double.MAX_VALUE) ? closest : 0.0;
-    }
-
-    private Double
-    distanceToClosestFood(Point origin, List<Point> positions)
-    {
-        Double closest = Double.MAX_VALUE;
-        for (Point point : positions)
-        {
-            List<IEntity> occupants = pasture.getOccupants(point);
-            if (containsGrass(occupants))
+            if (containsEntity(occupants, klass))
             {
                 Double distance = origin.distance(point);
                 if (distance < closest)
@@ -141,24 +122,11 @@ public class SheepMove extends Move
     }
 
     private Boolean
-    containsWolf(List<IEntity> entities)
+    containsEntity(List<IEntity> entities, Class klass)
     {
         for (IEntity entity : entities)
         {
-            if (entity instanceof Wolf)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private Boolean
-    containsGrass(List<IEntity> entities)
-    {
-        for (IEntity entity : entities)
-        {
-            if (entity instanceof Grass)
+            if (klass.isInstance(entity))
             {
                 return true;
             }
