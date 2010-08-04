@@ -17,5 +17,14 @@ public class WolfMove extends Move
     {
         super(entity);
         triggerAfter(8);
+        setVisibility(5);
+        setReach(1);
+    }
+
+    protected Double
+    evaluatePosition(Point origin, List<Point> visible)
+    {
+        Double food = distanceToClosestEntity(origin, visible, Sheep.class);
+        return -food;
     }
 }
