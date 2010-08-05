@@ -14,12 +14,8 @@ abstract public class Config
     static public Integer
     get(String key)
     {
-        Integer value = config.get(key);
-        if (value == null)
-        {
-            throw new RuntimeException("No such setting: " + key);
-        }
-        return value;
+        mustExist(key);
+        return config.get(key);
     }
 
     static public void
@@ -31,20 +27,32 @@ abstract public class Config
     static public void
     add(String key, Integer value)
     {
-        if (config.get(key) != null)
-        {
-            throw new RuntimeException("Setting already exists: " + key);
-        }
-        config.put(key, value);
+        mustNotExist(key);
+        set(key, value);
     }
 
     static public void
     update(String key, Integer value)
     {
-        if (config.get(key) == null)
+        mustExist(key);
+        set(key, value);
+    }
+
+    static private void
+    mustExist(String key)
+    {
+        if (!config.containsKey(key))
         {
             throw new RuntimeException("Setting does not exist: " + key);
         }
-        config.put(key, value);
+    }
+
+    static private void
+    mustNotExist(String key)
+    {
+        if (config.containsKey(key))
+        {
+            throw new RuntimeException("Setting already exists: " + key);
+        }
     }
 }
