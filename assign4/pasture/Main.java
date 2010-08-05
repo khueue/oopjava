@@ -5,21 +5,23 @@
 
 package pasture;
 
+import java.util.*;
+
 abstract public class Main
 {
     static public void
     main(String[] args)
     {
-        setupConfig();
+        setupConfig(args);
         Pasture pasture = new Pasture();
         pasture.run();
     }
 
     static private void
-    setupConfig()
+    setupConfig(String[] args)
     {
         setupDefaults();
-        handleInput();
+        handleInput(args);
     }
 
     static private void
@@ -44,7 +46,41 @@ abstract public class Main
     }
 
     static private void
-    handleInput()
+    handleInput(String[] args)
     {
+        if (args.length % 2 != 0)
+        {
+            printUsageAndExit();
+        }
+
+        Iterator<String> it = Arrays.asList(args).iterator();
+        while (it.hasNext())
+        {
+            String key    = it.next();
+            Integer value = toInt(it.next());
+            Config.set(key, value);
+        }
+    }
+
+    static private Integer
+    toInt(String str)
+    {
+        Integer num = null;
+        try
+        {
+            num = Integer.parseInt(str);
+        }
+        catch (NumberFormatException e)
+        {
+            printUsageAndExit();
+        }
+        return num;
+    }
+
+    static private void
+    printUsageAndExit()
+    {
+        System.err.println("Usage: java pasture.Main [<key> <value>] ...");
+        System.exit(0);
     }
 }
