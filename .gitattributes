@@ -1,3 +1,4 @@
-*	eol=lf
-*.gif	binary
-*.pdf	binary
+*       eol=lf
+*.gif   binary
+*.svg   binary
+*.pdf   binary
