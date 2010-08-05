@@ -27,22 +27,22 @@ abstract public class Main
     static private void
     setupDefaults()
     {
-        Config.set("sheep.initial.total",    10);
-        Config.set("sheep.move.after",        5);
-        Config.set("sheep.visibility",        3);
-        Config.set("sheep.starve.after",    100);
-        Config.set("sheep.reproduce.after", 101);
+        Config.add("sheep.initial.total",    20);
+        Config.add("sheep.move.after",        4);
+        Config.add("sheep.visibility",        3);
+        Config.add("sheep.starve.after",    100);
+        Config.add("sheep.reproduce.after", 101);
 
-        Config.set("wolf.initial.total",     20);
-        Config.set("wolf.move.after",         4);
-        Config.set("wolf.visibility",         3);
-        Config.set("wolf.starve.after",     200);
-        Config.set("wolf.reproduce.after",  201);
+        Config.add("wolf.initial.total",     10);
+        Config.add("wolf.move.after",         5);
+        Config.add("wolf.visibility",         4);
+        Config.add("wolf.starve.after",     200);
+        Config.add("wolf.reproduce.after",  201);
 
-        Config.set("grass.initial.total",    40);
-        Config.set("grass.reproduce.after",  50);
+        Config.add("grass.initial.total",    40);
+        Config.add("grass.reproduce.after",  10);
 
-        Config.set("fence.initial.total",    40);
+        Config.add("fence.initial.total",    40);
     }
 
     static private void
@@ -56,10 +56,17 @@ abstract public class Main
         Iterator<String> it = Arrays.asList(args).iterator();
         while (it.hasNext())
         {
-            String key    = it.next();
+            String key = it.next();
             Integer value = toInt(it.next());
-            Config.set(key, value);
+            Config.update(key, value);
         }
+    }
+
+    static private void
+    printUsageAndExit()
+    {
+        System.err.println("Usage: java pasture.Main [<key> <value>] ...");
+        System.exit(0);
     }
 
     static private Integer
@@ -75,12 +82,5 @@ abstract public class Main
             printUsageAndExit();
         }
         return num;
-    }
-
-    static private void
-    printUsageAndExit()
-    {
-        System.err.println("Usage: java pasture.Main [<key> <value>] ...");
-        System.exit(0);
     }
 }

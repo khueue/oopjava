@@ -12,19 +12,39 @@ abstract public class Config
     static private Map<String,Integer> config = new HashMap<String,Integer>();
 
     static public Integer
-    get(String name)
+    get(String key)
     {
-        Integer value = config.get(name);
+        Integer value = config.get(key);
         if (value == null)
         {
-            throw new RuntimeException("No such setting!");
+            throw new RuntimeException("No such setting: " + key);
         }
         return value;
     }
 
     static public void
-    set(String name, Integer value)
+    set(String key, Integer value)
     {
-        config.put(name, value);
+        config.put(key, value);
+    }
+
+    static public void
+    add(String key, Integer value)
+    {
+        if (config.get(key) != null)
+        {
+            throw new RuntimeException("Setting already exists: " + key);
+        }
+        config.put(key, value);
+    }
+
+    static public void
+    update(String key, Integer value)
+    {
+        if (config.get(key) == null)
+        {
+            throw new RuntimeException("Setting does not exist: " + key);
+        }
+        config.put(key, value);
     }
 }

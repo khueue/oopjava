@@ -6,7 +6,11 @@ compile: clean
 
 run:
 	clear
-	java pasture.Main sheep.move.after 1
+	java pasture.Main \
+		sheep.move.after  4  \
+		sheep.visibility  3  \
+		wolf.move.after   5  \
+		wolf.visibility   4  \
 
 pack: clean
 	tar -czvf oopjava-assign4-selu7901.tar.gz cards/*.java *.pdf img Makefile
