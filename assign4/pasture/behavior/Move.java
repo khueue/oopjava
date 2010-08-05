@@ -13,7 +13,6 @@ import pasture.entity.*;
 abstract public class Move extends Behavior
 {
     private Integer visibility;
-    private Integer reach;
     private Point previous;
 
     public
@@ -33,12 +32,6 @@ abstract public class Move extends Behavior
     setVisibility(Integer range)
     {
         this.visibility = range;
-    }
-
-    protected void
-    setReach(Integer range)
-    {
-        this.reach = range;
     }
 
     public void
@@ -124,7 +117,7 @@ abstract public class Move extends Behavior
     keepOnlySafeAndReachable(Map<Point,Double> weightMap)
     {
         Map<Point,Double> result = new HashMap<Point,Double>();
-        List<Point> safe = pasture.getNearestSafePositions(entity, reach);
+        List<Point> safe = pasture.getNearestSafePositions(entity, 1);
         for (Map.Entry<Point,Double> pair : weightMap.entrySet())
         {
             Point pos = pair.getKey();

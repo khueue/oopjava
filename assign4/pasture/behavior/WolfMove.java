@@ -16,9 +16,8 @@ public class WolfMove extends Move
     WolfMove(IEntity entity)
     {
         super(entity);
-        triggerAfter(8);
-        setVisibility(5);
-        setReach(1);
+        triggerAfter(5);
+        setVisibility(3);
     }
 
     protected Double

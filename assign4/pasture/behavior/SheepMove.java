@@ -18,7 +18,6 @@ public class SheepMove extends Move
         super(entity);
         triggerAfter(5);
         setVisibility(3);
-        setReach(1);
     }
 
     protected Double
