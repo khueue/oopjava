@@ -14,11 +14,19 @@ abstract public class Move extends Behavior
 {
     private Integer visibility;
     private Integer reach;
+    private Point previous;
 
     public
     Move(IEntity entity)
     {
         super(entity);
+    }
+
+    protected Point
+    getPreviousPosition()
+    {
+        Boolean notMovedYet = (previous == null);
+        return notMovedYet ? entity.getPosition() : previous;
     }
 
     protected void
@@ -44,6 +52,7 @@ abstract public class Move extends Behavior
             if (candidates.size() > 0)
             {
                 Point newPos = Util.getRandomMember(candidates);
+                previous = entity.getPosition();
                 pasture.moveEntity(entity, newPos);
             }
         }
@@ -81,6 +90,12 @@ abstract public class Move extends Behavior
             }
         }
         return (closest < Double.MAX_VALUE) ? closest : 0.0;
+    }
+
+    protected Double
+    distanceToPreviousPosition(Point origin)
+    {
+        return origin.distance(getPreviousPosition());
     }
 
     protected Boolean

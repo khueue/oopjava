@@ -26,6 +26,7 @@ public class SheepMove extends Move
     {
         Double wolf = distanceToClosestEntity(origin, visible, Wolf.class);
         Double food = distanceToClosestEntity(origin, visible, Grass.class);
-        return 100.0*wolf - food;
+        Double prev = distanceToPreviousPosition(origin);
+        return (100.0 * wolf) + (-1.0 * food) + (0.1 * prev);
     }
 }

@@ -25,6 +25,7 @@ public class WolfMove extends Move
     evaluatePosition(Point origin, List<Point> visible)
     {
         Double food = distanceToClosestEntity(origin, visible, Sheep.class);
-        return -food;
+        Double prev = distanceToPreviousPosition(origin);
+        return (-1.0 * food) + (0.1 * prev);
     }
 }
