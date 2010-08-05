@@ -16,7 +16,7 @@ public class SheepEat extends Eat
     SheepEat(IEntity entity)
     {
         super(entity);
-        starveAfter(100);
+        starveAfter(Config.get("sheep.starve.after"));
     }
 
     public Boolean

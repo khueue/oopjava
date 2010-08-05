@@ -16,6 +16,6 @@ public class SheepReproduce extends Reproduce
     SheepReproduce(IEntity entity)
     {
         super(entity);
-        triggerAfter(101);
+        triggerAfter(Config.get("sheep.reproduce.after"));
     }
 }

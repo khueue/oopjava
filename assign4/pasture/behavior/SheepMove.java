@@ -16,8 +16,8 @@ public class SheepMove extends Move
     SheepMove(IEntity entity)
     {
         super(entity);
-        triggerAfter(5);
-        setVisibility(3);
+        triggerAfter(Config.get("sheep.move.after"));
+        setVisibility(Config.get("sheep.visibility"));
     }
 
     protected Double

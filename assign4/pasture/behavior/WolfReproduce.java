@@ -16,6 +16,6 @@ public class WolfReproduce extends Reproduce
     WolfReproduce(IEntity entity)
     {
         super(entity);
-        triggerAfter(201);
+        triggerAfter(Config.get("wolf.reproduce.after"));
     }
 }

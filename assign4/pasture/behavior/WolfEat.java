@@ -16,7 +16,7 @@ public class WolfEat extends Eat
     WolfEat(IEntity entity)
     {
         super(entity);
-        starveAfter(200);
+        starveAfter(Config.get("wolf.starve.after"));
     }
 
     public Boolean

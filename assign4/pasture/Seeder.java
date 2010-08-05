@@ -10,11 +10,6 @@ import pasture.entity.*;
 
 public class Seeder
 {
-    private final Integer numSheep     = 10;
-    private final Integer numWolves    = 20;
-    private final Integer numGrass     = 40;
-    private final Integer numObstacles = 40;
-
     private final Pasture pasture;
     private final Integer width;
     private final Integer height;
@@ -68,7 +63,8 @@ public class Seeder
     private void
     createObstacles()
     {
-        for (int i = 0; i < numObstacles; ++i)
+        int total = Config.get("fence.initial.total");
+        for (int i = 0; i < total; ++i)
         {
             placeRandomly(new Fence(pasture));
         }
@@ -77,7 +73,8 @@ public class Seeder
     private void
     createGrass()
     {
-        for (int i = 0; i < numGrass; ++i)
+        int total = Config.get("grass.initial.total");
+        for (int i = 0; i < total; ++i)
         {
             placeRandomly(new Grass(pasture));
         }
@@ -86,7 +83,8 @@ public class Seeder
     private void
     createSheep()
     {
-        for (int i = 0; i < numSheep; ++i)
+        int total = Config.get("sheep.initial.total");
+        for (int i = 0; i < total; ++i)
         {
             placeRandomly(new Sheep(pasture));
         }
@@ -95,7 +93,8 @@ public class Seeder
     private void
     createWolves()
     {
-        for (int i = 0; i < numWolves; ++i)
+        int total = Config.get("wolf.initial.total");
+        for (int i = 0; i < total; ++i)
         {
             placeRandomly(new Wolf(pasture));
         }
