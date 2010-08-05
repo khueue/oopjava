@@ -29,12 +29,6 @@ abstract public class Move extends Behavior
     }
 
     protected void
-    updatePreviousPosition()
-    {
-        previous = entity.getPosition();
-    }
-
-    protected void
     setVisibility(Integer range)
     {
         this.visibility = range;
@@ -50,11 +44,17 @@ abstract public class Move extends Behavior
             List<Point> candidates = selectCandidatePositions(weightMap);
             if (candidates.size() > 0)
             {
-                updatePreviousPosition();
                 Point newPos = Util.getRandomMember(candidates);
-                pasture.moveEntity(entity, newPos);
+                updatePosition(newPos);
             }
         }
+    }
+
+    protected void
+    updatePosition(Point newPos)
+    {
+        previous = entity.getPosition();
+        pasture.moveEntity(entity, newPos);
     }
 
     protected Map<Point,Double>
