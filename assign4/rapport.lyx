@@ -51,11 +51,11 @@ ST 2010
 \end_layout
 
 \begin_layout Title
-Inlämningsuppgift 3
+Inlämningsuppgift 4
 \begin_inset Newline newline
 \end_inset
 
-Plocka med kort
+Simulering av ekologisk värld
 \end_layout
 
 \begin_layout Author
@@ -67,9 +67,10 @@ Inledning
 \end_layout
 
 \begin_layout Standard
-Denna rapport behandlar design och implementation av ett program där spelkort
- presenteras grafiskt i ett fönster, och användaren kan vända och flytta
- på dessa kort med hjälp av muspekaren.
+Denna rapport behandlar design och implementation av ett program som simulerar
+ livet i en hage.
+ I hagen kämpar olika varelser för sitt liv genom att jaga mat och föröka
+ sig.
 \end_layout
 
 \begin_layout Standard
@@ -115,54 +116,206 @@ Vill du endast köra programmet skriver du:
 $ make run
 \end_layout
 
+\begin_layout Standard
+Programmet går att konfigurera genom att ge parvisa argument:
+\end_layout
+
+\begin_layout LyX-Code
+$ java pasture.Main     
+\backslash
+
+\end_layout
+
+\begin_layout LyX-Code
+    sheep.move.after 4  
+\backslash
+
+\end_layout
+
+\begin_layout LyX-Code
+    sheep.visibility 3  
+\backslash
+
+\end_layout
+
+\begin_layout LyX-Code
+    wolf.move.after  5  
+\backslash
+
+\end_layout
+
+\begin_layout LyX-Code
+    wolf.visibility  4
+\end_layout
+
+\begin_layout Standard
+Ovanstående gör att får och vargar flyttar sig efter 4 resp.
+ 5 tick, och att de kan se 3 resp.
+ 4 rutor långt.
+ Mer information och standardvärden finns i klassen 
+\emph on
+Main
+\emph default
+.
+\end_layout
+
 \begin_layout Section
 Systemdesign
 \end_layout
 
 \begin_layout Standard
-I huvudsak valde jag mellan två olika lösningar som beskrivs nedan.
-\end_layout
-
-\begin_layout Subsection
-Kort som JPanel
-\end_layout
-
-\begin_layout Standard
-Min första idé var att varje kort kan ärva av Swing-komponenten 
-\emph on
-JPanel
-\emph default
-.
- Denna lösning gör det enkelt för de olika komponenterna i gränssnittet
- att interagera med varandra, och ansvar kan fördelas ut på ett bra och
- intuitivt sätt.
-\end_layout
-
-\begin_layout Subsection
-Kort som vanliga klasser
+Initialt försökte jag modellera entiteter genom ett komplext arv, så som
+ levande djur, stationära djur, förökande djur o.s.v.
+ Men jag insåg snabbt att arvet blir onödigt krångligt och inflexibelt.
+ I stället nöjde jag mig med ett mycket enkelt arv.
+ Se figur:
 \end_layout
 
 \begin_layout Standard
-En annan lösning är att låta varje kort vara en vanlig klass, ungefär som
- en rektangel som vet sin position, storlek och bilderna som skall visas,
- men inte mycket mer än så.
- I detta fall får man troligtvis skapa en annan övergripande klass som håller
- reda på alla kort och alla händelser.
- Denna moderatorklass får då ansvaret att undersöka mushändelser och se
- till att rätt kort påverkas på rätt sätt.
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
 \end_layout
 
-\begin_layout Subsection
-Lösningsval
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename misc/Entity.svg
+	width 50text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Klassdiagram över entiteter.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
-Jag valde att implementera varje kort som en 
-\emph on
-JPanel
-\emph default
- av anledningarna att det kändes uppenbart att göra så, samt att jag hoppades
- att det skulle bli enklare att implementera än alternativet.
+För att möjliggöra varierande beteenden mellan olika entiteter skapade jag
+ beteendeklasser, separerade från logiken i entititerna.
+ Se figur:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename misc/Behavior.svg
+	width 100text%
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Klassdiagram över beteenden.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Varje entitet har en samling beteenden som vid varje tick bestämmer hur
+ entiteten agerar.
+ Tack vare denna design är det enkelt att skapa fler beteenden, samt låta
+ entiteter använda hur många eller hur få beteenden som helst, utan att
+ påverka själva entitetsklasserna.
+\end_layout
+
+\begin_layout Standard
+Man kan exempelvis skapa en entitet som äter och flyttar, en annan som flyttar
+ och förökar sig, och en tredje som äter och förökar sig, utan att komplicera
+ entitetsarvet.
+ Eller varför inte en entitet som inte gör något alls? Eller allt möjligt?
 \end_layout
 
 \begin_layout Section

@@ -6,7 +6,7 @@ compile: clean
 
 run:
 	clear
-	java pasture.Main \
+	java pasture.Main        \
 		sheep.move.after  4  \
 		sheep.visibility  3  \
 		wolf.move.after   5  \
