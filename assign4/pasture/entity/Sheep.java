@@ -19,12 +19,6 @@ public class Sheep extends Entity
         addBehavior(new SheepReproduce(this));
     }
 
-    public IEntity
-    spawnChild()
-    {
-        return new Sheep(pasture);
-    }
-
     public Boolean
     maySharePositionWith(IEntity entity)
     {

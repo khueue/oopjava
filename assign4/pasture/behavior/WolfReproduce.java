@@ -18,4 +18,10 @@ public class WolfReproduce extends Reproduce
         super(entity);
         reproduceAfter(Config.get("wolf.reproduce.after"));
     }
+
+    protected IEntity
+    spawnChild()
+    {
+        return new Wolf(entity.getPasture());
+    }
 }

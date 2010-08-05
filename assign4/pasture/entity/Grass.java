@@ -17,12 +17,6 @@ public class Grass extends Entity
         addBehavior(new GrassReproduce(this));
     }
 
-    public IEntity
-    spawnChild()
-    {
-        return new Grass(pasture);
-    }
-
     public Boolean
     maySharePositionWith(IEntity entity)
     {

@@ -15,9 +15,6 @@ public interface IEntity
     public void
     tick();
 
-    public IEntity
-    spawnChild();
-
     public Pasture
     getPasture();
 

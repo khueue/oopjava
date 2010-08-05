@@ -19,7 +19,7 @@ public class SheepEat extends Eat
         starveAfter(Config.get("sheep.starve.after"));
     }
 
-    public Boolean
+    protected Boolean
     mayEat(IEntity entity)
     {
         return (entity instanceof Grass);

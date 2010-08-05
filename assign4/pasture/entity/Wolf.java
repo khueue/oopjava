@@ -19,12 +19,6 @@ public class Wolf extends Entity
         addBehavior(new WolfReproduce(this));
     }
 
-    public IEntity
-    spawnChild()
-    {
-        return new Wolf(pasture);
-    }
-
     public Boolean
     maySharePositionWith(IEntity entity)
     {

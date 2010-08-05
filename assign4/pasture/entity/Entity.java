@@ -33,7 +33,7 @@ abstract public class Entity implements IEntity
         }
     }
 
-    private void
+    protected void
     act()
     {
         for (IBehavior behavior : behaviors)

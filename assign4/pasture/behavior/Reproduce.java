@@ -31,8 +31,11 @@ abstract public class Reproduce extends Behavior
         if (!safe.isEmpty())
         {
             Point pos = Util.getRandomMember(safe);
-            IEntity offspring = entity.spawnChild();
+            IEntity offspring = spawnChild();
             pasture.addEntity(offspring, pos);
         }
     }
+
+    abstract protected IEntity
+    spawnChild();
 }

@@ -18,4 +18,10 @@ public class SheepReproduce extends Reproduce
         super(entity);
         reproduceAfter(Config.get("sheep.reproduce.after"));
     }
+
+    protected IEntity
+    spawnChild()
+    {
+        return new Sheep(entity.getPasture());
+    }
 }

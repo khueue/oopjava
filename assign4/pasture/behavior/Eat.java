@@ -61,6 +61,6 @@ abstract public class Eat extends Behavior
         }
     }
 
-    abstract public Boolean
+    abstract protected Boolean
     mayEat(IEntity entity);
 }

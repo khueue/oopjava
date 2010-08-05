@@ -18,4 +18,10 @@ public class GrassReproduce extends Reproduce
         super(entity);
         reproduceAfter(Config.get("grass.reproduce.after"));
     }
+
+    protected IEntity
+    spawnChild()
+    {
+        return new Grass(entity.getPasture());
+    }
 }
