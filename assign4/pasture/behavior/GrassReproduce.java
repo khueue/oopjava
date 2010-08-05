@@ -16,6 +16,6 @@ public class GrassReproduce extends Reproduce
     GrassReproduce(IEntity entity)
     {
         super(entity);
-        triggerAfter(Config.get("grass.reproduce.after"));
+        reproduceAfter(Config.get("grass.reproduce.after"));
     }
 }

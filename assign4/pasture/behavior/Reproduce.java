@@ -18,6 +18,12 @@ abstract public class Reproduce extends Behavior
         super(entity);
     }
 
+    protected void
+    reproduceAfter(Integer period)
+    {
+        triggerAfter(period);
+    }
+
     public void
     actNow()
     {

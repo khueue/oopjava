@@ -16,7 +16,7 @@ public class WolfMove extends Move
     WolfMove(IEntity entity)
     {
         super(entity);
-        triggerAfter(Config.get("wolf.move.after"));
+        moveAfter(Config.get("wolf.move.after"));
         setVisibility(Config.get("wolf.visibility"));
     }
 

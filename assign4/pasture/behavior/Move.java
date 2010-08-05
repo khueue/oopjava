@@ -21,6 +21,12 @@ abstract public class Move extends Behavior
         super(entity);
     }
 
+    protected void
+    moveAfter(Integer period)
+    {
+        triggerAfter(period);
+    }
+
     protected Point
     getPreviousPosition()
     {
