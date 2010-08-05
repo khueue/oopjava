@@ -22,19 +22,19 @@ abstract public class Behavior implements IBehavior
         alwaysTrigger();
     }
 
-    public void
+    protected void
     triggerAfter(Integer period)
     {
         timer.ringAfter(period);
     }
 
-    public void
+    protected void
     alwaysTrigger()
     {
         timer.ringAfter(RepeatingTimer.ALWAYS_RING);
     }
 
-    public void
+    protected void
     neverTrigger()
     {
         timer.ringAfter(RepeatingTimer.NEVER_RING);

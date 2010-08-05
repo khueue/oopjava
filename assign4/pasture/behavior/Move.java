@@ -40,7 +40,7 @@ abstract public class Move extends Behavior
         this.visibility = range;
     }
 
-    public void
+    protected void
     actNow()
     {
         List<Point> visible = pasture.getNearestPositions(entity, visibility);

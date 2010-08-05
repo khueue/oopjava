@@ -24,7 +24,7 @@ abstract public class Reproduce extends Behavior
         triggerAfter(period);
     }
 
-    public void
+    protected void
     actNow()
     {
         List<Point> safe = pasture.getNearestSafePositions(entity, 1);

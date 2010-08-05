@@ -22,7 +22,7 @@ abstract public class Eat extends Behavior
         starvationTimer = new RepeatingTimer(RepeatingTimer.NEVER_RING);
     }
 
-    public void
+    protected void
     starveAfter(Integer period)
     {
         starvationTimer.ringAfter(period);
@@ -47,7 +47,7 @@ abstract public class Eat extends Behavior
         return entity.notRemoved() && starvationTimer.tickAndCheckIfRinging();
     }
 
-    public void
+    protected void
     actNow()
     {
         List<IEntity> victims = pasture.getOtherEntitiesAtSamePosition(entity);
