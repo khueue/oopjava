@@ -13,7 +13,7 @@ run:
 		wolf.visibility   4  \
 
 pack: clean
-	tar -czvf oopjava-assign4-selu7901.tar.gz pasture/*.java *.pdf img pasture Makefile
+	tar -czvf oopjava-assign4-selu7901.tar.gz *.pdf img pasture Makefile
 
 clean:
 	clear
