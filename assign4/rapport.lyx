@@ -164,10 +164,26 @@ Systemdesign
 \end_layout
 
 \begin_layout Standard
+Här diskuterar jag min lösning i stora drag.
+\end_layout
+
+\begin_layout Subsection
+Entiteter
+\end_layout
+
+\begin_layout Standard
 Initialt försökte jag modellera entiteter genom ett komplext arv, så som
  levande djur, stationära djur, förökande djur o.s.v.
  Men jag insåg snabbt att arvet blir onödigt krångligt och inflexibelt.
- I stället nöjde jag mig med ett mycket enkelt arv.
+ I stället nöjde jag mig med ett mycket enkelt och 
+\begin_inset Quotes sld
+\end_inset
+
+platt
+\begin_inset Quotes srd
+\end_inset
+
+ arv.
  Se figur:
 \end_layout
 
@@ -290,7 +306,7 @@ end{center}
 \begin_inset Caption
 
 \begin_layout Plain Layout
-Klassdiagram över beteenden.
+Klassdiagram över entiteters beteenden.
 \end_layout
 
 \end_inset
@@ -315,7 +331,45 @@ Varje entitet har en samling beteenden som vid varje tick bestämmer hur
 Man kan exempelvis skapa en entitet som äter och flyttar, en annan som flyttar
  och förökar sig, och en tredje som äter och förökar sig, utan att komplicera
  entitetsarvet.
- Eller varför inte en entitet som inte gör något alls? Eller allt möjligt?
+ Varför inte skapa en entitet som inte gör något alls? Eller allt möjligt?
+\end_layout
+
+\begin_layout Subsection
+Ramverk
+\end_layout
+
+\begin_layout Standard
+Det givna ramverket har använts och är i stort sett intakt.
+ De största förändringarna jag gjorde var att från 
+\emph on
+Pasture
+\emph default
+ flytta skapandet av de första entiteterna till en ny klass, 
+\emph on
+Seeder
+\emph default
+, och flytta logik som hanterar rutnätet till en ny klass, 
+\emph on
+Grid
+\emph default
+.
+ På så sätt blev 
+\emph on
+Pasture
+\emph default
+ mer överskådlig.
+\end_layout
+
+\begin_layout Standard
+Några saker fick byta namn, varav det viktigaste är 
+\emph on
+Entity
+\emph default
+ som fick byta till 
+\emph on
+IEntity
+\emph default
+.
 \end_layout
 
 \begin_layout Section
@@ -327,263 +381,415 @@ Här beskrivs de viktigaste klasserna i systemet.
 \end_layout
 
 \begin_layout Subsection
-Spelbordet
+Entiteter
 \end_layout
 
 \begin_layout Standard
-Spelbordet implementeras i klassen 
-\emph on
-Board
-\emph default
-.
- Den skapar alla kort som skall visas, samt har en metod för att underrättas
- om något kort har ändrats.
-\end_layout
-
-\begin_layout Standard
-Publika metoder:
-\end_layout
-
-\begin_layout Description
-void
-\begin_inset space ~
-\end_inset
-
-notifyChangedCard(Card
-\begin_inset space ~
-\end_inset
-
-
-\emph on
-card
-\emph default
-) Placerar kortet 
-\emph on
-card
-\emph default
- överst, så att det inte skyms av några andra kort.
-\end_layout
-
-\begin_layout Subsection
-Kort
-\end_layout
-
-\begin_layout Standard
-Kort implementeras i klassen 
-\emph on
-Card
-\emph default
- som ärver av 
-\emph on
-JPanel
-\emph default
-.
- Den skapar, utifrån två sökvägar, två bilder som används som kortets fram-
- och baksida.
- Varje kort skapar en egen instans av en klass som prenumererar på mushändelser.
- Kortet får även en referens tillbaka till bordet som skapar det.
-\end_layout
-
-\begin_layout Standard
-Publika metoder:
-\end_layout
-
-\begin_layout Description
-void
-\begin_inset space ~
-\end_inset
-
-moveByDelta(Integer
-\begin_inset space ~
-\end_inset
-
-
-\emph on
-deltaX
-\emph default
-,
-\begin_inset space ~
-\end_inset
-
-Integer
-\begin_inset space ~
-\end_inset
-
-
-\emph on
-deltaY
-\emph default
-) Flyttar kortet 
-\emph on
-deltaX
-\emph default
- pixlar i x-led och 
-\emph on
-deltaY
-\emph default
- pixlar i y-led.
- Meddelar sedan bordet att det har uppdaterats.
-\end_layout
-
-\begin_layout Description
-void
-\begin_inset space ~
-\end_inset
-
-flip() Vänder på kortet samt berättar för bordet att det har uppdaterats.
-\end_layout
-
-\begin_layout Standard
-Kort överskuggar 
-\emph on
-JPanel
-\emph default
--metoden 
-\emph on
-paintComponent
-\emph default
- så att när kortet skall ritas upp på skärmen så ritas bilden som associerats
- med kortets synliga sida.
-\end_layout
-
-\begin_layout Subsection
-Muspekaren
-\end_layout
-
-\begin_layout Standard
-Varje kort har en egen muspekarlyssnare som implementeras i klassen 
-\emph on
-CardMouseListener
-\emph default
- som implementerar två interface för att hantera mushändelser: 
-\emph on
-MouseListener
-\emph default
- och 
-\emph on
-MouseMotionListener
-\emph default
-.
- Lyssnaren får meddelanden om musen försöker manipulera kortet.
-\end_layout
-
-\begin_layout Standard
-Publika metoder av intresse:
-\end_layout
-
-\begin_layout Description
-void
-\begin_inset space ~
-\end_inset
-
-mouseClicked(MouseEvent
-\begin_inset space ~
-\end_inset
-
-
-\emph on
-mouse
-\emph default
-) Anropas när musen har klickat (tryckts och släppts utan rörelse däremellan)
- på kortet.
- Kortet ombeds vända på sig.
-\end_layout
-
-\begin_layout Description
-void
-\begin_inset space ~
-\end_inset
-
-mousePressed(MouseEvent
-\begin_inset space ~
-\end_inset
-
-
-\emph on
-mouse
-\emph default
-) Anropas när musen trycks ned på ett kort.
- Sparar musens nuvarande tillstånd så att avstånd kan beräknas när kortet
- börjar flyttas.
-\end_layout
-
-\begin_layout Description
-void
-\begin_inset space ~
-\end_inset
-
-mouseDragged(MouseEvent
-\begin_inset space ~
-\end_inset
-
-
-\emph on
-mouse
-\emph default
-) Anropas när en musknapp redan är nedtryckt och muspekaren rör sig.
- Avståndet från föregående position beräknas och kortet ombeds flytta på
- sig lämplig sträcka.
-\end_layout
-
-\begin_layout Section
-Programflöde
-\end_layout
-
-\begin_layout Standard
-Programmet börjar i 
-\emph on
-main
-\emph default
--metoden som återfinns i klassen 
-\emph on
-Main
-\emph default
-.
- Den skapar ett fönster och placerar ett spelbord inuti detta.
- Fönstret ritas sedan upp.
-\end_layout
-
-\begin_layout Standard
-När bordet skapas konstruerar det i sin tur ett antal kort.
- Varje kort skapar sina bildikoner och sätter upp en egen lyssnare för mushändel
-ser.
- På så sätt kan Swing se till att mushändelser rapporteras till rätt kort,
- d.v.s.
- kortet som ligger överst under muspekaren.
-\end_layout
-
-\begin_layout Standard
-När en mushändelse fångas upp av ett kort uppdaterar kortet sitt eget tillstånd
- och avslutar med att meddela bordet att kortet har uppdaterats.
- Bordet ser då till att kortet hamnar överst.
-\end_layout
-
-\begin_layout Standard
-Eftersom bordet är en 
-\emph on
-JLayeredPane
-\emph default
- är det mycket lätt att flytta en komponent så att det ritas ut överst,
- nämligen genom anropa metoden 
-\emph on
-moveToFront
-\emph default
-.
- Vill man i stället implementera bordet som en 
-\emph on
-JPanel
-\emph default
- går det lika bra, men då måste man lösa problemet på ett annat sätt, exempelvis
- genom att plocka bort kortet från den egna 
+Alla entitetsklasser är samlade i paketet 
 \begin_inset Quotes sld
 \end_inset
 
-containern
+pasture.entity
 \begin_inset Quotes srd
 \end_inset
 
-, lägga tillbaka det igen, men då överst, och sedan låta kortet rita om
- sig själv.
+.
+ Entiteter måste implementera interfacet 
+\emph on
+IEntity
+\emph default
+ som kräver metoder som är gemensamma för alla entiteter.
+ Dessa metoder inkluderar 
+\begin_inset Quotes sld
+\end_inset
+
+getters
+\begin_inset Quotes srd
+\end_inset
+
+ för t.ex.
+ hagen och entitetens position i den, metoder för att ta bort entiteten
+ ur hagen, samt metoder för att undersöka om entiteten får stå på vissa
+ positioner i hagen.
+\end_layout
+
+\begin_layout Standard
+Den viktigaste metoden som interfacet kräver är 
+\emph on
+tick()
+\emph default
+, vilken anropas av simuleringsmotorn vid varje tidssteg.
+ Metoden är tänkt att låta entiteten agera 
+\begin_inset Quotes sld
+\end_inset
+
+ett snäpp
+\begin_inset Quotes srd
+\end_inset
+
+, t.ex.
+ genom att förflytta sig ett steg och försöka äta det som finns på den nya
+ positionen.
+ Exakt vad som skall hända vid varje tick bestäms av entitetens beteenden.
+\end_layout
+
+\begin_layout Standard
+För enkelhetens skull finns en abstrakt basklass 
+\emph on
+Entity
+\emph default
+ som implementerar det mesta av interfacet.
+ Konkreta klasser behöver därmed bara ärva av 
+\emph on
+Entity
+\emph default
+, skapa de beteenden som önskas och definiera metoden 
+\emph on
+maySharePositionWith()
+\emph default
+ som bestämmer om entiteten får stå på samma position som given annan entitet.
+\end_layout
+
+\begin_layout Subsection
+Beteenden
+\end_layout
+
+\begin_layout Standard
+Alla beteendeklasser är samlade i paketet 
+\begin_inset Quotes sld
+\end_inset
+
+pasture.behavior
+\begin_inset Quotes srd
+\end_inset
+
+.
+ Beteenden måste implementera interfacet 
+\emph on
+IBehavior
+\emph default
+ och därmed metoden 
+\emph on
+act()
+\emph default
+.
+ Vid varje tick anropar varje entitet sina beteendens 
+\emph on
+act()
+\emph default
+-metoder (förutsatt att entiteten fortfarande lever).
+\end_layout
+
+\begin_layout Standard
+Den abstrakta basklassen 
+\emph on
+Behavior
+\emph default
+ tillhandahåller en timer som utlöses efter ett visst intervall.
+ Äta gör man så fort tillfälle ges, alltså vid varje tick, medan förflyttning
+ och förökning sker med jämna mellanrum.
+ Detta konfigureras i subklasserna.
+\end_layout
+
+\begin_layout Standard
+Eftersom olika varelser exempelvis förflyttar sig på likartade sätt finns
+ ytterligare abstrakta klasser som ärver av 
+\emph on
+Behavior
+\emph default
+.
+ Dessa klasser är 
+\emph on
+Eat
+\emph default
+, 
+\emph on
+Move
+\emph default
+ och 
+\emph on
+Reproduce
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Eat
+\emph default
+ har ytterligare en timer, nämligen för att hålla koll på om entiteten svälter.
+ Den implementerar även själva ätandet, men låter informationen om vad som
+ faktiskt kan ätas definieras av subklasser genom metoden 
+\emph on
+mayEat()
+\emph default
+.
+ Vargar kan exempelvis äta får, medan får kan äta grästuvor.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Move
+\emph default
+ är den största beteendeklassen då den implementerar omfattande intelligens
+ för att optimera nästa förflyttning.
+ Subklasser till 
+\emph on
+Move
+\emph default
+ behöver endast definiera metoden 
+\emph on
+evaluatePosition()
+\emph default
+ som viktar en given position.
+ Vargar föredrar positioner nära får, medan får föredrar positioner så långt
+ bort ifrån vargar som möjligt men annars nära grästuvor.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Reproduce
+\emph default
+ implementerar ett enkelt beteende för att föröka sig: finns det någon angränsan
+de position som är ledig så skapas en ny entitet där.
+ Vilken entitet som skapas bestäms av metoden 
+\emph on
+spawnChild()
+\emph default
+ som definieras i en subklass.
+\end_layout
+
+\begin_layout Standard
+På detta vis blir de konkreta beteendeklasserna, t.ex.
+ 
+\emph on
+SheepMove
+\emph default
+ och 
+\emph on
+WolfReproduce
+\emph default
+, oerhört korta och koncisa.
+\end_layout
+
+\begin_layout Subsection
+Ramverk
+\end_layout
+
+\begin_layout Standard
+Alla ramverksklasser är samlade i paketet 
+\begin_inset Quotes sld
+\end_inset
+
+pasture
+\begin_inset Quotes srd
+\end_inset
+
+.
+ Här går jag igenom de viktigaste förändringarna och tilläggen jag gjort.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Config
+\emph default
+ är en abstrakt klass med statiska metoder som tillhandahåller ett enkelt
+ sätt att hantera parametrar som behövs på olika ställen i systemet.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Main
+\emph default
+ startar programmet och skapar alla standardinställningar.
+ Om argument har givits till programmet kommer dessa argument att skriva
+ över standardinställningarna.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Pasture
+\emph default
+ är själva hagen.
+ Den hanterar alla entiteter som skall finnas i hagen, samt vidarebefordrar
+ metodanrop som har att göra med själva rutnätet till klassen 
+\emph on
+Grid
+\emph default
+.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Grid
+\emph default
+ tar hand om rutnätet i hagen och håller reda på vilka entiteter som står
+ på vilka positioner.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+GUI
+\emph default
+ tar hand om alla grafiska gränssnittskomponenter och ser till att hagen
+ visas upp på skärmen.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Engine
+\emph default
+ driver simuleringen och ber alla entiteter att agera vid jämna mellanrum.
+\end_layout
+
+\begin_layout Section
+Artificiell intelligens
+\end_layout
+
+\begin_layout Standard
+Jag har följt uppgiftens tips på hur man kan implementera AI, nämligen att
+ varje position inom en entitets synhåll får en vikt, där hög vikt är eftersträv
+ansvärt.
+ Vikten baseras på vad entiteten föredrar och aktar sig för, och vissa önskemål
+ påverkar vikten mer än andra.
+\end_layout
+
+\begin_layout Standard
+En entitet bestämmer sin nästa förflyttning genom följande procedur:
+\end_layout
+
+\begin_layout Enumerate
+Hitta alla positioner inom synhåll,
+\end_layout
+
+\begin_layout Enumerate
+vikta positionerna enligt entitetens viktningsfunktion,
+\end_layout
+
+\begin_layout Enumerate
+behåll endast positioner som angränsar till entiteten,
+\end_layout
+
+\begin_layout Enumerate
+behåll endast positioner som har högst vikt,
+\end_layout
+
+\begin_layout Enumerate
+slumpmässigt välj en av de återstående positionerna.
+\end_layout
+
+\begin_layout Subsection
+Får
+\end_layout
+
+\begin_layout Standard
+Får skall bete sig på följande vis, i sjunkande prioritetsordning:
+\end_layout
+
+\begin_layout Enumerate
+Om varg inom synhåll, fly,
+\end_layout
+
+\begin_layout Enumerate
+annars, om grästuva inom synhåll, närma sig,
+\end_layout
+
+\begin_layout Enumerate
+annars, gå i ungefär samma riktning som tidigare,
+\end_layout
+
+\begin_layout Enumerate
+annars, gå i slumpmässig riktning.
+\end_layout
+
+\begin_layout Standard
+Viktfunktionen definieras av formeln:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+(100\cdot wolf)+(-1\cdot food)+(0.1\cdot prev)\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Varje term innehåller en variabel, nämligen ett avstånd: 
+\begin_inset Formula $wolf$
+\end_inset
+
+ är avståndet till närmaste varg inom synhåll, 
+\begin_inset Formula $food$
+\end_inset
+
+ är avståndet till närmaste grästuva inom synhåll, och 
+\begin_inset Formula $prev$
+\end_inset
+
+ är avståndet till entitetens föregående position.
+\end_layout
+
+\begin_layout Standard
+Varje term multipliceras med en konstant faktor, där faktorns storlek bestämmer
+ hur viktigt avståndet anses vara, och faktorns tecken om avståndet skall
+ maximeras eller minimeras.
+\end_layout
+
+\begin_layout Standard
+Sammanfattningsvis kommer denna formel att först och främst maximera avstånd
+ till varg (fly från varg), sedan minimera avstånd till gräs (närma sig
+ gräs), och till sist maximera avstånd till föregående position (bibehålla
+ riktning).
+\end_layout
+
+\begin_layout Subsection
+Varg
+\end_layout
+
+\begin_layout Standard
+Vargar skall bete sig på följande vis, i sjunkande prioritetsordning:
+\end_layout
+
+\begin_layout Enumerate
+Om får inom synhåll, närma sig,
+\end_layout
+
+\begin_layout Enumerate
+annars, gå i ungefär samma riktning som tidigare,
+\end_layout
+
+\begin_layout Enumerate
+annars, gå i slumpmässig riktning.
+\end_layout
+
+\begin_layout Standard
+Vargars beteende fungerar som för får, fast med en annan viktningsformel:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+(-1\cdot food)+(0.1\cdot prev)\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Formeln kommer först och främst att minimera avstånd till får (närma sig
+ får), och till sist maximera avstånd till föregående position (bibehålla
+ riktning).
 \end_layout
 
 \end_body
